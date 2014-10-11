@@ -1,5 +1,0 @@
-C:\VSprojects\ProductManager\ProductManager\ProductManager.Enity\bin\Debug\ProductManager.Enity.dll
-C:\VSprojects\ProductManager\ProductManager\ProductManager.Enity\bin\Debug\ProductManager.Enity.pdb
-C:\VSprojects\ProductManager\ProductManager\ProductManager.Enity\obj\Debug\ProductManager.Enity.csprojResolveAssemblyReference.cache
-C:\VSprojects\ProductManager\ProductManager\ProductManager.Enity\obj\Debug\ProductManager.Enity.dll
-C:\VSprojects\ProductManager\ProductManager\ProductManager.Enity\obj\Debug\ProductManager.Enity.pdb
