@@ -99,3 +99,8 @@ Source/Kuoni/Kuoni.Web/App_Data/ci.test.cms01.kuoni.int.connectionstrings.config
 bin
 /ProductManager/ProductManager.Web.Tests/bin
 /ProductManager/ProductManager.Web.Tests/obj
+packages
+bin
+obj
+bin
+obj
