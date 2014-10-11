@@ -24,7 +24,6 @@
 *.sdf
 *.opensdf
 *.unsuccessfulbuild
-*.mdf
 ipch/
 obj/
 [Bb]in
@@ -94,4 +93,9 @@ NDependOut/
 *Kuoni.Web/App_Data/ci.test.cms01.kuoni.int.connectionstrings.config
 ci.test.cms01.kuoni.int.connectionstrings.config
 Source/Kuoni/Kuoni.Web/App_Data/ci.test.cms01.kuoni.int.connectionstrings.config
-Source/Kuoni/Kuoni.Web/App_Data/*.config
+/ProductManager/packages
+/ProductManager/ProductManager.Web/bin
+/ProductManager/ProductManager.Web/obj
+bin
+/ProductManager/ProductManager.Web.Tests/bin
+/ProductManager/ProductManager.Web.Tests/obj

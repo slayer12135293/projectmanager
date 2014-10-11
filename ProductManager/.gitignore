@@ -1,0 +1,74 @@
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+obj/
+packages/
+[Bb]in
+Ankh.NoLoad
+
+#MonoDevelop
+*.pidb
+*.userprefs
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+*.sass-cache
+_TeamCity*/
+_Chutzpah*.html
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*
+
+#NuGet
+packages/
+
+#ncrunch
+*ncrunch*
+*crunch*.local.xml
+
+# visual studio database projects
+*.dbmdl
+
+#Test files
+*.testsettings
+*.received.txt
+
+#Finalbuilder
+*.fb7lck
+*.fbpInf
+*.fbl7
+
+# Local files
+ProductManager\ProductManager\ProductManager.Web\App_Data/*
+!ProductManager\ProductManager\ProductManager.Web\App_Datata/*.config
+!LIB/*/*/*.js
+
