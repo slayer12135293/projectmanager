@@ -4,22 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Entities
+namespace ProductManager.Enity
 {
-    //public interface ICommand
-    //{
-    //    void Execute();
-    //}
-
-    //public class CreateOrderCommand : ICommand
-    //{
-
-    //    public void Execute()
-    //    { 
-            
-    //    }
-    //}
-
     public class Order
     {
         public int OrderID { get; set; }

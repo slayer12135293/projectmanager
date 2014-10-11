@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProductManager.DataLayer;
-using Service.Entities;
+using ProductManager.Enity;
 
 namespace ProductManager.Web.Controllers
 {

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ProductManager.Web.ViewModels.ProductCatagoryViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Product Categories over view</h2>
+
+
+<ul>
+    @foreach (var category in Model)
+    {
+        <li>
+            <div>@category.CategoryName -  @category.CategoryDescription </div>
+            @if (category.SubCategories.Count()>0)
+            {
+                <ol>
+                    @foreach (var subCategory in category.SubCategories)
+                    {
+                        <li> 
+                            <div>@subCategory.Name</div>
+                            @if (subCategory.Products.Count() > 0)
+                            {
+                                <ol>
+                                    @foreach (var product in subCategory.Products)
+                                    {
+                                        <li> @product.Name </li>
+                                    }
+                                </ol>
+                            }
+
+                    
+                        </li>
+                    }
+                </ol>
+            }
+
+        </li>
+        
+    }
+
+</ul>

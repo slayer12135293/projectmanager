@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace ProductManager.DataLayer
 {
-    public class OrderDb : DbContext
+    public class CatagoryDb : DbContext
     {
-        public OrderDb()
+        public CatagoryDb()
             : base("ProductManagerConnection")
-        {
+        {            
         }
-        public DbSet<Order> Orders { get;set; }
-
-        public DbSet<OrderLine> OrderLines { get; set; }
-
-        public DbSet<ProductCatagory> ProductCatagories { get; set; }
+        public DbSet<Category> Catagories { get; set; }
+        public DbSet<SubCategory> SubCatagories { get; set; }
+        public DbSet<Product> Products { get; set; }        
+        
     }
 }

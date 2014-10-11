@@ -6,14 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-
-namespace Service.Entities
+namespace ProductManager.Enity
 {
     public class Product : BaseEntity
     {
         [Required]
         public string ProductCode { get; set; }
-        public ICollection<ProductCatagory> Catagories { get; set; }  
         public decimal Width { get; set; }
         public decimal Height { get; set; }
         public string ImageUrl { get; set; }
@@ -22,6 +20,7 @@ namespace Service.Entities
         public bool IsNewProduct { get; set; }
         public string ColorName { get; set; }
         public string ColoCode { get; set; }
+        public Company OwnedBy { get; set; }
     }
 
 
