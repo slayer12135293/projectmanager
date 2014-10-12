@@ -12,12 +12,17 @@ namespace ProductManager.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private IProductCatagoryViewModelFactory _productCatagoryViewModelFactory;
+        private IProductCategoryViewModelFactory _productCatagoryViewModelFactory;
         private ICategoryRepository _categoryRepository;
-        public CategoryController(IProductCatagoryViewModelFactory productCatagoryViewModelFactory, ICategoryRepository categoryRepository)
+        private IProductCategoryDetailViewModelFactory _productCategoryDetailViewModelFactory;
+        
+        public CategoryController(IProductCategoryViewModelFactory productCatagoryViewModelFactory, 
+            ICategoryRepository categoryRepository,
+            IProductCategoryDetailViewModelFactory productCategoryDetailViewModelFactory)
         {
             _productCatagoryViewModelFactory = productCatagoryViewModelFactory;
             _categoryRepository = categoryRepository;
+            _productCategoryDetailViewModelFactory = productCategoryDetailViewModelFactory;
         }
         // GET: Category
         public ActionResult Index()
@@ -30,6 +35,23 @@ namespace ProductManager.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Details(int id)
+        {
+            return View(_productCategoryDetailViewModelFactory.CreateViewModel(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(Category category)
+        {
+
+            _categoryRepository.Update(category);
+            return RedirectToAction("Details", new { Id = category.Id });
+        }
+
+
+
 
 
         [HttpPost]

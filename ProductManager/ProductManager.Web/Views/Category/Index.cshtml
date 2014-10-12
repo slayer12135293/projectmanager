@@ -9,8 +9,10 @@
 <ul>
     @foreach (var category in Model)
     {
+       
         <li>
-            <div>@category.CategoryName -  @category.CategoryDescription </div>
+            <div>@Html.ActionLink(category.CategoryName + "-" + category.CategoryDescription,
+             "Details", "Category", new { id = category.CategoryId }, null) </div>
             @if (category.SubCategories.Count()>0)
             {
                 <ol>

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace ProductManager.Web.Factories
 {
    
-    public interface IProductCatagoryViewModelFactory
+    public interface IProductCategoryViewModelFactory
     {
         IEnumerable<ProductCatagoryViewModel> CreateViewModel();
     }
 
 
-    public class ProductCatagoryViewModelFactory : IProductCatagoryViewModelFactory
+    public class ProductCatagoryViewModelFactory : IProductCategoryViewModelFactory
     {
         private ICategoryRepository _categoryRepository;
         public ProductCatagoryViewModelFactory(ICategoryRepository categoryRepository )

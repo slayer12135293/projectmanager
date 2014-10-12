@@ -66,7 +66,8 @@ namespace ProductManager.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ICategoryRepository>().To<CategoryRepository>();
-            kernel.Bind<IProductCatagoryViewModelFactory>().To<ProductCatagoryViewModelFactory>();
+            kernel.Bind<IProductCategoryViewModelFactory>().To<ProductCatagoryViewModelFactory>();
+            kernel.Bind<IProductCategoryDetailViewModelFactory>().To<ProductCategoryDetailViewModelFactory>();
             
         }        
     }
