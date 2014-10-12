@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace ProductManager.DataLayer
 {
-    public class CatagoryDb : DbContext
+
+
+    public class CategoryDb : DbContext
     {
-        public CatagoryDb()
+        public CategoryDb()
             : base("ProductManagerConnection")
         {            
         }

@@ -12,6 +12,8 @@ namespace ProductManager.Web.App_Start
     using Ninject.Web.Common;
     using ProductManager.DataLayer.Repositories;
     using ProductManager.Web.Factories;
+    using System.Data.Entity;
+    using ProductManager.DataLayer;
 
     public static class NinjectWebCommon 
     {
@@ -65,7 +67,6 @@ namespace ProductManager.Web.App_Start
         {
             kernel.Bind<ICategoryRepository>().To<CategoryRepository>();
             kernel.Bind<IProductCatagoryViewModelFactory>().To<ProductCatagoryViewModelFactory>();
-
             
         }        
     }
