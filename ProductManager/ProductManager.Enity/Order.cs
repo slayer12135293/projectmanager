@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ProductManager.Enity
 {
     public class Order
     {
-        public int OrderID { get; set; }
+        public int OrderId { get; set; }
         public string Author { get; set; }
         public DateTime CreatedDate { get; set; }
         public ICollection<OrderLine> Products { get; set; }

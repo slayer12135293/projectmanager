@@ -1,11 +1,5 @@
 ﻿using ProductManager.Enity;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManager.DataLayer.Repositories
 {
@@ -14,7 +8,7 @@ namespace ProductManager.DataLayer.Repositories
         IQueryable<SubCategory> GetSubCategories();
     }
 
-    public class CategoryRepository :EFRepository<Category>, ICategoryRepository
+    public class CategoryRepository :EfRepository<Category>, ICategoryRepository
     {
         public CategoryRepository(CategoryDb dbContext)
             : base(dbContext)

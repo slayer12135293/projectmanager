@@ -2,19 +2,15 @@
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
 using ProductManager.Web.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private IProductCategoryViewModelFactory _productCatagoryViewModelFactory;
-        private ICategoryRepository _categoryRepository;
-        private IProductCategoryDetailViewModelFactory _productCategoryDetailViewModelFactory;
+        private readonly IProductCategoryViewModelFactory _productCatagoryViewModelFactory;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductCategoryDetailViewModelFactory _productCategoryDetailViewModelFactory;
         
         public CategoryController(IProductCategoryViewModelFactory productCatagoryViewModelFactory, 
             ICategoryRepository categoryRepository,
@@ -58,12 +54,9 @@ namespace ProductManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateCategoryViewModel category)
         {
-            if (ModelState.IsValid)
-            {
-                var item = new Category { Name = category.Name, Description = category.Description };
-                _categoryRepository.Add(item);
-                     
-            }
+            if (!ModelState.IsValid) return RedirectToAction("Index");
+            var item = new Category { Name = category.Name, Description = category.Description };
+            _categoryRepository.Add(item);
             return RedirectToAction("Index");
         }
 

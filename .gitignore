@@ -53,41 +53,12 @@ _Chutzpah*.html
 #NuGet
 packages/
 
-#ncrunch
-*ncrunch*
-*crunch*.local.xml
 
 # visual studio database projects
 *.dbmdl
 
-#Test files
-*.testsettings
-*.received.txt
 
-#Finalbuilder
-*.fb7lck
-*.fbpInf
-*.fbl7
 
-# Local files
-Source/Kuoni/Kuoni.Web/App_Data/*
-!Source/Kuoni/Kuoni.Web/App_Data/*.config
-!LIB/*/*/*.js
-
-# Genereted css
-core.css
-skin.css
-kuoni.lib.min.css
-Source/Kuoni/Kuoni.Web/Scripts/Lib/TypeScriptDefinitions/_Chutzpah.1.jquery-kuoni-extensions.js
-Source/Kuoni/Kuoni.Web/Scripts/Lib/_Chutzpah.1.TypeScript.js
-
-# ignore all javascript files and ts map files
-Source/Kuoni/Kuoni.Web/Themes/**.js
-Source/Kuoni/Kuoni.Web/Themes/**.js.map
-
-# ignore ndepdend
-Kuoni.Cms.ndproj
-NDependOut/
 
 #local config file
 *Kuoni.Web/App_Data/ci.test.cms01.kuoni.int.connectionstrings.config
@@ -96,16 +67,10 @@ Source/Kuoni/Kuoni.Web/App_Data/ci.test.cms01.kuoni.int.connectionstrings.config
 /ProductManager/packages
 /ProductManager/ProductManager.Web/bin
 /ProductManager/ProductManager.Web/obj
-bin
 /ProductManager/ProductManager.Web.Tests/bin
 /ProductManager/ProductManager.Web.Tests/obj
 packages
 bin
 obj
-bin
-obj
-bin
-obj
-bin
-obj
+
 App_Data

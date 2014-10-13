@@ -1,10 +1,7 @@
 ﻿using ProductManager.DataLayer.Repositories;
 using ProductManager.Web.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManager.Web.Factories
 {
@@ -17,7 +14,7 @@ namespace ProductManager.Web.Factories
 
     public class ProductCatagoryViewModelFactory : IProductCategoryViewModelFactory
     {
-        private ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
         public ProductCatagoryViewModelFactory(ICategoryRepository categoryRepository )
         {
             _categoryRepository = categoryRepository;
