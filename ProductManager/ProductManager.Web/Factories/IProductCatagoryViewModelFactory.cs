@@ -23,6 +23,7 @@ namespace ProductManager.Web.Factories
         public IEnumerable<ProductCatagoryViewModel> CreateViewModel()
         {
             var viewModel = _categoryRepository.GetAll().Select(x=> new ProductCatagoryViewModel{ CategoryId = x.Id, SubCategories= x.SubCategories, CategoryDescription= x.Description, CategoryName=x.Name } );  
+            
             return viewModel;
         }
     }

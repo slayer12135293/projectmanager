@@ -5,6 +5,6 @@ namespace ProductManager.Enity
     public class SubCategory : BaseEntity
     {
         public string Descrition { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

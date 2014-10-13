@@ -16,14 +16,14 @@
                 @Html.ActionLink(category.CategoryName + "-" + category.CategoryDescription,
              "Details", "Category", new { id = category.CategoryId }, null)
             </div>
-            @if (category != null && category.SubCategories.Count() > 0)
+            @*@if (category != null && category.SubCategories.Count() > 0)
             {
                 <ol>
                     @foreach (var subCategory in category.SubCategories)
                     {
                         <li>
                             <div>@subCategory.Name</div>
-                            @if (subCategory.Products != null && subCategory.Products.Count() > 0)
+                            @if (subCategory.Products.Count() > 0)
                             {
                                 <ol>
                                     @foreach (var product in subCategory.Products)
@@ -37,7 +37,7 @@
                         </li>
                     }
                 </ol>
-            }
+            }*@
 
         </li>
 
