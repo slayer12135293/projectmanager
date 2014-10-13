@@ -1,5 +1,6 @@
 ﻿using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +27,10 @@ namespace ProductManager.Web.Factories
             var result = _categoryRepository.GetAll().Single(x => x.Id == id);
             var model = new Category
             {
-                Id = result.Id,
+                Id= result.Id,
                 Name = result.Name,
                 Description = result.Description,
-                SubCategories = result.SubCategories
+                SubCategories = result.SubCategories               
             };
             return model;
         }

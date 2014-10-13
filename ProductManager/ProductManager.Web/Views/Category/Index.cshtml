@@ -7,20 +7,23 @@
 
 
 <ul>
+
     @foreach (var category in Model)
     {
-       
+
         <li>
-            <div>@Html.ActionLink(category.CategoryName + "-" + category.CategoryDescription,
-             "Details", "Category", new { id = category.CategoryId }, null) </div>
-            @if (category.SubCategories.Count()>0)
+            <div>
+                @Html.ActionLink(category.CategoryName + "-" + category.CategoryDescription,
+             "Details", "Category", new { id = category.CategoryId }, null)
+            </div>
+            @if (category != null && category.SubCategories.Count() > 0)
             {
                 <ol>
                     @foreach (var subCategory in category.SubCategories)
                     {
-                        <li> 
+                        <li>
                             <div>@subCategory.Name</div>
-                            @if (subCategory.Products.Count() > 0)
+                            @if (subCategory.Products != null && subCategory.Products.Count() > 0)
                             {
                                 <ol>
                                     @foreach (var product in subCategory.Products)
@@ -30,19 +33,22 @@
                                 </ol>
                             }
 
-                    
+
                         </li>
                     }
                 </ol>
             }
 
         </li>
-        
+
     }
+
+
+
 
 </ul>
 
 
 <section>
-    @Html.ActionLink("Create a category","Create", "Category")
+    @Html.ActionLink("Create a category", "Create", "Category")
 </section>

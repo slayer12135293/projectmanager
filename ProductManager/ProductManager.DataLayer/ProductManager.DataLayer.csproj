@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDb.cs" />
+    <Compile Include="DataContext\CategoryMigrations\Configuration.cs" />
     <Compile Include="OrderDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EfRepository.cs" />

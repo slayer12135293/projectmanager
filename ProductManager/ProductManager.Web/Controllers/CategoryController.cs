@@ -2,6 +2,7 @@
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
 using ProductManager.Web.ViewModels;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
@@ -41,7 +42,6 @@ namespace ProductManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Details(Category category)
         {
-
             _categoryRepository.Update(category);
             return RedirectToAction("Details", new { Id = category.Id });
         }
@@ -54,7 +54,7 @@ namespace ProductManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateCategoryViewModel category)
         {
-            if (!ModelState.IsValid) return RedirectToAction("Index");
+            if (!ModelState.IsValid) return RedirectToAction("Index"); 
             var item = new Category { Name = category.Name, Description = category.Description };
             _categoryRepository.Add(item);
             return RedirectToAction("Index");
