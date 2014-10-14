@@ -1,11 +1,8 @@
 namespace ProductManager.DataLayer.DataContext.CategoryMigrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ProductManager.DataLayer.CategoryDb>
+    internal sealed class Configuration : DbMigrationsConfiguration<CategoryDb>
     {
         public Configuration()
         {
@@ -13,7 +10,7 @@ namespace ProductManager.DataLayer.DataContext.CategoryMigrations
             MigrationsDirectory = @"DataContext\CategoryMigrations";
         }
 
-        protected override void Seed(ProductManager.DataLayer.CategoryDb context)
+        protected override void Seed(CategoryDb context)
         {
             //  This method will be called after migrating to the latest version.
 

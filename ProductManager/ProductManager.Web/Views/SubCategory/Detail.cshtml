@@ -1,4 +1,4 @@
-﻿@model ProductManager.Enity.Category
+﻿@model ProductManager.Enity.SubCategory
 
 <div>
     @using (Html.BeginForm())
@@ -29,36 +29,21 @@
                 <input type="submit" value="Save changes" />
             </p>
         </fieldset>
-       
-    }   
+    }
 </div>
 
-<ul>
-    @if (Model.SubCategories != null)
-    {
-        foreach (var subcat in Model.SubCategories)
-        {
-            <li>
-                @subcat.Id  ------ @subcat.Name
-                
-                
-                @Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Id, subCategoryId = subcat.Id }, null)
-            </li>
-        }
 
+<ul>
+    @if (Model.Products != null)
+    {
+        foreach (var product in Model.Products)
+        {
+            <li>@product.Id  ------ @product.Name </li>
+        }
     }
 
-
+  
 </ul>
-
-
-
-
-<p>
-    @Html.ActionLink("Create a SubCategory", "Create", "SubCategory", new { categoryId = Model.Id },null)
-</p>
-
-
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    @Html.ActionLink("Add a product", "Create", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId= Model.Id }, null)
+</div>

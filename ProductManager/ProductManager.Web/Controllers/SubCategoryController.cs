@@ -1,10 +1,8 @@
 ﻿using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Factories;
 using ProductManager.Web.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
@@ -12,9 +10,12 @@ namespace ProductManager.Web.Controllers
     public class SubCategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
-        public SubCategoryController(ICategoryRepository categoryRepository)
+        private readonly IProductSubCategoryViewModelFactory _productSubCategoryViewModelFactory;
+
+        public SubCategoryController(ICategoryRepository categoryRepository, IProductSubCategoryViewModelFactory productSubCategoryViewModelFactory)
         {
             _categoryRepository = categoryRepository;
+            _productSubCategoryViewModelFactory = productSubCategoryViewModelFactory;
         }
 
         // GET: SubCategory
@@ -26,9 +27,17 @@ namespace ProductManager.Web.Controllers
 
         public ActionResult Create(int categoryId)
         {
-            var model = new CreateSubCategoryViewModel() { CategoryId = categoryId };
+            var model = new CreateSubCategoryViewModel { CategoryId = categoryId };
             return View(model);
         }
+
+        public ActionResult Detail(int categoryId, int subCategoryId)
+        {
+
+            ViewData["catagoryId"] = categoryId;
+            return View(_productSubCategoryViewModelFactory.CreateViewModel(categoryId, subCategoryId));
+        }
+
 
         [HttpPost]
         public ActionResult Create(CreateSubCategoryViewModel viewModel)
@@ -36,7 +45,7 @@ namespace ProductManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 var currentCategory = _categoryRepository.GetById(viewModel.CategoryId);
-                var subCategory = new SubCategory {Id=viewModel.CategoryId, Name = viewModel.Name, Descrition = viewModel.Description };
+                var subCategory = new SubCategory { Id = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description };
                 currentCategory.SubCategories.Add(subCategory);
                 _categoryRepository.Update(currentCategory);
                 return RedirectToAction("index", "Category");

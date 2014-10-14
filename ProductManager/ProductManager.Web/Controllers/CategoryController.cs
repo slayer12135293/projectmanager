@@ -35,6 +35,7 @@ namespace ProductManager.Web.Controllers
 
         public ActionResult Details(int id)
         {
+            ViewBag.CategoryId = id;
             return View(_productCategoryDetailViewModelFactory.CreateViewModel(id));
         }
 

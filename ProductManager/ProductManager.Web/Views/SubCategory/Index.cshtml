@@ -10,7 +10,10 @@
     @foreach (var item in Model)
     {
         <li>
-            <div>@item.SubCategoryName  - @item.SubCategoryDescription </div>
+            <div>
+                @item.SubCategoryName  - @item.SubCategoryDescription
+               
+            </div>
             <ul>
                 @foreach (var product in item.Products)
                 {
@@ -18,7 +21,7 @@
                 }
             </ul>
         </li>
-        
+
     }
 
 </ul>

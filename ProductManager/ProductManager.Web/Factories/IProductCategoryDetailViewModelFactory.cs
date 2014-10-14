@@ -16,7 +16,7 @@ namespace ProductManager.Web.Factories
 
     public class ProductCategoryDetailViewModelFactory : IProductCategoryDetailViewModelFactory
     {
-        private ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
         public ProductCategoryDetailViewModelFactory(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
