@@ -57,5 +57,18 @@ namespace ProductManager.Web.Controllers
             return View("Create", createProductViewModel);
         }
 
+        
+        public ActionResult Delete(int productId, int subCategoryId, int categoryId)
+        {
+            var currentCategory = _categoryRepository.GetById(categoryId);
+            var currentSubCategory = currentCategory.SubCategories.Single(x => x.Id == subCategoryId);
+            var currentProduct = currentSubCategory.Products.Single(y=>y.Id == productId);
+            currentSubCategory.Products.Remove(currentProduct);
+            _categoryRepository.Update(currentCategory);
+
+            return RedirectToAction("Detail", "SubCategory", new { categoryId = categoryId, subCategoryId = subCategoryId});
+        }
+
+
     }
 }

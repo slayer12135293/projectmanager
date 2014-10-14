@@ -38,7 +38,7 @@
     {
         foreach (var product in Model.Products)
         {
-            <li>@product.Id  ------ @product.Name </li>
+            <li>@product.Id  ------ @product.Name </li>  @Html.ActionLink("Delete", "Delete", "Product", new { productId=product.Id , subCategoryId = Model.Id, categoryId = ViewData["catagoryId"], }, null)
         }
     }
 
