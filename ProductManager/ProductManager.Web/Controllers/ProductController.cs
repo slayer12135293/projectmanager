@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using ProductManager.DataLayer.Repositories;
@@ -10,10 +11,12 @@ namespace ProductManager.Web.Controllers
     public class ProductController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ProductController(ICategoryRepository categoryRepository)
+        public ProductController(ICategoryRepository categoryRepository, IProductRepository productRepository)
         {
             _categoryRepository = categoryRepository;
+            _productRepository = productRepository;
         }
 
         // GET: Product
@@ -28,6 +31,26 @@ namespace ProductManager.Web.Controllers
             var model = new CreateProductViewModel {SubCategoryId = subCategoryId, CategoryId = categoryId};
             return View(model);
         }
+
+
+        public async Task<ActionResult> Edit(int categoryId, int subCategoryId, int productId)
+        {
+            var model = await _productRepository.GetProductByIds(categoryId, subCategoryId, productId);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(Product updatedProduct)
+        {
+            var categoryId = Int32.Parse(Request.QueryString["categoryId"]);
+            var subCategoryId = Int32.Parse(Request.QueryString["subCategoryId"]);
+
+            await _productRepository.UpdateProductById(categoryId, subCategoryId, updatedProduct);
+
+            return RedirectToAction("Detail", "SubCategory", new {categoryId, subCategoryId});
+        }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -59,7 +82,7 @@ namespace ProductManager.Web.Controllers
         }
 
         
-        public async Task<ActionResult> Delete(int productId, int subCategoryId, int categoryId)
+        public async Task<ActionResult> Delete(int categoryId,int subCategoryId, int productId)
         {
             var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
             var currentSubCategory = currentCategory .SubCategories.Single(x => x.Id == subCategoryId);

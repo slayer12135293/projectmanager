@@ -7,5 +7,6 @@ namespace ProductManager.DataLayer.Repositories
     public interface ISubCategoryRepository : IRepository<SubCategory>
     {
         Task<IQueryable<SubCategory>> GetSubCategoriesByCategoryId(int categoryId);
+        Task<SubCategory> GetSubCategoryByIds(int categoryId, int subCategoryId);
     }
 }
