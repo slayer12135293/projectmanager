@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProductManager.DataLayer.Repositories
 {
@@ -25,9 +26,9 @@ namespace ProductManager.DataLayer.Repositories
             return DbSet;
         }
 
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return DbSet.Find(id);
+            return await DbSet.FindAsync(id);
         }
 
         public void Add(T entity)
@@ -69,9 +70,9 @@ namespace ProductManager.DataLayer.Repositories
             }
         }
 
-        public void Remove(int id)
+        public async void Remove(int id)
         {
-            var entity = GetById(id);
+            var entity = await GetByIdAsync(id);
             if (entity == null) return; // not found; assume already deleted.
             Remove(entity);
         }

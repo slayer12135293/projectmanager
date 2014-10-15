@@ -1,4 +1,5 @@
-﻿using ProductManager.DataLayer.Repositories;
+﻿using System.Threading.Tasks;
+using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
 using ProductManager.Web.ViewModels;
@@ -31,22 +32,22 @@ namespace ProductManager.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Detail(int categoryId, int subCategoryId)
+        public async Task<ActionResult> Detail(int categoryId, int subCategoryId)
         {
 
             ViewData["catagoryId"] = categoryId;
-            return View(_productSubCategoryViewModelFactory.CreateViewModel(categoryId, subCategoryId));
+            return View(await _productSubCategoryViewModelFactory.CreateViewModel(categoryId, subCategoryId));
         }
 
 
         [HttpPost]
-        public ActionResult Create(CreateSubCategoryViewModel viewModel)
+        public async Task<ActionResult> Create(CreateSubCategoryViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var currentCategory = _categoryRepository.GetById(viewModel.CategoryId);
+                var currentCategory = await _categoryRepository.GetByIdAsync(viewModel.CategoryId);
                 var subCategory = new SubCategory { Id = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description };
-                currentCategory.SubCategories.Add(subCategory);
+                 currentCategory.SubCategories.Add(subCategory);
                 _categoryRepository.Update(currentCategory);
                 return RedirectToAction("index", "Category");
 

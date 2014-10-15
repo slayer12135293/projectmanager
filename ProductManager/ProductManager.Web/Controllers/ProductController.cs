@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 using ProductManager.DataLayer.Repositories;
@@ -30,11 +32,11 @@ namespace ProductManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CreateProductViewModel createProductViewModel)
+        public async Task<ActionResult> Create(CreateProductViewModel createProductViewModel)
         {
             if (ModelState.IsValid)
             {
-                var category = _categoryRepository.GetById(createProductViewModel.CategoryId);
+                var category = await _categoryRepository.GetByIdAsync(createProductViewModel.CategoryId);
                 var currentSubCagetory = category.SubCategories.Single(x => x.Id == createProductViewModel.SubCategoryId);
 
                 var product = new Product
@@ -58,10 +60,10 @@ namespace ProductManager.Web.Controllers
         }
 
         
-        public ActionResult Delete(int productId, int subCategoryId, int categoryId)
+        public async Task<ActionResult> Delete(int productId, int subCategoryId, int categoryId)
         {
-            var currentCategory = _categoryRepository.GetById(categoryId);
-            var currentSubCategory = currentCategory.SubCategories.Single(x => x.Id == subCategoryId);
+            var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
+            var currentSubCategory = currentCategory .SubCategories.Single(x => x.Id == subCategoryId);
             var currentProduct = currentSubCategory.Products.Single(y=>y.Id == productId);
             currentSubCategory.Products.Remove(currentProduct);
             _categoryRepository.Update(currentCategory);

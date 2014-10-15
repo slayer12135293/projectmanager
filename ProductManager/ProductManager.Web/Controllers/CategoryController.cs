@@ -1,8 +1,8 @@
-﻿using ProductManager.DataLayer.Repositories;
+﻿using System.Threading.Tasks;
+using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
 using ProductManager.Web.ViewModels;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
@@ -22,9 +22,9 @@ namespace ProductManager.Web.Controllers
             _productCategoryDetailViewModelFactory = productCategoryDetailViewModelFactory;
         }
         // GET: Category
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(_productCatagoryViewModelFactory.CreateViewModel());
+            return View(await _productCatagoryViewModelFactory.CreateViewModel());
         }
 
 
@@ -33,10 +33,10 @@ namespace ProductManager.Web.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
             ViewBag.CategoryId = id;
-            return View(_productCategoryDetailViewModelFactory.CreateViewModel(id));
+            return View(await _productCategoryDetailViewModelFactory.CreateViewModel(id));
         }
 
         [HttpPost]

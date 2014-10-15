@@ -1,12 +1,14 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using System.Data.Entity;
 
 namespace ProductManager.Web.Factories
 {
     public interface IProductSubCategoryViewModelFactory
     {
-        SubCategory CreateViewModel(int categoryId, int subCategoryId);
+        Task<SubCategory> CreateViewModel(int categoryId, int subCategoryId);
     }
 
     public class ProductSubCategoryViewModelFactory : IProductSubCategoryViewModelFactory
@@ -18,16 +20,16 @@ namespace ProductManager.Web.Factories
             _categoryRepository = categoryRepository;
         }
 
-        public SubCategory CreateViewModel(int categoryId, int subCategoryId)
+        public async Task<SubCategory> CreateViewModel(int categoryId, int subCategoryId)
         {
-            var currentCategory = _categoryRepository.GetById(categoryId);
+            var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
             var currentSubCategory = currentCategory.SubCategories.Single(x => x.Id == subCategoryId);
-            
+          
             //TODO use a viewmodel instead
             return new SubCategory
             {
                 Id = currentSubCategory.Id,
-                Description = currentSubCategory.Description,
+                Description =  currentSubCategory.Description,
                 Name = currentSubCategory.Name,
                 Products = currentSubCategory.Products.ToList()
             };

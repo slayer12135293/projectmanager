@@ -1,17 +1,12 @@
-﻿using ProductManager.DataLayer.Repositories;
+﻿using System.Threading.Tasks;
+using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
-using ProductManager.Web.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManager.Web.Factories
 {
     public interface IProductCategoryDetailViewModelFactory
     {
-        Category CreateViewModel(int id);
+        Task<Category> CreateViewModel(int id);
     }
 
     public class ProductCategoryDetailViewModelFactory : IProductCategoryDetailViewModelFactory
@@ -22,9 +17,9 @@ namespace ProductManager.Web.Factories
             _categoryRepository = categoryRepository;
         }
 
-        public Category CreateViewModel(int id)
+        public async Task<Category> CreateViewModel(int id)
         {
-            var result = _categoryRepository.GetAll().Single(x => x.Id == id);
+            var result = await _categoryRepository.GetByIdAsync(id);
             var model = new Category
             {
                 Id= result.Id,
