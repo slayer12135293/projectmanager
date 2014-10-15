@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
-using System.Data.Entity;
 
 namespace ProductManager.Web.Factories
 {
