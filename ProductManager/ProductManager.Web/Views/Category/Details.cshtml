@@ -1,4 +1,4 @@
-﻿@model ProductManager.Enity.Category
+﻿@model ProductManager.Web.Factories.CategoryDetailsViewModel
 
 <div>
     @using (Html.BeginForm())
@@ -10,19 +10,19 @@
             <legend>Category</legend>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.Name)
+                @Html.LabelFor(model => model.Category.Name)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
+                @Html.EditorFor(model => model.Category.Name)
+                @Html.ValidationMessageFor(model => model.Category.Name)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.Description)
+                @Html.LabelFor(model => model.Category.Description)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Description)
-                @Html.ValidationMessageFor(model => model.Description)
+                @Html.EditorFor(model => model.Category.Description)
+                @Html.ValidationMessageFor(model => model.Category.Description)
             </div>
 
             <p>
@@ -42,7 +42,7 @@
                 @subcat.Id  ------ @subcat.Name
                 
                 
-                @Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Id, subCategoryId = subcat.Id }, null)
+                @Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subcat.Id }, null)
             </li>
         }
 
@@ -55,7 +55,7 @@
 
 
 <p>
-    @Html.ActionLink("Create a SubCategory", "Create", "SubCategory", new { categoryId = Model.Id },null)
+    @Html.ActionLink("Create a SubCategory", "Create", "SubCategory", new { categoryId = Model.Category.Id },null)
 </p>
 
 

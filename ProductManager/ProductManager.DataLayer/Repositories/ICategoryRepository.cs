@@ -1,11 +1,11 @@
 ﻿using ProductManager.Enity;
-using System.Linq;
 
 namespace ProductManager.DataLayer.Repositories
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        IQueryable<SubCategory> GetSubCategories();
+        //IQueryable<SubCategory> GetSubCategories();
+        
     }
 
     public class CategoryRepository :EfRepository<Category>, ICategoryRepository
@@ -16,11 +16,9 @@ namespace ProductManager.DataLayer.Repositories
         }
 
 
-        public IQueryable<SubCategory> GetSubCategories()
-        {
-            return DbContext.Set<Category>().SelectMany(x => x.SubCategories).AsQueryable();
-        }
+        //public IQueryable<SubCategory> GetSubCategories()
+        //{
+        //    //return DbContext.Set<Category>().SelectMany(x => x.SubCategories).AsQueryable();
+        //}
     }
-
-
 }

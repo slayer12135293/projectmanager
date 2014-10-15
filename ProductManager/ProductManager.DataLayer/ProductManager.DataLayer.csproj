@@ -57,6 +57,8 @@
     <Compile Include="Repositories\EfRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\ISubCategoryRepository.cs" />
+    <Compile Include="Repositories\SubCategoryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

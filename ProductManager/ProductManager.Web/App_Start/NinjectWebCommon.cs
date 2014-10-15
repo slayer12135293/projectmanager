@@ -67,6 +67,7 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IProductCategoryViewModelFactory>().To<ProductCatagoryViewModelFactory>();
             kernel.Bind<IProductCategoryDetailViewModelFactory>().To<ProductCategoryDetailViewModelFactory>();
             kernel.Bind<IProductSubCategoryViewModelFactory>().To<ProductSubCategoryViewModelFactory>();
+            kernel.Bind<ISubCategoryRepository>().To<SubCategoryRepository>().;
             
         }        
     }
