@@ -41,6 +41,7 @@ namespace ProductManager.Web.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateSubCategoryViewModel viewModel)
         {
             if (ModelState.IsValid)

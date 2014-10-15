@@ -32,6 +32,7 @@ namespace ProductManager.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateProductViewModel createProductViewModel)
         {
             if (ModelState.IsValid)
@@ -68,7 +69,7 @@ namespace ProductManager.Web.Controllers
             currentSubCategory.Products.Remove(currentProduct);
             _categoryRepository.Update(currentCategory);
 
-            return RedirectToAction("Detail", "SubCategory", new { categoryId = categoryId, subCategoryId = subCategoryId});
+            return RedirectToAction("Detail", "SubCategory", new {categoryId, subCategoryId});
         }
 
 
