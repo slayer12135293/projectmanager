@@ -40,9 +40,9 @@
         {
             <li>
                 @subcat.Id  ------ @subcat.Name
-                
-                
                 @Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subcat.Id }, null)
+                <br/>
+                @Html.ActionLink(" delete me", "Delete", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subcat.Id }, null)
             </li>
         }
 

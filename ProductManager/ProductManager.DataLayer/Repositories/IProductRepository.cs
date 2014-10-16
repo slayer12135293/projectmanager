@@ -11,16 +11,16 @@ namespace ProductManager.DataLayer.Repositories
         Task<Product> GetProductByIds(int categoryId, int subCategoryId, int productId);
         Task DeleteProductById(int categoryId, int subCategoryId, int productId);
         Task UpdateProductById(int categoryId, int subCategoryId, Product updatedProduct);
+        Task AddProduct(int categoryId, int subCategoryId, Product updatedProduct);
 
     }
 
     public class ProductRepository : EfRepository<Product>, IProductRepository
     {
-        private readonly ICategoryRepository _categoryRepository;
+       
 
-        public ProductRepository(CategoryDb dbContext, ICategoryRepository categoryRepository) : base(dbContext)
+        public ProductRepository(CategoryDb dbContext) : base(dbContext)
         {
-            _categoryRepository = categoryRepository;
         }
 
         public async Task<IQueryable<Product>> GetProductsFromSubCategory(int categoryId, int subCategoryId)
@@ -37,17 +37,15 @@ namespace ProductManager.DataLayer.Repositories
 
         public async Task DeleteProductById(int categoryId, int subCategoryId, int productId)
         {
-            var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
             var currentSubCategory = await GetCurrentSubCategory(categoryId, subCategoryId); 
             var currentProduct = currentSubCategory.Products.Single(y => y.Id == productId);
-            currentSubCategory.Products.Remove(currentProduct);
-            _categoryRepository.Update(currentCategory);
+            ((CategoryDb)DbContext).Products.Remove(currentProduct);
+            await DbContext.SaveChangesAsync();
             
         }
 
         public async Task UpdateProductById(int categoryId, int subCategoryId, Product updatedProduct)
         {
-            var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
             var currentSubCategory = await GetCurrentSubCategory(categoryId, subCategoryId);
             var currentProduct = currentSubCategory.Products.Single(x => x.Id == updatedProduct.Id);
             currentProduct.Height = updatedProduct.Height;
@@ -60,8 +58,14 @@ namespace ProductManager.DataLayer.Repositories
             currentProduct.ColoCode = updatedProduct.ColoCode;
             currentProduct.ColorName = updatedProduct.ColorName;
             currentProduct.CurrentDiscount = updatedProduct.CurrentDiscount;
-            _categoryRepository.Update(currentCategory);
+            await DbContext.SaveChangesAsync();
+        }
 
+        public async Task AddProduct(int categoryId, int subCategoryId, Product product)
+        {
+            var currentSubCategory = await GetCurrentSubCategory(categoryId, subCategoryId);
+            currentSubCategory.Products.Add(product);
+            await DbContext.SaveChangesAsync();
 
         }
 

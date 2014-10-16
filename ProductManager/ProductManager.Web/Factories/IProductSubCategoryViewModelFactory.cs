@@ -12,17 +12,17 @@ namespace ProductManager.Web.Factories
 
     public class ProductSubCategoryViewModelFactory : IProductSubCategoryViewModelFactory
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ISubCategoryRepository _subCategoryRepository;
 
-        public ProductSubCategoryViewModelFactory(ICategoryRepository categoryRepository)
+        public ProductSubCategoryViewModelFactory(ISubCategoryRepository subCategoryRepository)
         {
-            _categoryRepository = categoryRepository;
+            _subCategoryRepository = subCategoryRepository;
         }
 
         public async Task<SubCategory> CreateViewModel(int categoryId, int subCategoryId)
         {
-            var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
-            var currentSubCategory = currentCategory.SubCategories.Single(x => x.Id == subCategoryId);
+           
+            var currentSubCategory = await _subCategoryRepository.GetSubCategoryByIds(categoryId, subCategoryId);
           
             //TODO use a viewmodel instead
             return new SubCategory

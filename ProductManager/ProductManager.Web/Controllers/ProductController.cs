@@ -51,6 +51,15 @@ namespace ProductManager.Web.Controllers
         }
 
 
+     
+        public async Task<ActionResult> Delete(int categoryId, int subCategoryId, int productId)
+        {
+            await _productRepository.DeleteProductById(categoryId, subCategoryId, productId);
+            return RedirectToAction("Detail", "SubCategory", new { categoryId, subCategoryId });
+        }
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -80,19 +89,6 @@ namespace ProductManager.Web.Controllers
 
             return View("Create", createProductViewModel);
         }
-
-        
-        public async Task<ActionResult> Delete(int categoryId,int subCategoryId, int productId)
-        {
-            var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
-            var currentSubCategory = currentCategory .SubCategories.Single(x => x.Id == subCategoryId);
-            var currentProduct = currentSubCategory.Products.Single(y=>y.Id == productId);
-            currentSubCategory.Products.Remove(currentProduct);
-            _categoryRepository.Update(currentCategory);
-
-            return RedirectToAction("Detail", "SubCategory", new {categoryId, subCategoryId});
-        }
-
 
     }
 }

@@ -8,5 +8,8 @@ namespace ProductManager.DataLayer.Repositories
     {
         Task<IQueryable<SubCategory>> GetSubCategoriesByCategoryId(int categoryId);
         Task<SubCategory> GetSubCategoryByIds(int categoryId, int subCategoryId);
+        Task UpdateSubCategoryByIds(int categoryId, int subCategoryId, SubCategory updatedSubCategory);
+        Task AddSubCategory(int categoryId,SubCategory subCategory);
+        Task DeleteSubCategoryByIds(int categoryId, int subCategoryId);
     }
 }

@@ -10,13 +10,13 @@ namespace ProductManager.Web.Controllers
 {
     public class SubCategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IProductSubCategoryViewModelFactory _productSubCategoryViewModelFactory;
+        private readonly ISubCategoryRepository _subCategoryRepository;
 
-        public SubCategoryController(ICategoryRepository categoryRepository, IProductSubCategoryViewModelFactory productSubCategoryViewModelFactory)
+        public SubCategoryController(IProductSubCategoryViewModelFactory productSubCategoryViewModelFactory, ISubCategoryRepository subCategoryRepository)
         {
-            _categoryRepository = categoryRepository;
             _productSubCategoryViewModelFactory = productSubCategoryViewModelFactory;
+            _subCategoryRepository = subCategoryRepository;
         }
 
         // GET: SubCategory
@@ -34,7 +34,6 @@ namespace ProductManager.Web.Controllers
 
         public async Task<ActionResult> Detail(int categoryId, int subCategoryId)
         {
-
             ViewData["catagoryId"] = categoryId;
             return View(await _productSubCategoryViewModelFactory.CreateViewModel(categoryId, subCategoryId));
         }
@@ -46,16 +45,21 @@ namespace ProductManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentCategory = await _categoryRepository.GetByIdAsync(viewModel.CategoryId);
                 var subCategory = new SubCategory { Id = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description };
-                 currentCategory.SubCategories.Add(subCategory);
-                _categoryRepository.Update(currentCategory);
+                await _subCategoryRepository.AddSubCategory(viewModel.CategoryId, subCategory);
                 return RedirectToAction("index", "Category");
-
             }
 
             return View(viewModel);
         }
+
+
+        public async Task<ActionResult> Delete(int categoryId, int subCategoryId)
+        {
+            await _subCategoryRepository.DeleteSubCategoryByIds(categoryId, subCategoryId);
+            return RedirectToAction("Index", "Category");
+        } 
+
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace ProductManager.Enity
@@ -6,6 +7,8 @@ namespace ProductManager.Enity
     public class Product : BaseEntity
     {
         [Required]
+        [Index]
+        [MaxLength(256)]
         public string ProductCode { get; set; }
         public decimal Width { get; set; }
         public decimal Height { get; set; }
