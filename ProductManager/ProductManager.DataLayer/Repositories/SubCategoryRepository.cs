@@ -14,8 +14,14 @@ namespace ProductManager.DataLayer.Repositories
 
         public async  Task<IQueryable<SubCategory>> GetSubCategoriesByCategoryId(int categoryId)
         {
-            var result = await DbContext.Set<Category>().SingleAsync(x => x.Id == categoryId);
-            return result.SubCategories.AsQueryable();
+            var currentCategory = await DbContext.Set<Category>().SingleAsync(x => x.Id == categoryId);
+            return currentCategory.SubCategories.AsQueryable();
+        }
+
+        public async Task<SubCategory> GetSubCategoryByIds(int categoryId, int subCategoryId)
+        {
+            var currentCategory = await DbContext.Set<Category>().SingleAsync(x => x.Id == categoryId);
+            return currentCategory.SubCategories.Single(y => y.Id == subCategoryId);
         }
     }
 }
