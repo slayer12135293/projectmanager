@@ -56,7 +56,7 @@ namespace ProductManager.DataLayer.Repositories
             DbContext.SaveChangesAsync();
         }
 
-        public void Remove(T entity)
+        public async Task RemoveAsync(T entity)
         {
             DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
             if (dbEntityEntry.State != EntityState.Deleted)
@@ -68,13 +68,14 @@ namespace ProductManager.DataLayer.Repositories
                 DbSet.Attach(entity);
                 DbSet.Remove(entity);
             }
+           await DbContext.SaveChangesAsync();
         }
 
-        public async void Remove(int id)
+        public async Task Remove(int id)
         {
             var entity = await GetByIdAsync(id);
             if (entity == null) return; // not found; assume already deleted.
-            Remove(entity);
+            await RemoveAsync(entity);
         }
     }
 }

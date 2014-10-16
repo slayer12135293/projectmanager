@@ -9,7 +9,7 @@ namespace ProductManager.DataLayer.DataContext.CategoryMigrations
             AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"DataContext\CategoryMigrations";
         }
-
+        
         protected override void Seed(CategoryDb context)
         {
             //  This method will be called after migrating to the latest version.

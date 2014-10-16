@@ -9,7 +9,7 @@ namespace ProductManager.DataLayer.Repositories
         Task<T> GetByIdAsync(int id);
         void Add(T entity);
         void Update(T entity);
-        void Remove(T entity);
-        void Remove(int id);
+        Task RemoveAsync(T entity);
+        Task Remove(int id);
     }
 }

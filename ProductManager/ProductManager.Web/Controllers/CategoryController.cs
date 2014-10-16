@@ -44,12 +44,10 @@ namespace ProductManager.Web.Controllers
         public ActionResult Details(Category category)
         {
             _categoryRepository.Update(category);
-            return RedirectToAction("Details", new { Id = category.Id });
+            return RedirectToAction("Details", new {category.Id });
         }
 
-
-
-
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -60,6 +58,15 @@ namespace ProductManager.Web.Controllers
             _categoryRepository.Add(item);
             return RedirectToAction("Index");
         }
+
+
+        public async Task<ActionResult> Delete(int categoryId)
+        {
+            var currentCategory = await _categoryRepository.GetByIdAsync(categoryId);
+            await _categoryRepository.RemoveAsync(currentCategory);
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
