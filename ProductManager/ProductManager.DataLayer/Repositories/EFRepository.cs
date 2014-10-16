@@ -41,7 +41,7 @@ namespace ProductManager.DataLayer.Repositories
             else
             {
                 DbSet.Add(entity);
-                DbContext.SaveChanges();
+                DbContext.SaveChangesAsync();
             }
         }
 
@@ -53,7 +53,7 @@ namespace ProductManager.DataLayer.Repositories
                 DbSet.Attach(entity);
             }
             dbEntityEntry.State = EntityState.Modified;
-            DbContext.SaveChanges();
+            DbContext.SaveChangesAsync();
         }
 
         public void Remove(T entity)
