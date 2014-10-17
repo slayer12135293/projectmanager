@@ -32,6 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -51,9 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDb.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201410162215501_ProductManager.DataLayer.DataContext.CategoryMigrations.Configuration.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201410162215501_ProductManager.DataLayer.DataContext.CategoryMigrations.Configuration.Designer.cs">
-      <DependentUpon>201410162215501_ProductManager.DataLayer.DataContext.CategoryMigrations.Configuration.cs</DependentUpon>
+    <Compile Include="DataContext\CategoryMigrations\201410171300510_InitialCreate.cs" />
+    <Compile Include="DataContext\CategoryMigrations\201410171300510_InitialCreate.Designer.cs">
+      <DependentUpon>201410171300510_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContext\CategoryMigrations\Configuration.cs" />
     <Compile Include="OrderDb.cs" />
@@ -63,6 +70,7 @@
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ISubCategoryRepository.cs" />
+    <Compile Include="Repositories\MappingInitalizer.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,8 +84,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContext\CategoryMigrations\201410162215501_ProductManager.DataLayer.DataContext.CategoryMigrations.Configuration.resx">
-      <DependentUpon>201410162215501_ProductManager.DataLayer.DataContext.CategoryMigrations.Configuration.cs</DependentUpon>
+    <EmbeddedResource Include="DataContext\CategoryMigrations\201410171300510_InitialCreate.resx">
+      <DependentUpon>201410171300510_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -88,6 +96,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

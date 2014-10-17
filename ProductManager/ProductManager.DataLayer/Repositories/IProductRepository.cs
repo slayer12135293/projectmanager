@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ProductManager.Enity;
 
 namespace ProductManager.DataLayer.Repositories
@@ -17,9 +18,9 @@ namespace ProductManager.DataLayer.Repositories
 
     public class ProductRepository : EfRepository<Product>, IProductRepository
     {
-       
 
-        public ProductRepository(CategoryDb dbContext) : base(dbContext)
+        public ProductRepository(CategoryDb dbContext)
+            : base(dbContext)
         {
         }
 
@@ -37,27 +38,19 @@ namespace ProductManager.DataLayer.Repositories
 
         public async Task DeleteProductById(int categoryId, int subCategoryId, int productId)
         {
-            var currentSubCategory = await GetCurrentSubCategory(categoryId, subCategoryId); 
+            var currentSubCategory = await GetCurrentSubCategory(categoryId, subCategoryId);
             var currentProduct = currentSubCategory.Products.Single(y => y.Id == productId);
             ((CategoryDb)DbContext).Products.Remove(currentProduct);
             await DbContext.SaveChangesAsync();
-            
+
         }
 
         public async Task UpdateProductById(int categoryId, int subCategoryId, Product updatedProduct)
         {
             var currentSubCategory = await GetCurrentSubCategory(categoryId, subCategoryId);
             var currentProduct = currentSubCategory.Products.Single(x => x.Id == updatedProduct.Id);
-            currentProduct.Height = updatedProduct.Height;
-            currentProduct.ImageUrl = updatedProduct.ImageUrl;
-            currentProduct.IsNewProduct = updatedProduct.IsNewProduct;
-            currentProduct.Name = updatedProduct.Name;
-            currentProduct.OwnedBy = updatedProduct.OwnedBy;
-            currentProduct.ProductCode = updatedProduct.ProductCode;
-            currentProduct.UnitPrice = updatedProduct.UnitPrice;
-            currentProduct.ColoCode = updatedProduct.ColoCode;
-            currentProduct.ColorName = updatedProduct.ColorName;
-            currentProduct.CurrentDiscount = updatedProduct.CurrentDiscount;
+            
+            Mapper.Map(updatedProduct,currentProduct);
             await DbContext.SaveChangesAsync();
         }
 
