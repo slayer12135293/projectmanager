@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ProductManager.DataLayer.Repositories
@@ -26,12 +28,29 @@ namespace ProductManager.DataLayer.Repositories
             return DbSet;
         }
 
+        public IEnumerable<T> Get(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = "")
+        {
+            IQueryable<T> query = DbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            query = includeProperties.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            return orderBy != null ? orderBy(query).ToList() : query.ToList();
+        }
+
         public async Task<T> GetByIdAsync(int id)
         {
             return await DbSet.FindAsync(id);
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
             DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
             if (dbEntityEntry.State != EntityState.Detached)
@@ -41,11 +60,11 @@ namespace ProductManager.DataLayer.Repositories
             else
             {
                 DbSet.Add(entity);
-                DbContext.SaveChangesAsync();
+                await DbContext.SaveChangesAsync();
             }
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
             if (dbEntityEntry.State == EntityState.Detached)
@@ -53,7 +72,7 @@ namespace ProductManager.DataLayer.Repositories
                 DbSet.Attach(entity);
             }
             dbEntityEntry.State = EntityState.Modified;
-            DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(T entity)
@@ -68,7 +87,7 @@ namespace ProductManager.DataLayer.Repositories
                 DbSet.Attach(entity);
                 DbSet.Remove(entity);
             }
-           await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync();
         }
 
         public async Task Remove(int id)

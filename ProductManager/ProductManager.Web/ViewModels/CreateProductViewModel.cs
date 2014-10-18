@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using ProductManager.Enity;
 
 namespace ProductManager.Web.ViewModels
 {
@@ -20,6 +19,5 @@ namespace ProductManager.Web.ViewModels
         public bool IsNewProduct { get; set; }
         public string ColorName { get; set; }
         public string ColoCode { get; set; }
-        public Company OwnedBy { get; set; }
     }
 }

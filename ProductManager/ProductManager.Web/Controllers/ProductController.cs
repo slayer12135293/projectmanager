@@ -10,12 +10,10 @@ namespace ProductManager.Web.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IProductRepository _productRepository;
 
-        public ProductController(ICategoryRepository categoryRepository, IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository)
         {
-            _categoryRepository = categoryRepository;
             _productRepository = productRepository;
         }
 
@@ -33,20 +31,18 @@ namespace ProductManager.Web.Controllers
         }
 
 
-        public async Task<ActionResult> Edit(int categoryId, int subCategoryId, int productId)
+        public async Task<ActionResult> Edit(int productId)
         {
-            var model = await _productRepository.GetProductByIds(categoryId, subCategoryId, productId);
+            var model = await _productRepository.GetByIdAsync(productId);
             return View(model);
         }
 
         [HttpPost]
         public async Task<ActionResult> Edit(Product updatedProduct)
         {
-            var categoryId = Int32.Parse(Request.QueryString["categoryId"]);
-            var subCategoryId = Int32.Parse(Request.QueryString["subCategoryId"]);
-
-            await _productRepository.UpdateProductById(categoryId, subCategoryId, updatedProduct);
-
+            await _productRepository.Update(updatedProduct);
+            var subCategoryId = updatedProduct.SubCategoryId;
+            var categoryId = updatedProduct.SubCategory.CategoryId;
             return RedirectToAction("Detail", "SubCategory", new {categoryId, subCategoryId});
         }
 
@@ -54,7 +50,7 @@ namespace ProductManager.Web.Controllers
      
         public async Task<ActionResult> Delete(int categoryId, int subCategoryId, int productId)
         {
-            await _productRepository.DeleteProductById(categoryId, subCategoryId, productId);
+            await _productRepository.Remove(productId);
             return RedirectToAction("Detail", "SubCategory", new { categoryId, subCategoryId });
         }
 
@@ -66,12 +62,10 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> Create(CreateProductViewModel createProductViewModel)
         {
             if (ModelState.IsValid)
-            {
-                var category = await _categoryRepository.GetByIdAsync(createProductViewModel.CategoryId);
-                var currentSubCagetory = category.SubCategories.Single(x => x.Id == createProductViewModel.SubCategoryId);
-
+            {   
                 var product = new Product
                 {
+                    SubCategoryId =  createProductViewModel.SubCategoryId,
                     ColorName = createProductViewModel.ColorName,
                     ColoCode = createProductViewModel.ColoCode,
                     Height = createProductViewModel.Height,
@@ -80,8 +74,10 @@ namespace ProductManager.Web.Controllers
                     Name = createProductViewModel.ProductName,
                     ImageUrl = createProductViewModel.ImageUrl
                 };
-                currentSubCagetory.Products.Add(product);
-                _categoryRepository.Update(category);
+       
+
+                await _productRepository.Add(product);
+
 
                 return RedirectToAction("Detail", "SubCategory", new { categoryId = createProductViewModel.CategoryId, subCategoryId= createProductViewModel.SubCategoryId });
 

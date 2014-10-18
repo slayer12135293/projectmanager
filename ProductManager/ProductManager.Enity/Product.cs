@@ -18,7 +18,13 @@ namespace ProductManager.Enity
         public bool IsNewProduct { get; set; }
         public string ColorName { get; set; }
         public string ColoCode { get; set; }
-        public Company OwnedBy { get; set; }
+        
+        
+        public int SubCategoryId { get; set; }
+
+        
+        public virtual SubCategory SubCategory { get; set; }
+
     }
 
 

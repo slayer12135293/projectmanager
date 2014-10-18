@@ -7,7 +7,7 @@ namespace ProductManager.Web.Factories
 {
     public interface IProductSubCategoryViewModelFactory
     {
-        Task<SubCategory> CreateViewModel(int categoryId, int subCategoryId);
+        Task<SubCategory> CreateViewModel(int subCategoryId);
     }
 
     public class ProductSubCategoryViewModelFactory : IProductSubCategoryViewModelFactory
@@ -19,10 +19,10 @@ namespace ProductManager.Web.Factories
             _subCategoryRepository = subCategoryRepository;
         }
 
-        public async Task<SubCategory> CreateViewModel(int categoryId, int subCategoryId)
+        public async Task<SubCategory> CreateViewModel(int subCategoryId)
         {
            
-            var currentSubCategory = await _subCategoryRepository.GetSubCategoryByIds(categoryId, subCategoryId);
+            var currentSubCategory = await _subCategoryRepository.GetByIdAsync(subCategoryId);
           
             //TODO use a viewmodel instead
             return new SubCategory

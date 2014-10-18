@@ -35,8 +35,9 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> Detail(int categoryId, int subCategoryId)
         {
             ViewData["catagoryId"] = categoryId;
-            return View(await _productSubCategoryViewModelFactory.CreateViewModel(categoryId, subCategoryId));
+            return View(await _productSubCategoryViewModelFactory.CreateViewModel(subCategoryId));
         }
+
 
 
         [HttpPost]
@@ -45,8 +46,8 @@ namespace ProductManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var subCategory = new SubCategory { Id = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description };
-                await _subCategoryRepository.AddSubCategory(viewModel.CategoryId, subCategory);
+                var subCategory = new SubCategory { CategoryId = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description };
+                await _subCategoryRepository.Add(subCategory);
                 return RedirectToAction("index", "Category");
             }
 
@@ -54,9 +55,9 @@ namespace ProductManager.Web.Controllers
         }
 
 
-        public async Task<ActionResult> Delete(int categoryId, int subCategoryId)
+        public async Task<ActionResult> Delete(int subCategoryId)
         {
-            await _subCategoryRepository.DeleteSubCategoryByIds(categoryId, subCategoryId);
+            await _subCategoryRepository.Remove(subCategoryId);
             return RedirectToAction("Index", "Category");
         } 
 

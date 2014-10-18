@@ -38,17 +38,20 @@
     {
         foreach (var product in Model.Products)
         {
-            <li>@product.Id  ------ @product.Name </li> 
-         @Html.ActionLink("Delete", "Delete", "Product", new {  categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId=product.Id }, null)
-         <br/>
-         @Html.ActionLink("Edit", "Edit","Product", new {  categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId=product.Id },null )       
-    
-    
-    }
-    }
+            <li>@product.Id  ------ @product.Name </li>
+            @Html.ActionLink("Delete", "Delete", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
+            <br />
+            @Html.ActionLink("Edit", "Edit", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
 
-  
+
+        }
+    }
+    
+    @Html.Partial("ProductListView", @Model.Products)
+
+
+
 </ul>
 <div>
-    @Html.ActionLink("Add a product", "Create", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId= Model.Id }, null)
+    @Html.ActionLink("Add a product", "Create", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id }, null)
 </div>

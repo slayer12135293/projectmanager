@@ -24,7 +24,8 @@
                 @Html.EditorFor(model => model.Category.Description)
                 @Html.ValidationMessageFor(model => model.Category.Description)
             </div>
-
+            
+            @Html.HiddenFor(model=>model.Category.Id)
             <p>
                 <input type="submit" value="Save changes" />
             </p>
@@ -42,7 +43,7 @@
                 @subcat.Id  ------ @subcat.Name
                 @Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subcat.Id }, null)
                 <br/>
-                @Html.ActionLink(" delete me", "Delete", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subcat.Id }, null)
+                @Html.ActionLink(" delete me", "Delete", "SubCategory", new { subCategoryId = subcat.Id }, null)
             </li>
         }
 
