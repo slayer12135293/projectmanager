@@ -8,7 +8,7 @@ namespace ProductManager.DataLayer.Repositories
 {
     public interface ISubCategoryRepository : IRepository<SubCategory>
     {
-        Task<List<SubCategory>> GetSubCategoriesByCategoryId(int categoryId);
+        Task<IEnumerable<SubCategory>> GetSubCategoriesByCategoryId(int categoryId);
     }
 
     public class SubCategoryRepository : EfRepository<SubCategory>, ISubCategoryRepository
@@ -19,7 +19,7 @@ namespace ProductManager.DataLayer.Repositories
         }
 
 
-        public async Task<List<SubCategory>> GetSubCategoriesByCategoryId(int categoryId)
+        public async Task<IEnumerable<SubCategory>> GetSubCategoriesByCategoryId(int categoryId)
         {
             return await DbSet.Where(s => s.CategoryId == categoryId).ToListAsync();
         }

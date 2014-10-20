@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
@@ -24,6 +25,7 @@ namespace ProductManager.Web.Controllers
         // GET: Category
         public async Task<ActionResult> Index()
         {
+
             return View(await _productCatagoryViewModelFactory.CreateViewModel());
         }
 
@@ -35,6 +37,8 @@ namespace ProductManager.Web.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
+
+
             ViewBag.CategoryId = id;
             return View(await _productCategoryDetailViewModelFactory.CreateViewModel(id));
         }

@@ -15,7 +15,7 @@ namespace ProductManager.Web.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public string ComanyName { get; set; }
+        public string CustomerName { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

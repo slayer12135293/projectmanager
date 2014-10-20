@@ -20,6 +20,7 @@
                     {
                         <accordion-group heading="@category.CategoryName">
                             <p ng-show=showEdit>@Html.ActionLink("Delete", "Delete", "Category", new { categoryId = category.CategoryId }, null) </p>
+                            <p ng-show=showEdit>@Html.ActionLink("Details", "Details", "Category", new { id= category.CategoryId }, null) </p>
                             @if (category.SubCategories.Any())
                             {
                                 <ul>

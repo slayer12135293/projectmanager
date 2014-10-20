@@ -9,7 +9,7 @@ namespace ProductManager.DataLayer.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
-        Task<IList<Product>> GetProductsFromSubCategory( int subCategoryId);
+        Task<IEnumerable<Product>> GetProductsFromSubCategory( int subCategoryId);
 
     }
 
@@ -22,7 +22,7 @@ namespace ProductManager.DataLayer.Repositories
         }
 
 
-        public async Task<IList<Product>> GetProductsFromSubCategory( int subCategoryId)
+        public async Task<IEnumerable<Product>> GetProductsFromSubCategory(int subCategoryId)
         {
             return await DbSet.Where(x => x.SubCategoryId == subCategoryId).ToListAsync();
         }

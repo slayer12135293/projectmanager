@@ -5,10 +5,11 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ProductManager.Enity;
 
 namespace ProductManager.DataLayer.Repositories
 {
-    public class EfRepository<T> : IRepository<T> where T : class
+    public class EfRepository<T> : IRepository<T> where T : BaseEntity
     {
 
         public EfRepository(DbContext dbContext)

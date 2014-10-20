@@ -8,6 +8,10 @@ namespace ProductManager.Enity
         [Required]
         [Index]
         [MaxLength(256)]
-        public string Name { get; set; } 
+        public string Name { get; set; }
+       
+        [Index]
+        public int CustomerId { get; set; }
+
     }
 }

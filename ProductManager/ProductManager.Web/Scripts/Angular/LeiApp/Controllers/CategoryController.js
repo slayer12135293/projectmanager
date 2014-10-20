@@ -7,14 +7,13 @@ LeiApp.controller('CategoryController', ['$scope', function ($scope) {
     $scope.showEdit = false;
 
     $scope.AllowEdit = function () {
-        if ($scope.AllowButtonText == "Allow Edit") {
-            $scope.showEdit = true;
-            $scope.AllowButtonText = "Disable Edit";
-        } else {
+        if ($scope.showEdit) {
             $scope.showEdit = false;
             $scope.AllowButtonText = "Allow Edit";
+        } else {
+            $scope.showEdit = true;
+            $scope.AllowButtonText = "Disable Edit";
         }
-
     };
 
 }]);
