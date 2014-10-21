@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
+using ProductManager.DataLayer;
 using ProductManager.Web.Models;
 
 namespace ProductManager.Web
