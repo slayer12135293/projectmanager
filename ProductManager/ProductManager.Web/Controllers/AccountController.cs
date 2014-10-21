@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProductManager.DataLayer;
+using ProductManager.Enity;
 using ProductManager.Web.Models;
 
 namespace ProductManager.Web.Controllers
@@ -86,7 +89,8 @@ namespace ProductManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, CustomerName = model.Company };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+              //  user.Claims.Add(new IdentityUserClaim() {ClaimType = ClaimTypes.});
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -8,6 +8,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
 using ProductManager.DataLayer;
+using ProductManager.Enity;
 using ProductManager.Web.Models;
 
 namespace ProductManager.Web
@@ -18,7 +19,7 @@ namespace ProductManager.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(CategoryDb.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
