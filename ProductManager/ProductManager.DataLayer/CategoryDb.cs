@@ -19,8 +19,13 @@ namespace ProductManager.DataLayer
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasMany(x=>x.SubCategories).WithRequired(c => c.Category).HasForeignKey(c => c.CategoryId).WillCascadeOnDelete(true);
             modelBuilder.Entity<SubCategory>().HasMany(x=>x.Products).WithRequired(s => s.SubCategory).HasForeignKey(s => s.SubCategoryId).WillCascadeOnDelete(true);
+
+            //modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            //modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            //modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
 
         public static CategoryDb Create()

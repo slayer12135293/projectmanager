@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ProductManager.Enity;
 
 namespace ProductManager.Web.Models
 {
@@ -72,8 +73,11 @@ namespace ProductManager.Web.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        public string Company { get; set; }
+
+        //public ApplicationUser ApplicationUser { get; set; }
+        public int CustomerId { get; set; }
+
+
 
     }
 
