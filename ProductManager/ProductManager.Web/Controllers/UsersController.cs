@@ -54,7 +54,7 @@ namespace ProductManager.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name", user.CustomerId);
+            //ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name", user.CustomerId);
             return View(user);
         }
 

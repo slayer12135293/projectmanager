@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly IProductCategoryViewModelFactory _productCatagoryViewModelFactory;
@@ -23,8 +24,10 @@ namespace ProductManager.Web.Controllers
             _productCategoryDetailViewModelFactory = productCategoryDetailViewModelFactory;
         }
         // GET: Category
+        
         public async Task<ActionResult> Index()
         {
+            ViewData["CurrentUser"] = User.Identity.GetUserId() + User.Identity.GetUserName();
 
             return View(await _productCatagoryViewModelFactory.CreateViewModel());
         }
