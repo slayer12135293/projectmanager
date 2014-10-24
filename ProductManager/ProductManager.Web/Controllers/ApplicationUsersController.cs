@@ -8,37 +8,26 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using ProductManager.DataLayer;
 using ProductManager.Enity;
 using ProductManager.Web.Models;
+using ProductManager.Web.Services;
 
 namespace ProductManager.Web.Controllers
 {
     public class ApplicationUsersController : Controller
     {
-        private ApplicationUserManager _userManager;
+        private readonly IUserManagerService _applicationUserManager;
+        private readonly IApplicationRoleManager _applicationRoleManager;
 
-        public ApplicationUsersController()
+        public ApplicationUsersController(IUserManagerService applicationUserManager, IApplicationRoleManager applicationRoleManager)
         {
+            _applicationUserManager = applicationUserManager;
+            _applicationRoleManager = applicationRoleManager;
         }
 
-        public ApplicationUsersController(ApplicationUserManager userManager)
-        {
-            UserManager = userManager;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
 
         public DbSet<ApplicationUser> ApplicationUsers
         {
@@ -70,9 +59,21 @@ namespace ProductManager.Web.Controllers
         }
 
         // GET: ApplicationUsers/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name");
+
+            //var userRoles = await _applicationUserManager.GetRolesAsync(user.Id);
+
+            //ViewBag.RolesList = _applicationRoleManager.Roles.ToList().Select(x => new SelectListItem()
+            //{
+            //    Text = x.Name,
+            //    Value = x.Name
+            //});
+
+            ViewBag.RoleId = new SelectList(await _applicationRoleManager.Roles.ToListAsync(), "Name", "Name");
+
+
             return View();
         }
 
@@ -81,18 +82,20 @@ namespace ProductManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RegisterViewModel applicationUser)
+        public async Task<ActionResult> Create(RegisterViewModel applicationUser, params string[] selectedRoles)
         {
             if (ModelState.IsValid)
             {
                 //ApplicationUsers.Add(applicationUser);
                 //await db.SaveChangesAsync();
 
-                var user = new ApplicationUser() { UserName = applicationUser.Email, Email = applicationUser.Email, CustomerId = applicationUser.CustomerId};
+                var user = new ApplicationUser() { UserName = applicationUser.Email, Email = applicationUser.Email, CustomerId = applicationUser.CustomerId };
                 //  user.Claims.Add(new IdentityUserClaim() {ClaimType = ClaimTypes.});
-                IdentityResult result = await UserManager.CreateAsync(user, applicationUser.Password);
+                IdentityResult result = await _applicationUserManager.CreateAsync(user, applicationUser.Password);
+
                 if (result.Succeeded)
                 {
+                    var addToRoleResult = await _applicationUserManager.AddToRolesAsync(user.Id, selectedRoles.ToArray<string>());
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -127,7 +130,21 @@ namespace ProductManager.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "CustomerId", "Name", applicationUser.CustomerId);
-            return View(applicationUser);
+
+            RegisterViewModel viewModel = new RegisterViewModel();
+            viewModel.Id = id;
+            viewModel.Email = applicationUser.Email;
+            
+            var userRoles = await _applicationUserManager.GetRolesAsync(id);
+
+            viewModel.RolesList = _applicationRoleManager.Roles.ToList().Select(x => new SelectListItem()
+            {
+                Selected = userRoles.Contains(x.Name),
+                Text = x.Name,
+                Value = x.Name
+            });
+
+            return View(viewModel);
         }
 
         // POST: ApplicationUsers/Edit/5

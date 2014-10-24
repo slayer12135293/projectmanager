@@ -1,3 +1,11 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security.Provider;
+using ProductManager.Enity;
+using ProductManager.Web.Services;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ProductManager.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(ProductManager.Web.App_Start.NinjectWebCommon), "Stop")]
 
@@ -69,6 +77,9 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IProductSubCategoryViewModelFactory>().To<ProductSubCategoryViewModelFactory>();
             kernel.Bind<ISubCategoryRepository>().To<SubCategoryRepository>();
             kernel.Bind<IProductRepository>().To<ProductRepository>();
+            kernel.Bind<IUserManagerService>().ToMethod(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>());
+            kernel.Bind<IApplicationRoleManager>().ToMethod(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationRoleManager>());
+            kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>();
 
         }        
     }

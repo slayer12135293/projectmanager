@@ -10,6 +10,7 @@ using System;
 using ProductManager.DataLayer;
 using ProductManager.Enity;
 using ProductManager.Web.Models;
+using ProductManager.Web.Services;
 
 namespace ProductManager.Web
 {
@@ -20,7 +21,8 @@ namespace ProductManager.Web
         {
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(CategoryDb.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);        
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -33,7 +35,7 @@ namespace ProductManager.Web
                 {
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                        regenerateIdentity: (manager, user) => manager.GenerateUserIdentityAsync(user))
                 }
             });
             

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using ProductManager.Enity;
 
 namespace ProductManager.Web.Models
@@ -32,7 +34,7 @@ namespace ProductManager.Web.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -57,6 +59,8 @@ namespace ProductManager.Web.Models
 
     public class RegisterViewModel
     {
+        public string Id { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -70,15 +74,12 @@ namespace ProductManager.Web.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-
-        //public ApplicationUser ApplicationUser { get; set; }
+        
         public int CustomerId { get; set; }
-
-
-
+        public List<string> Roles { get; set; }
+        public IEnumerable<SelectListItem> RolesList { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -96,7 +97,7 @@ namespace ProductManager.Web.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
