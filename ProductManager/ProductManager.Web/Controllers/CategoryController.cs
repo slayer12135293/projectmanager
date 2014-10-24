@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
 {
-    [Authorize(Roles = "SuperAdmin, CustomerAdmin")]
+    [AdministratorFilter]
     public class CategoryController : Controller
     {
         private readonly IProductCategoryViewModelFactory _productCatagoryViewModelFactory;
