@@ -3,12 +3,13 @@ using Microsoft.AspNet.Identity;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
+using ProductManager.Web.Filters;
 using ProductManager.Web.ViewModels;
 using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SuperAdmin, CustomerAdmin")]
     public class CategoryController : Controller
     {
         private readonly IProductCategoryViewModelFactory _productCatagoryViewModelFactory;

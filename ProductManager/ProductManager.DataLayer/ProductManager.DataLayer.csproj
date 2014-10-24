@@ -85,9 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDb.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201410201606277_Init.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201410201606277_Init.Designer.cs">
-      <DependentUpon>201410201606277_Init.cs</DependentUpon>
+    <Compile Include="DataContext\CategoryMigrations\201410241816264_Init.cs" />
+    <Compile Include="DataContext\CategoryMigrations\201410241816264_Init.Designer.cs">
+      <DependentUpon>201410241816264_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContext\CategoryMigrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,8 +109,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContext\CategoryMigrations\201410201606277_Init.resx">
-      <DependentUpon>201410201606277_Init.cs</DependentUpon>
+    <EmbeddedResource Include="DataContext\CategoryMigrations\201410241816264_Init.resx">
+      <DependentUpon>201410241816264_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

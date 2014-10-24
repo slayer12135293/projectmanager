@@ -187,6 +187,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\AdministratorFilterAttribute.cs" />
     <Compile Include="Services\ApplicationRoleManager.cs" />
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />

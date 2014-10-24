@@ -50,9 +50,6 @@ namespace ProductManager.Web.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required]
-        public string Company { get; set; }
-
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
@@ -81,6 +78,21 @@ namespace ProductManager.Web.Models
         public List<string> Roles { get; set; }
         public IEnumerable<SelectListItem> RolesList { get; set; }
     }
+
+    public class EditUserViewModel
+    {
+        public string Id { get; set; }
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+        public int CustomerId { get; set; }
+        public List<string> Roles { get; set; }
+        public IEnumerable<SelectListItem> RolesList { get; set; }
+        public bool IsActive { get; set; }
+        
+    }
+
 
     public class ResetPasswordViewModel
     {
