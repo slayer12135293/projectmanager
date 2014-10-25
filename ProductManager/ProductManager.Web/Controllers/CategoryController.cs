@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
 {
+    //[Authorize]
     [AdministratorFilter]
     public class CategoryController : Controller
     {

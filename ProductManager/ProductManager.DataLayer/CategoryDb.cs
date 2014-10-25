@@ -22,6 +22,11 @@ namespace ProductManager.DataLayer
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasMany(x=>x.SubCategories).WithRequired(c => c.Category).HasForeignKey(c => c.CategoryId).WillCascadeOnDelete(true);
             modelBuilder.Entity<SubCategory>().HasMany(x=>x.Products).WithRequired(s => s.SubCategory).HasForeignKey(s => s.SubCategoryId).WillCascadeOnDelete(true);
+            
+            //modelBuilder.Entity<Customer>().HasMany(c => c.Categories).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Customer>().HasMany(c => c.SubCategories).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Customer>().HasMany(c => c.Products).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);
+
 
             //modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             //modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProductManager.Enity
@@ -19,5 +20,6 @@ namespace ProductManager.Enity
         public string KeyContact { get; set; }
         public string Email { get; set; }
         public bool IsActive { get; set; }
+
     }
 }

@@ -20,6 +20,8 @@ namespace ProductManager.Enity
         public string ColoCode { get; set; }
         public int SubCategoryId { get; set; }
         public virtual SubCategory SubCategory { get; set; }
+
+
     }
     
 }
