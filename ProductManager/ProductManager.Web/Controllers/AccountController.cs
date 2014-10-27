@@ -47,7 +47,7 @@ namespace ProductManager.Web.Controllers
 
                 if (user != null)
                 {
-                    if (user.IsActive == false)
+                    if (user.Customer.IsActive || user.IsActive == false)
                     {
                         ModelState.AddModelError("", "Not active.");
                     }
