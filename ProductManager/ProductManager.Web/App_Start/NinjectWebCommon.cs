@@ -1,10 +1,8 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security.Provider;
 using ProductManager.Enity;
-using ProductManager.Web.Services;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
+using ProductManager.Web.Services;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ProductManager.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(ProductManager.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -18,12 +16,12 @@ namespace ProductManager.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using ProductManager.DataLayer.Repositories;
-    using ProductManager.Web.Factories;
+    using DataLayer.Repositories;
+    using Factories;
 
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -32,7 +30,7 @@ namespace ProductManager.Web.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
         
         /// <summary>
@@ -40,7 +38,7 @@ namespace ProductManager.Web.App_Start
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
         
         /// <summary>
@@ -80,6 +78,7 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IUserManagerService>().ToMethod(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>());
             kernel.Bind<IApplicationRoleManager>().ToMethod(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationRoleManager>());
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>();
+            kernel.Bind<ICustomerIdService>().To<CustomerIdService>();
 
         }        
     }

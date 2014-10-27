@@ -12,7 +12,10 @@
 
     <section ng-controller="CategoryController">
         <section class="row">
-            <p class="col-md-12"><button type="button" class="btn btn-primary" ng-click="AllowEdit()">{{AllowButtonText}}</button></p>
+            <p class="col-md-12">
+                @Html.ActionLink("Create a category", "Create", "Category", new { @class = "btn btn-primary" })
+                <button type="button" class="btn btn-primary" ng-click="AllowEdit()">{{AllowButtonText}}</button>
+            </p>
         </section>
         <section class="row">
             <section class="col-md-12">
@@ -51,54 +54,10 @@
 
 
 
-<ul>
-
-    @foreach (var category in Model)
-    {
-
-        <li>
-            <div>
-                @Html.ActionLink(category.CategoryName + "-" + category.CategoryDescription,
-             "Details", "Category", new { id = category.CategoryId }, null)
-
-                <div>@Html.ActionLink("Delete", "Delete", "Category", new { categoryId = category.CategoryId }, null) </div>
-            </div>
-            @if (category.SubCategories.Any())
-            {
-                <ol>
-                    @foreach (var subCategory in category.SubCategories)
-                    {
-                        <li>
-                            <div>@subCategory.Name</div>
-                            @if (subCategory.Products.Any())
-                            {
-                                <ol>
-                                    @foreach (var product in subCategory.Products)
-                                    {
-                                        <li> @product.Name </li>
-                                    }
-                                </ol>
-                            }
-
-
-                        </li>
-                    }
-                </ol>
-            }
-
-        </li>
-
-    }
 
 
 
 
-</ul>
-
-
-<section>
-    @Html.ActionLink("Create a category", "Create", "Category")
-</section>
 
 
 

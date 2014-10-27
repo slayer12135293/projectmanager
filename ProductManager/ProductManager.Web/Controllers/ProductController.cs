@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
@@ -11,10 +12,12 @@ namespace ProductManager.Web.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICustomerIdService _customerIdService;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService)
         {
             _productRepository = productRepository;
+            _customerIdService = customerIdService;
         }
 
         // GET: Product
@@ -72,7 +75,8 @@ namespace ProductManager.Web.Controllers
                     Width = createProductViewModel.Width,
                     ProductCode = createProductViewModel.ProductCode,
                     Name = createProductViewModel.ProductName,
-                    ImageUrl = createProductViewModel.ImageUrl
+                    ImageUrl = createProductViewModel.ImageUrl,
+                    CustomerId = await _customerIdService.GetCustomerId()
                 };
        
 
