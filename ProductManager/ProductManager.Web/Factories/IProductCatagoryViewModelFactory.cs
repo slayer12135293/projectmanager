@@ -29,7 +29,7 @@ namespace ProductManager.Web.Factories
         public async Task<IEnumerable<ProductCatagoryViewModel>> CreateViewModel()
         {
             var customerId = await _customerIdService.GetCustomerId();
-            var viewModel =await _categoryRepository.GetAll().Where(i=>i.CustomerId == customerId).Select(x=> new ProductCatagoryViewModel{ CategoryId = x.Id, SubCategories= x.SubCategories, CategoryDescription= x.Description, CategoryName=x.Name } ).ToListAsync();  
+            var viewModel =await _categoryRepository.GetAll().Where(i=>i.CustomerId == customerId).OrderBy(y=>y.Name).Select(x=> new ProductCatagoryViewModel{ CategoryId = x.Id, SubCategories= x.SubCategories, CategoryDescription= x.Description, CategoryName=x.Name } ).ToListAsync();  
             
             return viewModel;
         }

@@ -8,7 +8,7 @@
 
 <h3>Hello @ViewData["CurrentUser"] </h3>
 
-<section ng-app="LeiApp">
+<section >
 
     <section ng-controller="CategoryController">
         <section class="row">
@@ -24,8 +24,8 @@
                     @foreach (var category in Model)
                     {
                         <accordion-group heading="@category.CategoryName">
-                            <p ng-show=showEdit>@Html.ActionLink("Delete", "Delete", "Category", new { categoryId = category.CategoryId }, null) </p>
-                            <p ng-show=showEdit>@Html.ActionLink("Details", "Details", "Category", new { id= category.CategoryId }, null) </p>
+                            <p ng-show=showEdit>@Html.ActionLink("Delete", "Delete", "Category", new { categoryId = category.CategoryId }, new { @class = "btn btn-danger" }) </p>
+                            <p>@Html.ActionLink("Details", "Details", "Category", new { id = category.CategoryId }, new { @class = "btn btn-info" }) </p>
                             @if (category.SubCategories.Any())
                             {
                                 <ul>
@@ -60,6 +60,3 @@
 
 
 
-
-<script src="~/Scripts/Angular/LeiApp/LeiApp.js"></script>
-<script src="~/Scripts/Angular/LeiApp/Controllers/CategoryController.js"></script>

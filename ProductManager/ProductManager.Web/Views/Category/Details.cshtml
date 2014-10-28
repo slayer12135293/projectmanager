@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<div>
+@*<div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -26,40 +26,67 @@
                 @Html.EditorFor(model => model.Category.Description)
                 @Html.ValidationMessageFor(model => model.Category.Description)
             </div>
-            
-            @Html.HiddenFor(model=>model.Category.Id)
+
+            @Html.HiddenFor(model => model.Category.Id)
             <p>
                 <input type="submit" value="Save changes" />
             </p>
         </fieldset>
-       
-    }   
-</div>
 
-<ul>
+    }
+</div>*@
+
+<h2>@Model.Category.Name Overview</h2>
+
+
+<section ng-controller="CategoryController">
+
+    <section>
+        <section class="row">
+            <p class="col-md-12">
+                @Html.ActionLink("Create a SubCategory", "Create", "SubCategory", new { categoryId = Model.Category.Id }, new { @class = "btn btn-primary" })
+                <button type="button" class="btn btn-primary" ng-click="AllowEdit()">{{AllowButtonText}}</button>
+            </p>
+        </section>
+
+    </section>
+
+
+
     @if (Model.SubCategories != null)
     {
-        foreach (var subcat in Model.SubCategories)
-        {
-            <li>
-                @subcat.Id  ------ @subcat.Name
-                @Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subcat.Id }, null)
-                <br/>
-                @Html.ActionLink(" delete me", "Delete", "SubCategory", new { subCategoryId = subcat.Id }, null)
-            </li>
-        }
+        <section class="row">
+            <section class="col-md-12">
+                <accordion close-others="oneAtATime">
+                    @foreach (var subCategory in Model.SubCategories)
+                    {
+                        <accordion-group heading="@subCategory.Name">
+                            <section>@Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subCategory.Id }, new { @class = "btn btn-info" }) </section>
+                            <section ng-show=showEdit> @Html.ActionLink(" delete me", "Delete", "SubCategory", new { subCategoryId = subCategory.Id }, new { @class = "btn btn-danger" }) </section>
 
+                            @if (subCategory.Products.Any())
+                            {
+                                foreach (var product in subCategory.Products)
+                                {
+
+                                    <ul>
+                                        <li> @product.Id - @product.Name </li>
+                                    </ul>
+
+                                }
+
+                            }
+                        </accordion-group>
+                    }
+                </accordion>
+            </section>
+        </section>
     }
 
 
-</ul>
+</section>
 
 
-
-
-<p>
-    @Html.ActionLink("Create a SubCategory", "Create", "SubCategory", new { categoryId = Model.Category.Id },null)
-</p>
 
 
 <p>
