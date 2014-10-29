@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<nav class="navbar navbar-inverse navbar-fixed-top ">
+    <section class="container">
+        <section class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("PO Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </section>
+        <section class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Order", "About", "Home")</li>
+                <li>@Html.ActionLink("My Profile", "About", "Home")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </section>
+    </section>
+</nav>
+
+<div class="container body-content" ng-app="WorkerApp">
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+    
+
+    <script src="~/Scripts/Angular/WorkerApp/WorkerApp.js"></script>
+    <script src="~/Scripts/Angular/WorkerApp/Controllers/OrderController.js"></script>
+</div>
