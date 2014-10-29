@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Web.Routing;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
@@ -53,7 +54,7 @@ namespace ProductManager.Web.Controllers
             {
                 var subCategory = new SubCategory { CategoryId = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description, CustomerId = await _customerIdService.GetCustomerId()};
                 await _subCategoryRepository.Add(subCategory);
-                return RedirectToAction("index", "Category");
+                return RedirectToAction("Details", "Category", new {Id = viewModel.CategoryId});
             }
 
             return View(viewModel);
