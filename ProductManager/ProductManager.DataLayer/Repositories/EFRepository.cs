@@ -97,5 +97,7 @@ namespace ProductManager.DataLayer.Repositories
             if (entity == null) return; // not found; assume already deleted.
             await RemoveAsync(entity);
         }
+
+        
     }
 }

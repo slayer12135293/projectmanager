@@ -13,5 +13,6 @@ namespace ProductManager.Enity
         [Index]
         public int CustomerId { get; set; }
 
+
     }
 }

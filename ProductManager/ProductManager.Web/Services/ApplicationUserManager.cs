@@ -31,9 +31,8 @@ namespace ProductManager.Web.Services
         Task<IList<string>> GetRolesAsync(string userId);
 
         Task<IdentityResult> AddToRolesAsync(string p1, string[] p2);
+        Task<IdentityResult> RemoveFromRolesAsync(string userId, params string[] roles);
     }
-
-
     public class ApplicationUserManager : UserManager<ApplicationUser>, IUserManagerService
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)

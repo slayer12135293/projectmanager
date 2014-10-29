@@ -3,28 +3,37 @@ using Microsoft.AspNet.Identity;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
+using ProductManager.Web.Filters;
+using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class CategoryController : Controller
     {
         private readonly IProductCategoryViewModelFactory _productCatagoryViewModelFactory;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IProductCategoryDetailViewModelFactory _productCategoryDetailViewModelFactory;
-        
+        private readonly ICustomerIdService _customerIdService;
+
+
         public CategoryController(IProductCategoryViewModelFactory productCatagoryViewModelFactory, 
             ICategoryRepository categoryRepository,
-            IProductCategoryDetailViewModelFactory productCategoryDetailViewModelFactory)
+            IProductCategoryDetailViewModelFactory productCategoryDetailViewModelFactory,
+            ICustomerIdService customerIdService)
         {
             _productCatagoryViewModelFactory = productCatagoryViewModelFactory;
             _categoryRepository = categoryRepository;
             _productCategoryDetailViewModelFactory = productCategoryDetailViewModelFactory;
+            _customerIdService = customerIdService;
         }
         // GET: Category
+        
         public async Task<ActionResult> Index()
         {
+            ViewData["CurrentUser"] = User.Identity.GetUserId() + User.Identity.GetUserName();
 
             return View(await _productCatagoryViewModelFactory.CreateViewModel());
         }
@@ -55,11 +64,11 @@ namespace ProductManager.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateCategoryViewModel category)
+        public async Task<ActionResult> Create(CreateCategoryViewModel category)
         {
-            if (!ModelState.IsValid) return RedirectToAction("Index"); 
-            var item = new Category { Name = category.Name, Description = category.Description };
-            _categoryRepository.Add(item);
+            if (!ModelState.IsValid) return RedirectToAction("Index");
+            var item = new Category { Name = category.Name, Description = category.Description, CustomerId = await _customerIdService.GetCustomerId() };
+            await _categoryRepository.Add(item);
             return RedirectToAction("Index");
         }
 

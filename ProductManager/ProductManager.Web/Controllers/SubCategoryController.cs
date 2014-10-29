@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using System.Web.Routing;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
+using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -12,11 +14,15 @@ namespace ProductManager.Web.Controllers
     {
         private readonly IProductSubCategoryViewModelFactory _productSubCategoryViewModelFactory;
         private readonly ISubCategoryRepository _subCategoryRepository;
+        private readonly ICustomerIdService _customerIdService;
 
-        public SubCategoryController(IProductSubCategoryViewModelFactory productSubCategoryViewModelFactory, ISubCategoryRepository subCategoryRepository)
+        public SubCategoryController(IProductSubCategoryViewModelFactory productSubCategoryViewModelFactory, 
+            ISubCategoryRepository subCategoryRepository,
+            ICustomerIdService customerIdService)
         {
             _productSubCategoryViewModelFactory = productSubCategoryViewModelFactory;
             _subCategoryRepository = subCategoryRepository;
+            _customerIdService = customerIdService;
         }
 
         // GET: SubCategory
@@ -46,9 +52,9 @@ namespace ProductManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var subCategory = new SubCategory { CategoryId = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description };
+                var subCategory = new SubCategory { CategoryId = viewModel.CategoryId, Name = viewModel.Name, Description = viewModel.Description, CustomerId = await _customerIdService.GetCustomerId()};
                 await _subCategoryRepository.Add(subCategory);
-                return RedirectToAction("index", "Category");
+                return RedirectToAction("Details", "Category", new {Id = viewModel.CategoryId});
             }
 
             return View(viewModel);

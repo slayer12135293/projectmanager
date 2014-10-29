@@ -187,8 +187,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\ApplicationRoleManager.cs" />
-    <Compile Include="Services\ApplicationUserManager.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\UnAuthorizedController.cs" />
+    <Compile Include="Filters\AdministratorFilterAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -203,6 +204,12 @@
     <Compile Include="Controllers\SubCategoryController.cs" />
     <Compile Include="Factories\IProductCategoryDetailViewModelFactory.cs" />
     <Compile Include="Factories\IProductSubCategoryViewModelFactory.cs" />
+    <Compile Include="Services\ApplicationRoleManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\ApplicationUserManager.cs" />
+    <Compile Include="Services\CustomerIdService.cs" />
+    <Compile Include="ViewModels\CategoryDropDownViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CreateCategoryViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -228,6 +235,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Angular\WorkerApp\Controllers\OrderController.js" />
+    <Content Include="Scripts\Angular\WorkerApp\WorkerApp.js" />
     <Content Include="Scripts\Angular\LeiApp\Controllers\CategoryController.js" />
     <Content Include="Scripts\Angular\LeiApp\LeiApp.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -293,11 +302,6 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Details.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Shared\Partials\ProductListView.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
@@ -310,6 +314,13 @@
     <Content Include="Views\ApplicationUsers\Details.cshtml" />
     <Content Include="Views\ApplicationUsers\Edit.cshtml" />
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\UnAuthorized\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Shared\_WorkerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

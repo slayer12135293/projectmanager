@@ -9,11 +9,18 @@ LeiApp.controller('CategoryController', ['$scope', function ($scope) {
     $scope.AllowEdit = function () {
         if ($scope.showEdit) {
             $scope.showEdit = false;
-            $scope.AllowButtonText = "Allow Edit";
+            $scope.AllowButtonText = "Enable Delete";
         } else {
             $scope.showEdit = true;
-            $scope.AllowButtonText = "Disable Edit";
+            $scope.AllowButtonText = "Disable Delete";
         }
     };
+
+}]);
+
+
+
+LeiApp.controller('SubController', ['$scope', function ($scope) {
+
 
 }]);
