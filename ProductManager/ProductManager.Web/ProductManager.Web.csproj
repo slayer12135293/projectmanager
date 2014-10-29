@@ -189,8 +189,6 @@
   <ItemGroup>
     <Compile Include="Controllers\UnAuthorizedController.cs" />
     <Compile Include="Filters\AdministratorFilterAttribute.cs" />
-    <Compile Include="Services\ApplicationRoleManager.cs" />
-    <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -205,6 +203,11 @@
     <Compile Include="Controllers\SubCategoryController.cs" />
     <Compile Include="Factories\IProductCategoryDetailViewModelFactory.cs" />
     <Compile Include="Factories\IProductSubCategoryViewModelFactory.cs" />
+    <Compile Include="Services\ApplicationRoleManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\ApplicationUserManager.cs" />
+    <Compile Include="Services\CustomerIdService.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CreateCategoryViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />

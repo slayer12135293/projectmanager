@@ -22,7 +22,11 @@
     </section>
 </nav>
 
-<div class="container body-content">
+<div class="container body-content" ng-app="LeiApp">
     @RenderBody()
     @RenderSection("scripts", required: false)
+    
+
+    <script src="~/Scripts/Angular/LeiApp/LeiApp.js"></script>
+    <script src="~/Scripts/Angular/LeiApp/Controllers/CategoryController.js"></script>
 </div>
