@@ -9,7 +9,7 @@ namespace ProductManager.Enity
         public int OrderId { get; set; }
         public string Author { get; set; }
         public DateTime CreatedDate { get; set; }
-        public ICollection<OrderLine> Products { get; set; }
+        public virtual ICollection<OrderLine> Products { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Discount { get; set; }
 
