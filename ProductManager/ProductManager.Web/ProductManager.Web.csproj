@@ -224,6 +224,7 @@
     <Compile Include="ViewModels\CreateSubCategoryViewModel.cs" />
     <Compile Include="ViewModels\ProductSubCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -235,6 +236,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Angular\Lib\Services\CallService.js" />
     <Content Include="Scripts\Angular\WorkerApp\Controllers\OrderController.js" />
     <Content Include="Scripts\Angular\WorkerApp\WorkerApp.js" />
     <Content Include="Scripts\Angular\LeiApp\Controllers\CategoryController.js" />

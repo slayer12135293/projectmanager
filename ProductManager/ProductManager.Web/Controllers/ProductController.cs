@@ -90,5 +90,27 @@ namespace ProductManager.Web.Controllers
             return View("Create", createProductViewModel);
         }
 
+        public async Task<ActionResult> AllProducts(int subcategoryId)
+        {
+            var products = await _productRepository.GetProductsFromSubCategory(subcategoryId);
+
+            return Json(products.Select(x=> new ProductViewModel
+            {
+                Name = x.Name,
+                ColorCode = x.ColoCode,
+                ColorName = x.ColorName,
+                CurrentDiscount = x.CurrentDiscount,
+                Height = x.Height,
+                IsNewProduct = x.IsNewProduct,
+                ImageUrl = x.ImageUrl,
+                ProductCode = x.ProductCode,
+                SubCategoryId = x.SubCategoryId,
+                UnitPrice = x.UnitPrice,
+                Width = x.Width
+            }).ToList(), JsonRequestBehavior.AllowGet);
+
+        } 
+
+
     }
 }

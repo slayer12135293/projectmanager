@@ -1,6 +1,12 @@
 ﻿@model ProductManager.Enity.SubCategory
 
-<div>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+}
+<h2>@Model.Name </h2>
+
+@*<div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -30,28 +36,58 @@
             </p>
         </fieldset>
     }
-</div>
+</div>*@
 
-
-<ul>
-    @if (Model.Products != null)
-    {
-        foreach (var product in Model.Products)
-        {
-            <li>@product.Id  ------ @product.Name </li>
-            @Html.ActionLink("Delete", "Delete", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
-            <br />
-            @Html.ActionLink("Edit", "Edit", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
-
-
-        }
-    }
+<section ng-controller="ProductListController">
+    <input type="hidden" id="subCategoryId" value="@Model.Id"/>
     
-    @Html.Partial("ProductListView", @Model.Products)
+    {{allProducts}}
+    
+
+    <section class="row">
+        <section class="col-md-12">
+            <table ng-table="tableParams" show-filter="true" class="table">
+                <tr ng-repeat="product in $data">
+                    <td data-title="'Name'" sortable="'Name'" filter="{ 'Name': 'text' }">
+                        {{product.Name}}
+                    </td>
+                    <td data-title="'ColorName'" sortable="'ColorName'" filter="{ 'ColorName': 'text' }">
+                        {{product.ColorName}}
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+    </section>
 
 
 
-</ul>
-<div>
-    @Html.ActionLink("Add a product", "Create", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id }, null)
-</div>
+    <ul>
+        @if (Model.Products != null)
+        {
+            foreach (var product in Model.Products)
+            {
+                <li>@product.Id  ------ @product.Name </li>
+                @Html.ActionLink("Delete", "Delete", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
+                <br />
+                @Html.ActionLink("Edit", "Edit", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
+
+
+            }
+        }
+
+        @Html.Partial("ProductListView", @Model.Products)
+
+
+
+    </ul>
+    <div>
+        @Html.ActionLink("Add a product", "Create", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id }, null)
+    </div>
+
+
+
+
+
+</section>
+
