@@ -228,6 +228,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CreateOrderViewModel.cs" />
     <Compile Include="ViewModels\CreateProductViewModel.cs" />
     <Compile Include="ViewModels\CreateSubCategoryViewModel.cs" />
     <Compile Include="ViewModels\ProductSubCatagoryViewModel.cs" />

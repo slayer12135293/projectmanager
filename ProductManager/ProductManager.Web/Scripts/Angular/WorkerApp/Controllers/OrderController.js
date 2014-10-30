@@ -26,6 +26,25 @@ WorkerApp.controller('OrderController', ['$scope', 'promiseService', function ($
     };
 
 
+
+
+
+    $scope.addFields = function () {
+        if (typeof $scope.orderlines == 'undefined') {
+            $scope.orderlines = [];
+        }
+
+        var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selectedProduct);
+
+        productPromise.then(function(data) {
+            $scope.orderlines.push({ name: data.Name, id: data.Id });
+        });
+
+
+
+        
+    }
+
 }]);
 
 

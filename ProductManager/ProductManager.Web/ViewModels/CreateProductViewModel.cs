@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace ProductManager.Web.ViewModels
 {

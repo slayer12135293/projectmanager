@@ -1,4 +1,4 @@
-﻿@model ProductManager.Enity.Order
+﻿@model ProductManager.Web.ViewModels.CreateOrderViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -73,6 +73,24 @@
                         @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
                     </div>
                 </div>*@
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                </div>
+            </div>
+   
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+
             <section class="row">
                 <section class="col-md-12">
                     <select ng-model="selectedCategory" data-ng-options="c.Id as c.Name for c in categories" ng-change="UpdateSubCatagories()">
@@ -83,22 +101,35 @@
                         <option value="">-- Select a Sub category --</option>
                     </select>
                     
-                    <select ng-model="selectedProduct" data-ng-options="c.Id as c.Name for c in products" >
+                    <select ng-model="selectedProduct" data-ng-options="c.Id as c.Name for c in products" ng-change="SelectProduct()">
                         <option value="">-- Select a Product --</option>
                     </select>
-
                 </section>
                 
             </section>
-
-            
-            
+ 
 
             <section class="row">
                 <section class="col-md-12">
-                    <a class="btn btn-primary"> add a product</a>
+                    <a class="btn btn-primary" ng-click="addFields(orderline)"> add a product</a>
                 </section>
             </section>
+
+
+            <section class="row">
+                <section class="col-md-12">
+                    <div ng-repeat="(i, orderline) in orderlines" >
+                        <span>{{orderline.id}}</span>
+                        <span>{{orderline.name}}</span>
+                        <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" />
+                        <input type="text" name="Products[{{$index}}].width" ng-model="orderline.width" />
+                        <input type="text" name="Products[{{$index}}].height" ng-model="orderline.height" />
+                        <button type="button"  ng-click="orderlines.splice(i, 1);">Remove</button>
+                    </div>
+                </section>
+            </section>
+
+           
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Create" class="btn btn-default" />
