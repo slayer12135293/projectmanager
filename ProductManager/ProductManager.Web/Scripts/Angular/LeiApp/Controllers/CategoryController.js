@@ -19,7 +19,7 @@ LeiApp.controller('CategoryController', ['$scope', function ($scope) {
 }]);
 
 
-LeiApp.controller('ProductListController', ['$scope','$filter', 'promiseService', 'ngTableParams', function ($scope,$filter, promiseService, ngTableParams) {
+LeiApp.controller('ProductListController', ['$scope','$filter', 'promiseService', 'ngTableParams', function ($scope, $filter, promiseService, ngTableParams) {
         var subCategoryId = $('input#subCategoryId').val();
         var productPromise = promiseService.callActionPromise('/Product/AllProducts?subcategoryId=' + subCategoryId);
         productPromise.then(function(data) {
@@ -29,10 +29,10 @@ LeiApp.controller('ProductListController', ['$scope','$filter', 'promiseService'
                 page: 1,
                 count: 10,
                 filter: {
-                    name: 'M'
+                    Name: ''
                 },
                 sorting: {
-                    name: 'asc'
+                    Name: 'asc'
                 }
             }, {
                 total: data.length,
@@ -44,7 +44,7 @@ LeiApp.controller('ProductListController', ['$scope','$filter', 'promiseService'
                             $filter('orderBy')(filteredData, params.orderBy()) :
                             data;
 
-                    params.total(orderedData.length); // set total for recalc pagination
+                    params.total(orderedData.length); 
                     $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                 }
             });

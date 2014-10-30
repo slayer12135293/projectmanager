@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -27,9 +28,9 @@ namespace ProductManager.Web.Controllers
         }
 
 
-        public ActionResult Create(int categoryId, int subCategoryId)
+        public ActionResult Create(int subCategoryId)
         {
-            var model = new CreateProductViewModel {SubCategoryId = subCategoryId, CategoryId = categoryId};
+            var model = new CreateProductViewModel { SubCategoryId = subCategoryId };
             return View(model);
         }
 
@@ -45,30 +46,24 @@ namespace ProductManager.Web.Controllers
         {
             await _productRepository.Update(updatedProduct);
             var subCategoryId = updatedProduct.SubCategoryId;
-            var categoryId = updatedProduct.SubCategory.CategoryId;
-            return RedirectToAction("Detail", "SubCategory", new {categoryId, subCategoryId});
+            return RedirectToAction("Detail", "SubCategory", new { subCategoryId });
         }
 
-
-     
-        public async Task<ActionResult> Delete(int categoryId, int subCategoryId, int productId)
+        public async Task<ActionResult> Delete(int subCategoryId, int productId)
         {
             await _productRepository.Remove(productId);
-            return RedirectToAction("Detail", "SubCategory", new { categoryId, subCategoryId });
+            return RedirectToAction("Detail", "SubCategory", new { subCategoryId });
         }
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateProductViewModel createProductViewModel)
         {
             if (ModelState.IsValid)
-            {   
+            {
                 var product = new Product
                 {
-                    SubCategoryId =  createProductViewModel.SubCategoryId,
+                    SubCategoryId = createProductViewModel.SubCategoryId,
                     ColorName = createProductViewModel.ColorName,
                     ColoCode = createProductViewModel.ColoCode,
                     Height = createProductViewModel.Height,
@@ -78,12 +73,12 @@ namespace ProductManager.Web.Controllers
                     ImageUrl = createProductViewModel.ImageUrl,
                     CustomerId = await _customerIdService.GetCustomerId()
                 };
-       
+
 
                 await _productRepository.Add(product);
 
 
-                return RedirectToAction("Detail", "SubCategory", new { categoryId = createProductViewModel.CategoryId, subCategoryId= createProductViewModel.SubCategoryId });
+                return RedirectToAction("Detail", "SubCategory", new { subCategoryId = createProductViewModel.SubCategoryId });
 
             }
 
@@ -93,24 +88,8 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> AllProducts(int subcategoryId)
         {
             var products = await _productRepository.GetProductsFromSubCategory(subcategoryId);
-
-            return Json(products.Select(x=> new ProductViewModel
-            {
-                Name = x.Name,
-                ColorCode = x.ColoCode,
-                ColorName = x.ColorName,
-                CurrentDiscount = x.CurrentDiscount,
-                Height = x.Height,
-                IsNewProduct = x.IsNewProduct,
-                ImageUrl = x.ImageUrl,
-                ProductCode = x.ProductCode,
-                SubCategoryId = x.SubCategoryId,
-                UnitPrice = x.UnitPrice,
-                Width = x.Width
-            }).ToList(), JsonRequestBehavior.AllowGet);
-
-        } 
-
-
+            var productsViewModels = AutoMapper.Mapper.Map<IEnumerable<ProductViewModel>>(products);
+            return Json(productsViewModels.ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -40,19 +40,22 @@
 
 <section ng-controller="ProductListController">
     <input type="hidden" id="subCategoryId" value="@Model.Id"/>
-    
     {{allProducts}}
-    
 
     <section class="row">
         <section class="col-md-12">
-            <table ng-table="tableParams" show-filter="true" class="table">
+            <table ng-table="tableParams" show-filter="false" class="table">
                 <tr ng-repeat="product in $data">
                     <td data-title="'Name'" sortable="'Name'" filter="{ 'Name': 'text' }">
                         {{product.Name}}
                     </td>
                     <td data-title="'ColorName'" sortable="'ColorName'" filter="{ 'ColorName': 'text' }">
                         {{product.ColorName}}
+                    </td>
+                    <td>
+                        <a href="/Product/Edit?subCategoryId=@Model.Id&productId={{product.Id}}" class="btn btn-primary"> Edit </a>
+                        <a href="/Product/Delete?subCategoryId=@Model.Id&productId={{product.Id}}" class="btn btn-danger"> Delete </a>
+                        
                     </td>
                 </tr>
             </table>
@@ -63,26 +66,14 @@
 
 
     <ul>
-        @if (Model.Products != null)
-        {
-            foreach (var product in Model.Products)
-            {
-                <li>@product.Id  ------ @product.Name </li>
-                @Html.ActionLink("Delete", "Delete", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
-                <br />
-                @Html.ActionLink("Edit", "Edit", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id, productId = product.Id }, null)
-
-
-            }
-        }
-
+        
         @Html.Partial("ProductListView", @Model.Products)
 
 
 
     </ul>
     <div>
-        @Html.ActionLink("Add a product", "Create", "Product", new { categoryId = ViewData["catagoryId"], subCategoryId = Model.Id }, null)
+        @Html.ActionLink("Add a product", "Create", "Product", new { subCategoryId = Model.Id }, null)
     </div>
 
 

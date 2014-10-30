@@ -1,3 +1,3 @@
 ﻿'use strict';
 
-var LeiApp = angular.module('LeiApp', ['ngResource', 'ngRoute', 'ui.bootstrap', 'callService', 'ngTable']);
+var LeiApp = angular.module('LeiApp', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ngTable', 'callService']);

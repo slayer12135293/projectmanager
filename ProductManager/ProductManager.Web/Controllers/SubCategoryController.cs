@@ -38,9 +38,8 @@ namespace ProductManager.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Detail(int categoryId, int subCategoryId)
+        public async Task<ActionResult> Detail( int subCategoryId)
         {
-            ViewData["catagoryId"] = categoryId;
             return View(await _productSubCategoryViewModelFactory.CreateViewModel(subCategoryId));
         }
 
