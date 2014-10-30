@@ -1,4 +1,4 @@
-﻿@model ProductManager.Enity.Order
+﻿@model ProductManager.Web.ViewModels.OrderDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -19,57 +19,14 @@
             @Html.DisplayFor(model => model.Author)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Discount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Discount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Buyer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Buyer)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerId)
-        </dd>
-
     </dl>
 </div>
+
+@Html.ActionLink("Edit", "Edit", new { id = @Model.Id })
+
+@Html.Action("Index", new { OrderId = @Model.Id, controller = "OrderLines" })
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    |
     @Html.ActionLink("Back to List", "Index")
 </p>

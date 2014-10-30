@@ -9,7 +9,8 @@ namespace ProductManager.DataLayer
     {
         public CategoryDb()
             : base("ProductManagerConnection", throwIfV1Schema: false)
-        {            
+        {
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Category> Catagories { get; set; }

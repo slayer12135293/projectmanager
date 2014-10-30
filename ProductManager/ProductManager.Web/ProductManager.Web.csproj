@@ -195,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\MappingInitalizer.cs" />
+    <Compile Include="Controllers\OrderLineController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\UnAuthorizedController.cs" />
     <Compile Include="Filters\AdministratorFilterAttribute.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="ViewModels\CreateOrderViewModel.cs" />
     <Compile Include="ViewModels\CreateProductViewModel.cs" />
     <Compile Include="ViewModels\CreateSubCategoryViewModel.cs" />
+    <Compile Include="ViewModels\OrderLineViewModel.cs" />
     <Compile Include="ViewModels\ProductSubCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
@@ -332,6 +334,7 @@
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Shared\_WorkerLayout.cshtml" />
+    <Content Include="Views\OrderLines\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

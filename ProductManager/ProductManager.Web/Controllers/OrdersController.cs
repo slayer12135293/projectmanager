@@ -1,4 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -19,19 +24,19 @@ namespace ProductManager.Web.Controllers
         private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly IProductRepository _productRepository;
 
-        public OrdersController(ICategoryRepository categoryRepository, IUserManagerService userManagerService, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository )
+        public OrdersController(ICategoryRepository categoryRepository, IUserManagerService userManagerService, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository)
         {
             _categoryRepository = categoryRepository;
             _userManagerService = userManagerService;
             _subCategoryRepository = subCategoryRepository;
             _productRepository = productRepository;
         }
-        
+
         public async Task<ActionResult> AllCategories()
         {
             var currentUser = await _userManagerService.FindByIdAsync(User.Identity.GetUserId());
             var currentCustomerId = currentUser.CustomerId;
-            var categories = _categoryRepository.GetAll().Where(x => x.CustomerId == currentCustomerId).Select(y=> new CategoryDropDownViewModel
+            var categories = _categoryRepository.GetAll().Where(x => x.CustomerId == currentCustomerId).Select(y => new CategoryDropDownViewModel
             {
                 Id = y.Id,
                 Name = y.Name
@@ -67,7 +72,7 @@ namespace ProductManager.Web.Controllers
             var product = await _productRepository.GetByIdAsync(productId);
             var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
-        } 
+        }
 
 
 
@@ -94,7 +99,7 @@ namespace ProductManager.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(AutoMapper.Mapper.Map<OrderDetailsViewModel>(order));
         }
 
         // GET: Orders/Create
@@ -112,7 +117,44 @@ namespace ProductManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var test = order;
+                var currentUser = await _userManagerService.FindByIdAsync(User.Identity.GetUserId());
+                var currentCustomerId = currentUser.CustomerId;
+
+                var orderToSave = new Order();
+                orderToSave.Name = "my order";
+                orderToSave.Buyer = new Buyer() {Address = "",Information="",Mobil = "",Name="my name",Telephone = ""};
+                orderToSave.Products = new Collection<OrderLine>();
+                orderToSave.Author = order.Author;
+                orderToSave.CreatedDate = DateTime.Now;
+                orderToSave.TotalPrice = order.TotalPrice;
+                orderToSave.CustomerId = currentCustomerId;
+                orderToSave.Discount = 0;
+                
+                foreach (var prod in order.Products)
+                {
+                    var line = new OrderLine();
+                    line.ProductId = prod.Id;
+                    var product = await db.Products.FindAsync(prod.Id);
+                    line.ProductName = product.Name;
+                    line.Height = prod.Height;
+                    line.Width = prod.Width;
+                    line.NumberOfItems = 1;
+                    line.UnitDiscount = 0;
+                    line.ItemPrice = prod.ItemPrice;
+                    orderToSave.Products.Add(line);
+                }
+
+                db.Orders.Add(orderToSave);
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                       
+                    throw;
+                }
+               
                 return RedirectToAction("Index");
             }
 
@@ -174,6 +216,14 @@ namespace ProductManager.Web.Controllers
             db.Orders.Remove(order);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult OrderLines(int orderId)
+        {
+           // var ordes = await db.Orders.FindAsync(orderId);
+            IEnumerable<OrderLine> orderLines = db.OrderLines.Where(x=> x.OrderId == orderId).Include("Order").ToList();
+            var viewModels = AutoMapper.Mapper.Map<IEnumerable<OrderLineViewModel>>(orderLines);
+            return View(viewModels);
         }
 
         protected override void Dispose(bool disposing)
