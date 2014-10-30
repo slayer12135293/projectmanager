@@ -1,24 +1,4 @@
 ﻿'use strict';
-angular.module('callService', []).service('promiseService', [
-    '$http', '$q', function ($http, $q) {
-
-        this.callActionPromise = function (url, param) {
-            if (param == undefined) {
-                param = "";
-            }
-            var defer = new $q.defer();
-            $http.get(url + param, { cache: true }).success(function (data, status) {
-                defer.resolve(data);
-            }).error(function (data, status) {
-                defer.reject(data);
-            });
-            return defer.promise;
-        };
-
-    }]);
-
-
-
 
 WorkerApp.controller('OrderController', ['$scope', 'promiseService', function ($scope, promiseService) {
 
@@ -42,10 +22,28 @@ WorkerApp.controller('OrderController', ['$scope', 'promiseService', function ($
         var subCategoryPromise = promiseService.callActionPromise('/Orders/Products?subcategoryId=' + $scope.selectedSubCategory);
         subCategoryPromise.then(function (data) {
             $scope.products = data;
-        }
-        );
+        });
     };
 
+
+
+
+
+    $scope.addFields = function () {
+        if (typeof $scope.orderlines == 'undefined') {
+            $scope.orderlines = [];
+        }
+
+        var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selectedProduct);
+
+        productPromise.then(function(data) {
+            $scope.orderlines.push({ name: data.Name, id: data.Id });
+        });
+
+
+
+        
+    }
 
 }]);
 

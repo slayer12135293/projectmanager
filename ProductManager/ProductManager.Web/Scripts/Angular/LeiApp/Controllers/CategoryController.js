@@ -19,8 +19,42 @@ LeiApp.controller('CategoryController', ['$scope', function ($scope) {
 }]);
 
 
+LeiApp.controller('ProductListController', ['$scope','$filter', 'promiseService', 'ngTableParams', function ($scope, $filter, promiseService, ngTableParams) {
+        var subCategoryId = $('input#subCategoryId').val();
+        var productPromise = promiseService.callActionPromise('/Product/AllProducts?subcategoryId=' + subCategoryId);
+        productPromise.then(function(data) {
+            $scope.allProducts = data;
 
-LeiApp.controller('SubController', ['$scope', function ($scope) {
+            $scope.tableParams = new ngTableParams({
+                page: 1,
+                count: 10,
+                filter: {
+                    Name: ''
+                },
+                sorting: {
+                    Name: 'asc'
+                }
+            }, {
+                total: data.length,
+                getData: function ($defer, params) {
+                    var filteredData = params.filter() ?
+                        $filter('filter')(data, params.filter()) :
+                            data;
+                    var orderedData = params.sorting() ?
+                            $filter('orderBy')(filteredData, params.orderBy()) :
+                            data;
+
+                    params.total(orderedData.length); 
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            });
+
+
+        });
+
+       
+
+
 
 
 }]);

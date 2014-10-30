@@ -60,6 +60,13 @@ namespace ProductManager.Web.Controllers
                 Name = x.Name
             });
             return Json(viewModels.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> GetProductById(int productId)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+            var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
         } 
 
 
@@ -101,12 +108,11 @@ namespace ProductManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Author,CreatedDate,TotalPrice,Discount,Buyer,Name,CustomerId")] Order order)
+        public async Task<ActionResult> Create(CreateOrderViewModel order)
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                await db.SaveChangesAsync();
+                var test = order;
                 return RedirectToAction("Index");
             }
 
