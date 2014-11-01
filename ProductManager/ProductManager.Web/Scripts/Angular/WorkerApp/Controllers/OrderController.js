@@ -26,10 +26,7 @@ WorkerApp.controller('OrderController', ['$scope', 'promiseService', function ($
     };
 
 
-
-
-
-    $scope.addFields = function () {
+    $scope.addFields = function() {
         if (typeof $scope.orderlines == 'undefined') {
             $scope.orderlines = [];
         }
@@ -41,9 +38,7 @@ WorkerApp.controller('OrderController', ['$scope', 'promiseService', function ($
         });
 
 
-
-        
-    }
+    };
 
 }]);
 

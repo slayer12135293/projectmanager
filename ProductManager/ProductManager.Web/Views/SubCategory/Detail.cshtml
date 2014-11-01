@@ -44,12 +44,12 @@
 
     <section class="row">
         <section class="col-md-12">
-            <table ng-table="tableParams" show-filter="false" class="table">
+            <table ng-table="tableParams" data-show-filter="false" class="table">
                 <tr ng-repeat="product in $data">
-                    <td data-title="'Name'" sortable="'Name'" filter="{ 'Name': 'text' }">
+                    <td data-title="'Name'" data-sortable="'Name'" filter="{ 'Name': 'text' }">
                         {{product.Name}}
                     </td>
-                    <td data-title="'ColorName'" sortable="'ColorName'" filter="{ 'ColorName': 'text' }">
+                    <td data-title="'ColorName'" data-sortable="'ColorName'" filter="{ 'ColorName': 'text' }">
                         {{product.ColorName}}
                     </td>
                     <td>
