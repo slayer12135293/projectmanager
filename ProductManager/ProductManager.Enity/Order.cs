@@ -8,6 +8,8 @@ namespace ProductManager.Enity
 {
     public class Order : BaseEntity
     {
+       
+
         [Required]
         [Index]
         [MaxLength(256)]
