@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     
 }
-<h2>@Model.Name </h2>
+<h2>@Model.Name - all products</h2>
 
 @*<div>
     @using (Html.BeginForm())
@@ -40,8 +40,12 @@
 
 <section ng-controller="ProductListController">
     <input type="hidden" id="subCategoryId" value="@Model.Id"/>
-    {{allProducts}}
-
+    <section class="row">
+        <section class="col-md-12">
+            @Html.ActionLink("Add a product", "Create", "Product", new { subCategoryId = Model.Id }, new { @class = "btn btn-primary" })     
+        </section>
+       <hr/>
+    </section>
     <section class="row">
         <section class="col-md-12">
             <table ng-table="tableParams" data-show-filter="false" class="table">
@@ -63,22 +67,10 @@
         </section>
     </section>
 
-
-
-    <ul>
-        
-        @Html.Partial("ProductListView", @Model.Products)
-
-
-
-    </ul>
-    <div>
-        @Html.ActionLink("Add a product", "Create", "Product", new { subCategoryId = Model.Id }, null)
-    </div>
-
-
-
-
-
+    <section class="row">
+        <section class="col-md-12">
+            @Html.ActionLink("Add a product", "Create", "Product", new { subCategoryId = Model.Id }, new { @class = "btn btn-primary" })
+        </section>
+    </section>
 </section>
 

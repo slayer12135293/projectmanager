@@ -86,13 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDb.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201410301812353_init.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201410301812353_init.Designer.cs">
-      <DependentUpon>201410301812353_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContext\CategoryMigrations\201410301930056_orderId.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201410301930056_orderId.Designer.cs">
-      <DependentUpon>201410301930056_orderId.cs</DependentUpon>
+    <Compile Include="DataContext\CategoryMigrations\201411011314190_Init.cs" />
+    <Compile Include="DataContext\CategoryMigrations\201411011314190_Init.Designer.cs">
+      <DependentUpon>201411011314190_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContext\CategoryMigrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,11 +109,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContext\CategoryMigrations\201410301812353_init.resx">
-      <DependentUpon>201410301812353_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContext\CategoryMigrations\201410301930056_orderId.resx">
-      <DependentUpon>201410301930056_orderId.cs</DependentUpon>
+    <EmbeddedResource Include="DataContext\CategoryMigrations\201411011314190_Init.resx">
+      <DependentUpon>201411011314190_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
