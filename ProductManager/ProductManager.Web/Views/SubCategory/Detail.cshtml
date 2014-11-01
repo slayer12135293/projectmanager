@@ -38,7 +38,7 @@
     }
 </div>*@
 
-<section ng-controller="ProductListController">
+<section ng-controller="ProductListController" class="subcategory_detail_page">
     <input type="hidden" id="subCategoryId" value="@Model.Id"/>
     <section class="row">
         <section class="col-md-12">
@@ -71,6 +71,11 @@
         <section class="col-md-12">
             @Html.ActionLink("Add a product", "Create", "Product", new { subCategoryId = Model.Id }, new { @class = "btn btn-primary" })
         </section>
+    </section>
+    
+    
+    <section class="testdiv">
+        asdfasdfasdf
     </section>
 </section>
 
