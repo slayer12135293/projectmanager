@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <nav class="navbar navbar-inverse navbar-fixed-top ">
     <section class="container">
         <section class="navbar-header">
@@ -24,9 +25,13 @@
 
 <div class="container body-content" ng-app="LeiApp">
     @RenderBody()
-    @RenderSection("scripts", required: false)
-    
+
+
+</div>
+@section scripts {
 
     <script src="~/Scripts/Angular/LeiApp/LeiApp.js"></script>
     <script src="~/Scripts/Angular/LeiApp/Controllers/CategoryController.js"></script>
-</div>
+
+    @RenderSection("scripts", required: false)
+}
