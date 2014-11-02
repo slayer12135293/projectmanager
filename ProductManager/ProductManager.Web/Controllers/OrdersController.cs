@@ -36,7 +36,7 @@ namespace ProductManager.Web.Controllers
         {
             var currentUser = await _userManagerService.FindByIdAsync(User.Identity.GetUserId());
             var currentCustomerId = currentUser.CustomerId;
-            var categories = _categoryRepository.GetAll().Where(x => x.CustomerId == currentCustomerId).Select(y => new CategoryDropDownViewModel
+            var categories = _categoryRepository.GetAll().OrderBy(o=>o.Name).Where(x => x.CustomerId == currentCustomerId).Select(y => new CategoryDropDownViewModel
             {
                 Id = y.Id,
                 Name = y.Name
@@ -47,7 +47,7 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> SubCategories(int categoryId)
         {
             var subCategories = await _subCategoryRepository.GetSubCategoriesByCategoryId(categoryId);
-            var viewModels = subCategories.Select(x => new CategoryDropDownViewModel()
+            var viewModels = subCategories.OrderBy(o => o.Name).Select(x => new CategoryDropDownViewModel()
             {
                 Id = x.Id,
                 Name = x.Name
@@ -59,7 +59,7 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> Products(int subCategoryId)
         {
             var products = await _productRepository.GetProductsFromSubCategory(subCategoryId);
-            var viewModels = products.Select(x => new CategoryDropDownViewModel()
+            var viewModels = products.OrderBy(o => o.Name).Select(x => new CategoryDropDownViewModel()
             {
                 Id = x.Id,
                 Name = x.Name
