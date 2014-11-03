@@ -13,5 +13,6 @@ namespace ProductManager.Web.ViewModels
     {
         public int Id { get; set; }
         public string Author { get; set; }
+        public string BuyerName { get; set; }
     }
 }

@@ -7,25 +7,33 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
+<accordion close-others="oneAtATime">
+    <accordion-group heading="Buyer information" is-open="true" is-disabled="status.isFirstDisabled">
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Author)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Author)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BuyerName)
+                </dt>
 
-    </dl>
-</div>
+                <dd>
+                    @Html.DisplayFor(model => model.BuyerName)
+                </dd>
+            </dl>
+        </div>
 
-@Html.ActionLink("Edit", "Edit", new { id = @Model.Id })
-
-@Html.Action("Index", new { OrderId = @Model.Id, controller = "OrderLines" })
-
+        @Html.ActionLink("Edit", "Edit", new { id = @Model.Id })
+    </accordion-group>
+    <accordion-group heading="Order lines">
+        @Html.Action("Index", new { OrderId = @Model.Id, controller = "OrderLines" })
+    </accordion-group>
+</accordion>
 <p>
     |
     @Html.ActionLink("Back to List", "Index")

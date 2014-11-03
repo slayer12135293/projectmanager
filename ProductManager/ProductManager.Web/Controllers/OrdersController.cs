@@ -36,7 +36,7 @@ namespace ProductManager.Web.Controllers
         {
             var currentUser = await _userManagerService.FindByIdAsync(User.Identity.GetUserId());
             var currentCustomerId = currentUser.CustomerId;
-            var categories = _categoryRepository.GetAll().OrderBy(o=>o.Name).Where(x => x.CustomerId == currentCustomerId).Select(y => new CategoryDropDownViewModel
+            var categories = _categoryRepository.GetAll().OrderBy(o => o.Name).Where(x => x.CustomerId == currentCustomerId).Select(y => new CategoryDropDownViewModel
             {
                 Id = y.Id,
                 Name = y.Name
@@ -122,14 +122,14 @@ namespace ProductManager.Web.Controllers
 
                 var orderToSave = new Order();
                 orderToSave.Name = "my order";
-                orderToSave.Buyer = new Buyer() {Address = "",Information="",Mobil = "",Name="my name",Telephone = ""};
+                orderToSave.Buyer = new Buyer() { Address = order.Buyer.Address, Information = order.Buyer.Information, Mobil = order.Buyer.Mobil, Name = order.Buyer.Mobil, Telephone = order.Buyer.Telephone };
                 orderToSave.Products = new Collection<OrderLine>();
                 orderToSave.Author = order.Author;
-                orderToSave.CreatedDate = DateTime.Now;
+                orderToSave.CreatedDate = DateTime.UtcNow;
                 orderToSave.TotalPrice = order.TotalPrice;
                 orderToSave.CustomerId = currentCustomerId;
                 orderToSave.Discount = 0;
-                
+
                 foreach (var prod in order.Products)
                 {
                     var line = new OrderLine();
@@ -151,10 +151,10 @@ namespace ProductManager.Web.Controllers
                 }
                 catch (DbEntityValidationException ex)
                 {
-                       
+
                     throw;
                 }
-               
+
                 return RedirectToAction("Index");
             }
 
@@ -220,8 +220,8 @@ namespace ProductManager.Web.Controllers
 
         public ActionResult OrderLines(int orderId)
         {
-           // var ordes = await db.Orders.FindAsync(orderId);
-            IEnumerable<OrderLine> orderLines = db.OrderLines.Where(x=> x.OrderId == orderId).Include("Order").ToList();
+            // var ordes = await db.Orders.FindAsync(orderId);
+            IEnumerable<OrderLine> orderLines = db.OrderLines.Where(x => x.OrderId == orderId).Include("Order").ToList();
             var viewModels = AutoMapper.Mapper.Map<IEnumerable<OrderLineViewModel>>(orderLines);
             return View(viewModels);
         }
