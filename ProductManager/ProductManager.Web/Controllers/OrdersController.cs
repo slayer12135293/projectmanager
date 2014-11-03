@@ -12,24 +12,32 @@ using Microsoft.AspNet.Identity;
 using ProductManager.DataLayer;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class OrdersController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUserManagerService _userManagerService;
         private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public OrdersController(ICategoryRepository categoryRepository, IUserManagerService userManagerService, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository)
+        public OrdersController(ICategoryRepository categoryRepository, 
+            IUserManagerService userManagerService, 
+            ISubCategoryRepository subCategoryRepository, 
+            IProductRepository productRepository,
+            IOrderRepository orderRepository)
         {
             _categoryRepository = categoryRepository;
             _userManagerService = userManagerService;
             _subCategoryRepository = subCategoryRepository;
             _productRepository = productRepository;
+            _orderRepository = orderRepository;
         }
 
         public async Task<ActionResult> AllCategories()
@@ -79,22 +87,18 @@ namespace ProductManager.Web.Controllers
 
 
 
-        private CategoryDb db = new CategoryDb();
+        //private CategoryDb db = new CategoryDb();
 
         // GET: Orders
         public async Task<ActionResult> Index()
         {
-            return View(await db.Orders.ToListAsync());
+            return View(await _orderRepository.GetAll().ToListAsync());
         }
 
         // GET: Orders/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = await db.Orders.FindAsync(id);
+            Order order = await _orderRepository.GetByIdAsync(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -134,7 +138,7 @@ namespace ProductManager.Web.Controllers
                 {
                     var line = new OrderLine();
                     line.ProductId = prod.Id;
-                    var product = await db.Products.FindAsync(prod.Id);
+                    var product = await _productRepository.GetByIdAsync(prod.Id);
                     line.ProductName = product.Name;
                     line.Height = prod.Height;
                     line.Width = prod.Width;
@@ -144,16 +148,7 @@ namespace ProductManager.Web.Controllers
                     orderToSave.Products.Add(line);
                 }
 
-                db.Orders.Add(orderToSave);
-                try
-                {
-                    await db.SaveChangesAsync();
-                }
-                catch (DbEntityValidationException ex)
-                {
-
-                    throw;
-                }
+                await _orderRepository.Add(orderToSave);
 
                 return RedirectToAction("Index");
             }
@@ -162,13 +157,9 @@ namespace ProductManager.Web.Controllers
         }
 
         // GET: Orders/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = await db.Orders.FindAsync(id);
+            Order order = await _orderRepository.GetByIdAsync(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -179,27 +170,23 @@ namespace ProductManager.Web.Controllers
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Author,CreatedDate,TotalPrice,Discount,Buyer,Name,CustomerId")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(order).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(order);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Edit([Bind(Include = "Id,Author,CreatedDate,TotalPrice,Discount,Buyer,Name,CustomerId")] Order order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(order).State = EntityState.Modified;
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(order);
+        //}
 
         // GET: Orders/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = await db.Orders.FindAsync(id);
+            Order order = await _orderRepository.GetByIdAsync(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -212,27 +199,19 @@ namespace ProductManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Order order = await db.Orders.FindAsync(id);
-            db.Orders.Remove(order);
-            await db.SaveChangesAsync();
+            Order order = await _orderRepository.GetByIdAsync(id);
+            await _orderRepository.RemoveAsync(order);
             return RedirectToAction("Index");
         }
 
-        public ActionResult OrderLines(int orderId)
+        public async Task<ActionResult> OrderLines(int orderId)
         {
             // var ordes = await db.Orders.FindAsync(orderId);
-            IEnumerable<OrderLine> orderLines = db.OrderLines.Where(x => x.OrderId == orderId).Include("Order").ToList();
+            var order = await _orderRepository.GetByIdAsync(orderId);
+            var orderLines = order.Products.OrderBy(x=>x.ProductName).ToList();
             var viewModels = AutoMapper.Mapper.Map<IEnumerable<OrderLineViewModel>>(orderLines);
             return View(viewModels);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

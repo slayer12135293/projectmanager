@@ -79,6 +79,7 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IApplicationRoleManager>().ToMethod(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationRoleManager>());
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>();
             kernel.Bind<ICustomerIdService>().To<CustomerIdService>();
+            kernel.Bind<IOrderRepository>().To<OrderRepository>();
 
         }        
     }
