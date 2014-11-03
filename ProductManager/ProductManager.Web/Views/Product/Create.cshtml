@@ -4,28 +4,32 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<h2>Product</h2>
+<hr />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Product</legend>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.ProductName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ProductName)
-            @Html.ValidationMessageFor(model => model.ProductName)
+            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+            <section class="validation-textbox-message">
+                @Html.ValidationMessageFor(model => model.ProductName)
+            </section>
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.ProductCode)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ProductCode)
-            @Html.ValidationMessageFor(model => model.ProductCode)
+            @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
+            <section class="validation-textbox-message">
+                @Html.ValidationMessageFor(model => model.ProductCode)
+            </section>
         </div>
 
 
@@ -33,48 +37,58 @@
             @Html.LabelFor(model => model.Height)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Height)
-            @Html.ValidationMessageFor(model => model.Height)
+            @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+            <section class="validation-textbox-message">
+                @Html.ValidationMessageFor(model => model.Height)
+            </section>
         </div>
-        
-        
+
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Width)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Width)
-            @Html.ValidationMessageFor(model => model.Width)
+            @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
+            <section class="validation-textbox-message">
+                @Html.ValidationMessageFor(model => model.Width)
+            </section>
         </div>
-        
-        
+
+
         <div class="editor-label">
             @Html.LabelFor(model => model.ColoCode)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ColoCode)
-            @Html.ValidationMessageFor(model => model.ColoCode)
+            @Html.EditorFor(model => model.ColoCode, new { htmlAttributes = new { @class = "form-control" } })
+            <section class="validation-textbox-message">
+                @Html.ValidationMessageFor(model => model.ColoCode)
+            </section>
         </div>
-        
-        
-        
+
+
+
         <div class="editor-label">
             @Html.LabelFor(model => model.ColorName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ColorName)
-            @Html.ValidationMessageFor(model => model.ColorName)
+            @Html.EditorFor(model => model.ColorName, new { htmlAttributes = new { @class = "form-control" } })
+            <section class="validation-textbox-message">
+                @Html.ValidationMessageFor(model => model.ColorName)
+            </section>
         </div>
-        
-        
-        
+
+
+
         <div class="editor-label">
             @Html.LabelFor(model => model.IsNewProduct)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.IsNewProduct)
-            @Html.ValidationMessageFor(model => model.IsNewProduct)
+            <section class="validation-textbox-message">
+                @Html.ValidationMessageFor(model => model.IsNewProduct)
+            </section>
         </div>
-            @Html.HiddenFor(model=> model.SubCategoryId)
+        @Html.HiddenFor(model => model.SubCategoryId)
 
         <p>
             <input type="submit" value="Create" />

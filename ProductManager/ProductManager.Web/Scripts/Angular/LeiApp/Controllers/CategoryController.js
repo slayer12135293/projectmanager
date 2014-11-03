@@ -2,8 +2,7 @@
 
 LeiApp.controller('CategoryController', ['$scope', function ($scope) {
 
-    $scope.test = "From Angular";
-    $scope.AllowButtonText = "Allow Edit";
+    $scope.AllowButtonText = "Allow Delete";
     $scope.showEdit = false;
 
     $scope.AllowEdit = function () {
@@ -49,12 +48,6 @@ LeiApp.controller('ProductListController', ['$scope','$filter', 'promiseService'
                 }
             });
 
-
         });
-
-       
-
-
-
 
 }]);
