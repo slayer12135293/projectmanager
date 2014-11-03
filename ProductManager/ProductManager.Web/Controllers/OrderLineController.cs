@@ -44,9 +44,7 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> Create(CreateOrderLineViewModel createOrderLineViewModel)
         {
             var currentUser = await _userManagerService.FindByIdAsync(User.Identity.GetUserId());
-            var currentCustomerId = currentUser.CustomerId;
-
-            ViewBag.ProductId = new SelectList(_db.Products.Where(x => x.CustomerId == currentCustomerId), "CustomerId", "Name");
+            ViewBag.ProductId = new SelectList(_db.Products.Where(x => x.CustomerId == currentUser.CustomerId), "CustomerId", "Name");
             var product = await _db.Products.FindAsync(createOrderLineViewModel.ProductId);
 
             var newOrderLine = new OrderLine
