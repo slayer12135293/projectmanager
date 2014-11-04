@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Web.Routing;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
@@ -64,6 +63,19 @@ namespace ProductManager.Web.Controllers
         {
             await _subCategoryRepository.Remove(subCategoryId);
             return RedirectToAction("Index", "Category");
+        }
+
+        public async Task<ActionResult> Edit(int subCategoryId)
+        {
+            var currentSubCategory = await _subCategoryRepository.GetByIdAsync(subCategoryId);
+            var viewModel = new UpdateSubCategoryViewModel
+            {
+                SubCategoryId = currentSubCategory.Id,
+                CategoryId = currentSubCategory.CategoryId,
+                Name = currentSubCategory.Name,
+                Description = currentSubCategory.Description
+            };
+            return View(viewModel);
         } 
 
 

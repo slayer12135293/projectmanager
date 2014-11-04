@@ -238,6 +238,7 @@
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\UpdateCategoryViewMode.cs" />
+    <Compile Include="ViewModels\UpdateSubCategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
