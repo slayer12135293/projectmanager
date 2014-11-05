@@ -62,7 +62,9 @@
                     {
                         <accordion-group heading="@subCategory.Name">
                             <section>@Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subCategory.Id }, new { @class = "btn btn-info" }) </section>
-                            <section ng-show=showEdit> @Html.ActionLink(" delete me", "Delete", "SubCategory", new { subCategoryId = subCategory.Id }, new { @class = "btn btn-danger" }) </section>
+                            <section>@Html.ActionLink("Edit ", "Edit", "SubCategory", new { subCategoryId = subCategory.Id }, new { @class = "btn btn-info" }) </section>
+                           
+                             <section ng-show=showEdit> @Html.ActionLink(" delete me", "Delete", "SubCategory", new { subCategoryId = subCategory.Id }, new { @class = "btn btn-danger" }) </section>
 
                             @if (subCategory.Products.Any())
                             {

@@ -42,8 +42,6 @@ namespace ProductManager.Web.Controllers
             return View(await _productSubCategoryViewModelFactory.CreateViewModel(subCategoryId));
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateSubCategoryViewModel viewModel)
@@ -76,6 +74,20 @@ namespace ProductManager.Web.Controllers
                 Description = currentSubCategory.Description
             };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(UpdateSubCategoryViewModel subCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentSubCategory = await _subCategoryRepository.GetByIdAsync(subCategory.SubCategoryId);
+                currentSubCategory.Name = subCategory.Name;
+                currentSubCategory.Description = subCategory.Description;
+                await _subCategoryRepository.Update(currentSubCategory);
+                return RedirectToAction("Details", "Category", new {Id = subCategory.CategoryId});
+            }
+            return View(subCategory);
         } 
 
 
