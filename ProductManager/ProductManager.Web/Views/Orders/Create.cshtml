@@ -71,15 +71,17 @@
 
                     <section class="row" style="margin-top:10px;">
                         <section class="col-md-12">
-                            <table>
+                            <table class="table">
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
+                                    <th>Width</th>
+                                    <th>Height</th>
+                                    <th></th>
                                 </tr>
                                 <tr ng-repeat="(i, orderline) in selection.orderlines">
-                                    <td>{{orderline.id}}</td>
+                                    <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
                                     <td>{{orderline.name}}</td>
-                                    <td><input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
                                     <td><input type="text" name="Products[{{$index}}].width" ng-model="orderline.width" /></td>
                                     <td><input type="text" name="Products[{{$index}}].height" ng-model="orderline.height" /></td>
                                     <td><button type="button" ng-click="selection.orderlines.splice(i, 1);">Remove</button></td>
