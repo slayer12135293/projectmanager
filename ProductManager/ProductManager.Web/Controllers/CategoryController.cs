@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Web.Management;
 using Microsoft.AspNet.Identity;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
@@ -44,10 +45,40 @@ namespace ProductManager.Web.Controllers
             return View();
         }
 
+
+        public async Task<ActionResult> Edit(int id)
+        {
+            var currentCateogry = await _categoryRepository.GetByIdAsync(id);
+
+            var viewModel = new UpdateCategoryViewMode
+            {
+                CategoryId = id,
+                Name = currentCateogry.Name,
+                Description = currentCateogry.Description
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(UpdateCategoryViewMode category)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentCategory = await _categoryRepository.GetByIdAsync(category.CategoryId);
+                currentCategory.Name = category.Name;
+                currentCategory.Description = category.Description;
+                await _categoryRepository.Update(currentCategory);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Edit", "Category", new{Id = category.CategoryId});
+
+        } 
+
+
+
+
         public async Task<ActionResult> Details(int id)
         {
-
-
             ViewBag.CategoryId = id;
             return View(await _productCategoryDetailViewModelFactory.CreateViewModel(id));
         }

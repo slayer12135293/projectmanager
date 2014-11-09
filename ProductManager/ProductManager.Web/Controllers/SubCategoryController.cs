@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Web.Routing;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
@@ -43,8 +42,6 @@ namespace ProductManager.Web.Controllers
             return View(await _productSubCategoryViewModelFactory.CreateViewModel(subCategoryId));
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateSubCategoryViewModel viewModel)
@@ -64,6 +61,33 @@ namespace ProductManager.Web.Controllers
         {
             await _subCategoryRepository.Remove(subCategoryId);
             return RedirectToAction("Index", "Category");
+        }
+
+        public async Task<ActionResult> Edit(int subCategoryId)
+        {
+            var currentSubCategory = await _subCategoryRepository.GetByIdAsync(subCategoryId);
+            var viewModel = new UpdateSubCategoryViewModel
+            {
+                SubCategoryId = currentSubCategory.Id,
+                CategoryId = currentSubCategory.CategoryId,
+                Name = currentSubCategory.Name,
+                Description = currentSubCategory.Description
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(UpdateSubCategoryViewModel subCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentSubCategory = await _subCategoryRepository.GetByIdAsync(subCategory.SubCategoryId);
+                currentSubCategory.Name = subCategory.Name;
+                currentSubCategory.Description = subCategory.Description;
+                await _subCategoryRepository.Update(currentSubCategory);
+                return RedirectToAction("Details", "Category", new {Id = subCategory.CategoryId});
+            }
+            return View(subCategory);
         } 
 
 
