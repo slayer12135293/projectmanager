@@ -1,4 +1,6 @@
-﻿namespace ProductManager.Enity
+﻿using System.Collections.Generic;
+
+namespace ProductManager.Enity
 {
     public class OrderLine 
     {
@@ -12,5 +14,12 @@
         public virtual int NumberOfItems { get; set; }
         public virtual int ProductId { get; set; }
         public virtual decimal UnitDiscount { get; set; }
+        public virtual ICollection<OrderLineAddOn> OrderLineAddOns { get; set; } 
+    }
+
+    public class OrderLineAddOn: BaseEntity
+    {
+        public int OrderLineId { get; set; }
+        public virtual OrderLine OrderLine { get; set; }
     }
 }

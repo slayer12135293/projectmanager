@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ProductManager.Enity;
+using ProductManager.Web.Controllers;
 using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web
@@ -12,6 +13,7 @@ namespace ProductManager.Web
             Mapper.CreateMap<Product, ProductViewModel>();
             Mapper.CreateMap<Order, OrderDetailsViewModel>();
             Mapper.CreateMap<OrderLine, OrderLineViewModel>();
+            Mapper.CreateMap<AddOn, AddOnViewModel>();
 
         }
 

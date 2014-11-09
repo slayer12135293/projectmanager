@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace ProductManager.Web.ViewModels
 {
@@ -20,5 +19,6 @@ namespace ProductManager.Web.ViewModels
         public bool IsNewProduct { get; set; }
         public string ColorName { get; set; }
         public string ColoCode { get; set; }
+        public int ProductType { get; set; }
     }
 }

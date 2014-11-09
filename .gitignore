@@ -75,3 +75,5 @@ obj
 
 App_Data
 *.suo
+/ProductManager/ProductManager.DataLayer/DataContext/CategoryMigrations/*.cs
+/ProductManager/ProductManager.DataLayer/DataContext/CategoryMigrations/*.resx

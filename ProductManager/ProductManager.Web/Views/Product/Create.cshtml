@@ -76,6 +76,22 @@
                 @Html.ValidationMessageFor(model => model.ColorName)
             </section>
         </div>
+        
+        
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductType)
+        </div>
+        <div class="editor-field">
+            <select class="validation-textbox-message" name="ProductType">
+               <option value="1"> type1</option>
+               <option value="2"> type2</option>
+               <option value="3"> type2</option>
+            </select>
+        </div>
+        
+        
+
 
 
 

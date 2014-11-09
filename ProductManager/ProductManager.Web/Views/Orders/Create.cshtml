@@ -56,7 +56,7 @@
                                 <option value="">-- Select a Sub category --</option>
                             </select>
 
-                            <select ng-model="selection.selectedProduct" data-ng-options="c.Id as c.Name for c in selection.products">
+                            <select ng-model="selection.selectedProduct" data-ng-options="c.Id as c.Name for c in selection.products" ng-change="SelectAProduct()"  >
                                 <option value="">-- Select a Product --</option>
                             </select>
                         </section>
@@ -77,6 +77,12 @@
                                 <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" />
                                 <input type="text" name="Products[{{$index}}].width" ng-model="orderline.width" />
                                 <input type="text" name="Products[{{$index}}].height" ng-model="orderline.height" />
+                                
+                                <section data-ng-repeat="(i, addon) in orderline.productAddOns">
+                                    <input type="checkbox" name="{{addon.Name}}" value="{{addon.Price}}" />
+
+                                </section>
+
                                 <button type="button" ng-click="selection.orderlines.splice(i, 1);">Remove</button>
                             </div>
                         </section>

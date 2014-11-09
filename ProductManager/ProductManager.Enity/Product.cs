@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -20,8 +21,12 @@ namespace ProductManager.Enity
         public string ColoCode { get; set; }
         public int SubCategoryId { get; set; }
         public virtual SubCategory SubCategory { get; set; }
-
+        public virtual ProductType ProductType { get; set; }
+        public int ProductTypeId { get; set; }
 
     }
-    
+
+
+
+
 }
