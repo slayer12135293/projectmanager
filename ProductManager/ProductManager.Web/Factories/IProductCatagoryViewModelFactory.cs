@@ -34,6 +34,4 @@ namespace ProductManager.Web.Factories
             return viewModel;
         }
     }
-
-
 }

@@ -81,6 +81,9 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<ICustomerIdService>().To<CustomerIdService>();
             kernel.Bind<IOrderRepository>().To<OrderRepository>();
             kernel.Bind<IAddOnRepository>().To<AddOnRepository>();
+            kernel.Bind<IProductTypeRepository>().To<ProductTypeRepository>();
+            kernel.Bind<IProductCreateViewModelFactory>().To<ProductCreateViewModelFactory>();
+            kernel.Bind<IUpdateViewModelProductFacotry>().To<UpdateViewModelProductFacotry>();
 
         }        
     }

@@ -196,6 +196,8 @@
   <ItemGroup>
     <Compile Include="App_Start\MappingInitalizer.cs" />
     <Compile Include="Controllers\AddOnsController.cs" />
+    <Compile Include="Factories\IProductCreateViewModelFactory.cs" />
+    <Compile Include="Factories\IUpdateViewModelProductFacotry.cs" />
     <Compile Include="ViewModels\AddOnViewModel.cs" />
     <Compile Include="Controllers\OrderLineController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
