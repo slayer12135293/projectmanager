@@ -48,7 +48,7 @@ namespace ProductManager.Web.Factories
             var productTypeViewModels = GetProductTypeViewModels();
 
             var viewModel = AutoMapper.Mapper.Map<CreateProductViewModel>(currentProduct);
-            viewModel.ProductType = currentProduct.ProductType.Id;
+            viewModel.ProductTypeId = currentProduct.ProductType.Id;
             viewModel.ProductTypeViewModels = productTypeViewModels;
             
             return viewModel;

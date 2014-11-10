@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.ViewModels;
@@ -14,7 +15,7 @@ namespace ProductManager.Web.Factories
     {
         private readonly IProductRepository _productRepository;
 
-        public UpdateViewModelProductFacotry(ProductRepository productRepository)
+        public UpdateViewModelProductFacotry(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
@@ -23,17 +24,9 @@ namespace ProductManager.Web.Factories
         {
           
             var product = await _productRepository.GetByIdAsync(createProductViewModel.ProductId);
-            product.ImageUrl = createProductViewModel.ImageUrl;
-            product.IsNewProduct = createProductViewModel.IsNewProduct;
-            product.Name = createProductViewModel.Name;
-            product.UnitPrice = createProductViewModel.UnitPrice;
-            product.Width = createProductViewModel.Width;
-            product.Height = createProductViewModel.Height;
-            product.ColoCode = createProductViewModel.ColoCode;
-            product.ColorName = createProductViewModel.ColorName;
-            product.ProductTypeId = createProductViewModel.ProductType;
 
-            await _productRepository.Update(product);
+            Mapper.Map(createProductViewModel, product);
+
             return product;
         }
     }

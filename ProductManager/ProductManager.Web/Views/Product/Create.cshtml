@@ -80,10 +80,10 @@
         
         
         <div class="editor-label">
-            @Html.LabelFor(model => model.ProductType)
+            @Html.LabelFor(model => model.ProductTypeId)
         </div>
         <div class="editor-field">
-            <select class="validation-textbox-message" name="ProductType">
+            <select class="validation-textbox-message" name="ProductTypeId">
                @foreach (var type in Model.ProductTypeViewModels)
                {
                    <option value="@type.Id" > @type.Name</option>

@@ -13,7 +13,7 @@ namespace ProductManager.Web
             Mapper.CreateMap<Order, OrderDetailsViewModel>();
             Mapper.CreateMap<OrderLine, OrderLineViewModel>();
             Mapper.CreateMap<AddOn, AddOnViewModel>();
-            Mapper.CreateMap<Product, CreateProductViewModel>().ForMember(x=>x.ProductType, opt=> opt.Ignore());
+            Mapper.CreateMap<Product, CreateProductViewModel>().ForMember(x=>x.ProductTypeId, opt=> opt.Ignore());
             Mapper.CreateMap<CreateProductViewModel, Product>().ForMember(x=>x.ProductType, opt=> opt.Ignore());
 
         }
