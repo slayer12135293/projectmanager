@@ -87,9 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDb.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201411091623193_Init.cs" />
-    <Compile Include="DataContext\CategoryMigrations\201411091623193_Init.Designer.cs">
-      <DependentUpon>201411091623193_Init.cs</DependentUpon>
+    <Compile Include="DataContext\CategoryMigrations\201411101034177_InitCreate.cs" />
+    <Compile Include="DataContext\CategoryMigrations\201411101034177_InitCreate.Designer.cs">
+      <DependentUpon>201411101034177_InitCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContext\CategoryMigrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Repositories\ICategoryRepository.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
+    <Compile Include="Repositories\IProductTypeRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ISubCategoryRepository.cs" />
   </ItemGroup>
@@ -112,8 +113,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContext\CategoryMigrations\201411091623193_Init.resx">
-      <DependentUpon>201411091623193_Init.cs</DependentUpon>
+    <EmbeddedResource Include="DataContext\CategoryMigrations\201411101034177_InitCreate.resx">
+      <DependentUpon>201411101034177_InitCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

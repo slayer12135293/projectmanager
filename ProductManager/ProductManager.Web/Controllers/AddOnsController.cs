@@ -9,10 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using ProductManager.DataLayer;
 using ProductManager.Enity;
+using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class AddOnsController : Controller
     {
         private readonly ICustomerIdService _customerIdService;

@@ -5,10 +5,12 @@ using System.Net;
 using System.Web.Mvc;
 using ProductManager.DataLayer;
 using ProductManager.Enity;
+using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class ProductTypesController : Controller
     {
         private readonly ICustomerIdService _customerIdService;

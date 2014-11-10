@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Factories;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 
@@ -14,11 +15,15 @@ namespace ProductManager.Web.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ICustomerIdService _customerIdService;
+        private readonly IProductCreateViewModelFactory _productCreateViewModelFactory;
+        private readonly IUpdateViewModelProductFacotry _updateViewModelProductFacotry;
 
-        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService)
+        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService, IProductCreateViewModelFactory productCreateViewModelFactory, IUpdateViewModelProductFacotry updateViewModelProductFacotry)
         {
             _productRepository = productRepository;
             _customerIdService = customerIdService;
+            _productCreateViewModelFactory = productCreateViewModelFactory;
+            _updateViewModelProductFacotry = updateViewModelProductFacotry;
         }
 
         // GET: Product
@@ -30,23 +35,23 @@ namespace ProductManager.Web.Controllers
 
         public ActionResult Create(int subCategoryId)
         {
-            var model = new CreateProductViewModel { SubCategoryId = subCategoryId };
+            var model = _productCreateViewModelFactory.CreateViewModel(subCategoryId);
             return View(model);
         }
 
 
         public async Task<ActionResult> Edit(int productId)
         {
-            var model = await _productRepository.GetByIdAsync(productId);
-            return View(model);
+            var viewModel = await _productCreateViewModelFactory.EditViewModel(productId);
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(Product updatedProduct)
+        public async Task<ActionResult> Edit(CreateProductViewModel updatedProduct)
         {
-            await _productRepository.Update(updatedProduct);
-            var subCategoryId = updatedProduct.SubCategoryId;
-            return RedirectToAction("Detail", "SubCategory", new { subCategoryId });
+            var product = await _updateViewModelProductFacotry.CreateProduct(updatedProduct);
+            await _productRepository.Update(product);
+            return RedirectToAction("Detail", "SubCategory", new { updatedProduct.SubCategoryId });
         }
 
         public async Task<ActionResult> Delete(int subCategoryId, int productId)
@@ -69,7 +74,7 @@ namespace ProductManager.Web.Controllers
                     Height = createProductViewModel.Height,
                     Width = createProductViewModel.Width,
                     ProductCode = createProductViewModel.ProductCode,
-                    Name = createProductViewModel.ProductName,
+                    Name = createProductViewModel.Name,
                     ImageUrl = createProductViewModel.ImageUrl,
                     CustomerId = await _customerIdService.GetCustomerId(),
                     ProductTypeId = createProductViewModel.ProductType
