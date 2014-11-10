@@ -71,7 +71,8 @@ namespace ProductManager.Web.Controllers
                     ProductCode = createProductViewModel.ProductCode,
                     Name = createProductViewModel.ProductName,
                     ImageUrl = createProductViewModel.ImageUrl,
-                    CustomerId = await _customerIdService.GetCustomerId()
+                    CustomerId = await _customerIdService.GetCustomerId(),
+                    ProductTypeId = createProductViewModel.ProductType
                 };
 
 

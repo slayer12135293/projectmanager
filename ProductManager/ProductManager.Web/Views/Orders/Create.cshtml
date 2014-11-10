@@ -47,53 +47,51 @@
                     </accordion-heading>
 
                     <section class="row">
-                        <section class="col-md-12 form-group">
-                            <select ng-model="selection.selectedCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.categories" ng-change="UpdateSubCatagories()">
+                        <section class="col-md-12">
+                            <select ng-model="selection.selectedCategory" data-ng-options="c.Id as c.Name for c in selection.categories" ng-change="UpdateSubCatagories()">
                                 <option value="">-- Select a Category --</option>
                             </select>
 
-                            <select ng-model="selection.selectedSubCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.subcategories" ng-change="UpdateProducts()">
+                            <select ng-model="selection.selectedSubCategory" data-ng-options="c.Id as c.Name for c in selection.subcategories" ng-change="UpdateProducts()">
                                 <option value="">-- Select a Sub category --</option>
                             </select>
 
-                            <select ng-model="selection.selectedProduct" class="form-control" data-ng-options="c.Id as c.Name for c in selection.products">
+                            <select ng-model="selection.selectedProduct" data-ng-options="c.Id as c.Name for c in selection.products" ng-change="SelectAProduct()"  >
                                 <option value="">-- Select a Product --</option>
                             </select>
                         </section>
 
                     </section>
 
-                    <section class="row" style="margin-top:10px;">
+                    <section class="row">
                         <section class="col-md-12">
                             <a class="btn btn-primary" ng-click="addFields(orderline)" ng-disabled="!selection.selectedProduct"> add a product</a>
                         </section>
                     </section>
 
-                    <section class="row" style="margin-top:10px;">
+                    <section class="row">
                         <section class="col-md-12">
-                            <table class="table">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Width</th>
-                                    <th>Height</th>
-                                    <th></th>
-                                </tr>
-                                <tr ng-repeat="(i, orderline) in selection.orderlines">
-                                    <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
-                                    <td>{{orderline.name}}</td>
-                                    <td><input type="text" name="Products[{{$index}}].width" ng-model="orderline.width" /></td>
-                                    <td><input type="text" name="Products[{{$index}}].height" ng-model="orderline.height" /></td>
-                                    <td><button type="button" ng-click="selection.orderlines.splice(i, 1);">Remove</button></td>
-                                </tr>
-                            </table>
+                            <div ng-repeat="(i, orderline) in selection.orderlines">
+                                <span>{{orderline.id}}</span>
+                                <span>{{orderline.name}}</span>
+                                <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" />
+                                <input type="text" name="Products[{{$index}}].width" ng-model="orderline.width" />
+                                <input type="text" name="Products[{{$index}}].height" ng-model="orderline.height" />
+                                
+                                <section data-ng-repeat="(i, addon) in orderline.productAddOns">
+                                    <input type="checkbox" name="{{addon.Name}}" value="{{addon.Price}}" />
+
+                                </section>
+
+                                <button type="button" ng-click="selection.orderlines.splice(i, 1);">Remove</button>
+                            </div>
                         </section>
                     </section>
                 </accordion-group>
             </accordion>
 
             <div class="form-group">
-                <div class="col-md-10">
+                <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Create" class="btn btn-default" />
                 </div>
             </div>

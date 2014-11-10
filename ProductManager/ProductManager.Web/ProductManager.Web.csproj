@@ -195,8 +195,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\MappingInitalizer.cs" />
+    <Compile Include="Controllers\AddOnsController.cs" />
+    <Compile Include="ViewModels\AddOnViewModel.cs" />
     <Compile Include="Controllers\OrderLineController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductTypesController.cs" />
     <Compile Include="Controllers\UnAuthorizedController.cs" />
     <Compile Include="Filters\AdministratorFilterAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -347,8 +350,17 @@
     <Content Include="Views\Shared\_WorkerLayout.cshtml" />
     <Content Include="Views\OrderLines\Index.cshtml" />
     <Content Include="Views\OrderLines\Create.cshtml" />
-    <Content Include="Views\Category\Edit.cshtml" />
-    <Content Include="Views\SubCategory\Edit.cshtml" />
+    <Content Include="Views\ProductTypes\Create.cshtml" />
+    <Content Include="Views\ProductTypes\Delete.cshtml" />
+    <Content Include="Views\ProductTypes\Details.cshtml" />
+    <Content Include="Views\ProductTypes\Edit.cshtml" />
+    <Content Include="Views\ProductTypes\Index.cshtml" />
+    <Content Include="Views\ProductTypes\AddAddOns.cshtml" />
+    <Content Include="Views\AddOns\Create.cshtml" />
+    <Content Include="Views\AddOns\Delete.cshtml" />
+    <Content Include="Views\AddOns\Details.cshtml" />
+    <Content Include="Views\AddOns\Edit.cshtml" />
+    <Content Include="Views\AddOns\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

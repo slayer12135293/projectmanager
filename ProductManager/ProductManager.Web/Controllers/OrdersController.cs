@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using ProductManager.DataLayer;
 using ProductManager.DataLayer.Repositories;
@@ -26,18 +27,22 @@ namespace ProductManager.Web.Controllers
         private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IAddOnRepository _addOnRepository;
 
         public OrdersController(ICategoryRepository categoryRepository, 
             IUserManagerService userManagerService, 
             ISubCategoryRepository subCategoryRepository, 
             IProductRepository productRepository,
-            IOrderRepository orderRepository)
+            IOrderRepository orderRepository,
+            IAddOnRepository addOnRepository
+            )
         {
             _categoryRepository = categoryRepository;
             _userManagerService = userManagerService;
             _subCategoryRepository = subCategoryRepository;
             _productRepository = productRepository;
             _orderRepository = orderRepository;
+            _addOnRepository = addOnRepository;
         }
 
         public async Task<ActionResult> AllCategories()
@@ -81,6 +86,22 @@ namespace ProductManager.Web.Controllers
             var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
+
+
+
+        public async Task<ActionResult> GetAddOnsByProductType(int productId)
+        {
+            var selectedProduct = await _productRepository.GetByIdAsync(productId);
+
+            var result = await _addOnRepository.GetAddOnsByProductType(selectedProduct.ProductTypeId);
+            var viewModel = AutoMapper.Mapper.Map<IEnumerable<AddOnViewModel>>(result);
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
+        } 
+
+ 
+
+
+
 
 
 

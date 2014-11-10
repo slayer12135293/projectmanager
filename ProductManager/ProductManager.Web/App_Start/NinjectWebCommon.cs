@@ -80,6 +80,7 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>();
             kernel.Bind<ICustomerIdService>().To<CustomerIdService>();
             kernel.Bind<IOrderRepository>().To<OrderRepository>();
+            kernel.Bind<IAddOnRepository>().To<AddOnRepository>();
 
         }        
     }

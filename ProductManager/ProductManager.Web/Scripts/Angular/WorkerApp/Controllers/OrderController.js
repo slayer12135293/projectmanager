@@ -39,6 +39,22 @@ WorkerApp.controller('OrderController', ['$scope', 'promiseService', function ($
 
 
 
+    $scope.SelectAProduct = function () {
+        if ($scope.selection.selectedProduct != null) {
+            //var addOnsPromise = promiseService.callActionPromise('/Orders/GetAddOnsByProductType?productId=' + $scope.selection.selectedProduct);
+            //addOnsPromise.then(function (data) {
+            //    $scope.selection.product.productAddOns = data;
+            //});
+        }
+        
+    };
+
+
+
+
+
+
+
     $scope.addFields = function () {
         if (typeof $scope.selection.orderlines == 'undefined') {
             $scope.selection.orderlines = [];
@@ -47,7 +63,14 @@ WorkerApp.controller('OrderController', ['$scope', 'promiseService', function ($
         var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct);
 
         productPromise.then(function (data) {
-            $scope.selection.orderlines.push({ name: data.Name, id: data.Id });
+            var orderline = { name: data.Name, id: data.Id };
+            var addOnsPromise = promiseService.callActionPromise('/Orders/GetAddOnsByProductType?productId=' + $scope.selection.selectedProduct);
+            $scope.selection.orderlines.push(orderline);
+            addOnsPromise.then(function (data) {
+                orderline.productAddOns = data;
+                $scope.selection.product.productAddOns = data;
+            });
+
         });
     };
 
