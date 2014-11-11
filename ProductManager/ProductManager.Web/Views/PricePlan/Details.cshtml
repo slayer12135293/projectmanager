@@ -75,39 +75,46 @@
 
 <section class="row">
     <section class="col-md-12">
-        <table>
+        <table class="table">
             @{
-                var distinctWiths = Model.PriceUnitViewModels.OrderBy(y => y.Width).Select(x => x.Width).Distinct();
-                var distinctHeight = Model.PriceUnitViewModels.OrderBy(y => y.Height).Select(x => x.Height).Distinct();
+                var distinctWiths = Model.PriceUnitViewModels.OrderBy(y => y.Width).Select(x => x.Width).Distinct().ToList();
+                var distinctHeight = Model.PriceUnitViewModels.OrderBy(y => y.Height).Select(x => x.Height).Distinct().ToList();
             }
 
             <tr>
-                <th> column: Width <br/> row: height</th>
-                @foreach (var with in distinctWiths)
+                <th></th>
+                @foreach (var headerWith in distinctWiths)
                 {
-                    <th>@with</th>
+                    <th>@headerWith</th>
                 }
             </tr>
+
             @foreach (var height in distinctHeight)
             {
                 <tr>
                     <td>@height</td>
-                    @foreach (var priceUnit in Model.PriceUnitViewModels)
-                    {
-                        if (priceUnit.Height == height)
-                        {
-                            <td> @priceUnit.Price </td>
-                        }
-                        else
-                        {
-                            <td></td>
-                        } 
-                        
 
+                    @foreach (int itemWidth in distinctWiths)
+                    {
+                        <td>
+                            @foreach (var priceUnit in Model.PriceUnitViewModels)
+                            {
+
+                                if (priceUnit.Height == height && priceUnit.Width == itemWidth)
+                                {
+                                    <span>@priceUnit.Price </span>
+                                }
+                            }
+
+                        </td>
                     }
 
                 </tr>
             }
+
+
+
+
         </table>
 
 
@@ -117,7 +124,7 @@
                 <li>Width:@item.Width  ------ height:@item.Height  ------- Price: @item.Price   </li>
             }
         </ul>
-        
+
 
     </section>
 </section>
