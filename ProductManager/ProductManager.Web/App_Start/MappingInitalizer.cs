@@ -15,6 +15,7 @@ namespace ProductManager.Web
             Mapper.CreateMap<AddOn, AddOnViewModel>();
             Mapper.CreateMap<Product, CreateProductViewModel>().ForMember(x=>x.ProductTypeId, opt=> opt.Ignore());
             Mapper.CreateMap<CreateProductViewModel, Product>().ForMember(x=>x.ProductType, opt=> opt.Ignore());
+            Mapper.CreateMap<CreatePricePlanViewModel, PricePlan>().ForMember(x => x.PriceUnits, opt => opt.Ignore());
 
         }
 

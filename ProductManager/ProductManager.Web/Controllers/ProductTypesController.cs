@@ -15,9 +15,9 @@ namespace ProductManager.Web.Controllers
     {
         private readonly ICustomerIdService _customerIdService;
 
-        public ProductTypesController(ICustomerIdService _customerIdService)
+        public ProductTypesController(ICustomerIdService customerIdService)
         {
-            this._customerIdService = _customerIdService;
+            _customerIdService = customerIdService;
         }
 
         private CategoryDb db = new CategoryDb();
@@ -25,7 +25,8 @@ namespace ProductManager.Web.Controllers
         // GET: ProductTypes
         public async Task<ActionResult> Index()
         {
-            return View(await db.ProductTypes.ToListAsync());
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+            return View(await db.ProductTypes.Where(x => x.CustomerId == currentCustomerId).ToListAsync());
         }
 
         // GET: ProductTypes/Details/5

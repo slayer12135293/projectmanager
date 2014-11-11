@@ -196,6 +196,7 @@
   <ItemGroup>
     <Compile Include="App_Start\MappingInitalizer.cs" />
     <Compile Include="Controllers\AddOnsController.cs" />
+    <Compile Include="Controllers\PricePlanController.cs" />
     <Compile Include="Factories\IProductCreateViewModelFactory.cs" />
     <Compile Include="Factories\IUpdateViewModelProductFacotry.cs" />
     <Compile Include="ViewModels\AddOnViewModel.cs" />
@@ -236,8 +237,10 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateOrderLineViewModel.cs" />
     <Compile Include="ViewModels\CreateOrderViewModel.cs" />
+    <Compile Include="ViewModels\CreatePricePlanViewModel.cs" />
     <Compile Include="ViewModels\CreateProductViewModel.cs" />
     <Compile Include="ViewModels\CreateSubCategoryViewModel.cs" />
+    <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderLineViewModel.cs" />
     <Compile Include="ViewModels\ProductSubCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
@@ -363,6 +366,11 @@
     <Content Include="Views\AddOns\Details.cshtml" />
     <Content Include="Views\AddOns\Edit.cshtml" />
     <Content Include="Views\AddOns\Index.cshtml" />
+    <Content Include="Views\PricePlan\Create.cshtml" />
+    <Content Include="Views\PricePlan\Delete.cshtml" />
+    <Content Include="Views\PricePlan\Details.cshtml" />
+    <Content Include="Views\PricePlan\Edit.cshtml" />
+    <Content Include="Views\PricePlan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
