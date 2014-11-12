@@ -22,6 +22,7 @@ namespace ProductManager.DataLayer
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<AddOn> AddOns { get; set; }
         public DbSet<PricePlan> PricePlans { get; set; }
+        public DbSet<PriceUnit> PriceUnits { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

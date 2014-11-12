@@ -7,13 +7,13 @@ using AutoMapper;
 using ProductManager.DataLayer;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
-using PricePlanDetailsViewModel = ProductManager.Web.ViewModels.PricePlanDetailsViewModel;
-using PriceUnitViewModel = ProductManager.Web.ViewModels.PriceUnitViewModel;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class PricePlanController : Controller
     {
         private readonly ICustomerIdService _customerIdService;
@@ -52,9 +52,11 @@ namespace ProductManager.Web.Controllers
                 PricePlan = currentPricePlan,
                 PriceUnitViewModels = currentPricePlan.PriceUnits.Select(x => new PriceUnitViewModel
                 {
+                    PricePlanId = (int) id,
+                    Id = x.Id,
                     Height = x.Height,
                     Width = x.Width,
-                    Price = x.Price
+                    Price = x.Price,
                 })
             };
             return View(viewModel);
@@ -63,8 +65,12 @@ namespace ProductManager.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Details(PricePlanDetailsViewModel pricePlanDetailsViewModel)
         {
+            var currentUserId = await _customerIdService.GetCustomerId();
+
             var priceUnit = new PriceUnit
             {
+                Name = pricePlanDetailsViewModel.PricePlan.Name,
+                CustomerId = currentUserId,
                 Height = pricePlanDetailsViewModel.PriceUnitViewModel.Height,
                 Width = pricePlanDetailsViewModel.PriceUnitViewModel.Width,
                 Price = pricePlanDetailsViewModel.PriceUnitViewModel.Price

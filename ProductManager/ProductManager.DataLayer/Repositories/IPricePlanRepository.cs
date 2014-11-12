@@ -14,5 +14,4 @@ namespace ProductManager.DataLayer.Repositories
         }
 
     }
-
 }

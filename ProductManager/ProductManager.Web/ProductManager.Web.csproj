@@ -197,6 +197,7 @@
     <Compile Include="App_Start\MappingInitalizer.cs" />
     <Compile Include="Controllers\AddOnsController.cs" />
     <Compile Include="Controllers\PricePlanController.cs" />
+    <Compile Include="Controllers\PriceUnitController.cs" />
     <Compile Include="Factories\IProductCreateViewModelFactory.cs" />
     <Compile Include="Factories\IUpdateViewModelProductFacotry.cs" />
     <Compile Include="ViewModels\AddOnViewModel.cs" />
@@ -374,6 +375,8 @@
     <Content Include="Views\PricePlan\Details.cshtml" />
     <Content Include="Views\PricePlan\Edit.cshtml" />
     <Content Include="Views\PricePlan\Index.cshtml" />
+    <Content Include="Views\Shared\Partials\PriceUnitsTableView.cshtml" />
+    <Content Include="Views\PriceUnit\EditPriceUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

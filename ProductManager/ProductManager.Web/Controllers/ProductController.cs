@@ -4,15 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
-using Microsoft.Ajax.Utilities;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
+using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -38,7 +39,6 @@ namespace ProductManager.Web.Controllers
                     .OrderBy(x => x.Name)
                     .Where(y => y.Id == productTypeId)
                     .Select(o => new PricePlanDropDownViewModel {Id = o.Id, Name = o.Name}).ToListAsync();
-           // var pricePlanViewModes = pricePlans.Select(x => new PricePlanDropDownViewModel {Id = x.Id, Name = x.Name});
             return Json(pricePlansViewModels, JsonRequestBehavior.AllowGet);
         }
 

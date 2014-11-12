@@ -1,6 +1,4 @@
-﻿@model ProductManager.Enity.PricePlanDetailsViewModel
-@using System.Linq
-@using System.Security.Principal
+﻿@model ProductManager.Web.ViewModels.PricePlanDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,30 +9,21 @@
 <hr />
 <section class="row">
     <section class="col-md-12">
-        <dl class="dl-horizontal">
-
-            <dt>
-                @Html.DisplayNameFor(model => model.PricePlan.Name)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.PricePlan.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.PricePlan.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.PricePlan.Description)
-            </dd>
-        </dl>
+        <table>
+            <tr>
+                <td class="col-md-3"><b>@Html.DisplayNameFor(model => model.PricePlan.Name)</b> </td> 
+                <td class="col-md-9">@Html.DisplayFor(model => model.PricePlan.Name)</td> 
+            </tr>
+            <tr>
+                <td class="col-md-3"><b>@Html.DisplayNameFor(model => model.PricePlan.Description)</b></td>
+                <td class="col-md-9">@Html.DisplayFor(model => model.PricePlan.Description)</td>
+            </tr>
+        </table>
+        <br/>
     </section>
-
 </section>
 
 <section class="row">
-    <section>
 
         @using (Html.BeginForm())
         {
@@ -44,104 +33,47 @@
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.PricePlan.Id)
+                @Html.HiddenFor(model=> model.PricePlan.Name)
 
-                <div class="form-group col-md-4 ">
-                    @Html.LabelFor(model => model.PriceUnitViewModel.Width, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="form-group col-md-3 ">
+                    @Html.LabelFor(model => model.PriceUnitViewModel.Width, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
                         @Html.EditorFor(model => model.PriceUnitViewModel.Width, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Width, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(model => model.PriceUnitViewModel.Height, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.PriceUnitViewModel.Height, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
                         @Html.EditorFor(model => model.PriceUnitViewModel.Height, new { htmlAttributes = new { @class = "form-control " } })
                         @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Height, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(model => model.PriceUnitViewModel.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="form-group col-md-3">
+                    @Html.LabelFor(model => model.PriceUnitViewModel.Price, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
                         @Html.EditorFor(model => model.PriceUnitViewModel.Price, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Price, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-3">
                     <input type="submit" value="Add a price unit" class="btn btn-primary" />
                 </div>
             </div>
 
         }
 
-    </section>
+   
 </section>
 
 <section class="row">
     <section class="col-md-12">
-        <table class="table">
-            @{
-                var distinctWiths = Model.PriceUnitViewModels.OrderBy(y => y.Width).Select(x => x.Width).Distinct().ToList();
-                var distinctHeight = Model.PriceUnitViewModels.OrderBy(y => y.Height).Select(x => x.Height).Distinct().ToList();
-            }
-            <tr>
-                <th></th>
-                <th colspan="@(distinctWiths.Count+1)" style="text-align: center"> Bredd </th>
-            </tr>
-
-            <tr>
-                <th></th>
-                <th></th>
-                @foreach (var headerWith in distinctWiths)
-                {
-                    <th>@headerWith</th>
-                }
-            </tr>
-
-            @foreach (var height in distinctHeight)
-            {
-                <tr>
-                    <td><b>Höjd</b></td>
-                    <td><b>@height</b></td>
-
-                    @foreach (int itemWidth in distinctWiths)
-                    {
-                        <td>
-                            @foreach (var priceUnit in Model.PriceUnitViewModels)
-                            {
-
-                                if (priceUnit.Height == height && priceUnit.Width == itemWidth)
-                                {
-                                    <span>@priceUnit.Price </span>
-                                }
-                            }
-
-                        </td>
-                    }
-
-                </tr>
-            }
-        </table>
-
-
-        <ul>
-            @foreach (var item in Model.PriceUnitViewModels)
-            {
-                <li>Width:@item.Width  ------ height:@item.Height  ------- Price: @item.Price   </li>
-            }
-        </ul>
-
+        @Html.Partial("PriceUnitsTableView", Model.PriceUnitViewModels)
 
     </section>
 </section>
 
 
-
-
-
-<p class='row col-md-12'>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PricePlan.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

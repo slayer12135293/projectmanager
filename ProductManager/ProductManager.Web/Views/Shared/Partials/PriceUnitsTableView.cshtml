@@ -1,0 +1,46 @@
+﻿@using System.Globalization
+@model IEnumerable<ProductManager.Web.ViewModels.PriceUnitViewModel>
+
+<table class="table">
+    @{
+        var distinctWiths = Model.OrderBy(y => y.Width).Select(x => x.Width).Distinct().ToList();
+        var distinctHeight = Model.OrderBy(y => y.Height).Select(x => x.Height).Distinct().ToList();
+    }
+    <tr>
+        <th></th>
+        <th colspan="@(distinctWiths.Count+1)" style="text-align: center"> Bredd </th>
+    </tr>
+
+    <tr>
+        <th></th>
+        <th></th>
+        @foreach (var headerWith in distinctWiths)
+        {
+            <th>@headerWith</th>
+        }
+    </tr>
+
+    @foreach (var height in distinctHeight)
+    {
+        <tr>
+            <td><b>Höjd</b></td>
+            <td><b>@height</b></td>
+
+            @foreach (int itemWidth in distinctWiths)
+            {
+                <td>
+                    @foreach (var priceUnit in Model)
+                    {
+
+                        if (priceUnit.Height == height && priceUnit.Width == itemWidth)
+                        {
+                            <span>@Html.ActionLink(@priceUnit.Price.ToString(CultureInfo.InvariantCulture), "EditPriceUnit", "PriceUnit", new { pricePlanId = priceUnit.PricePlanId, priceUnitId = priceUnit.Id }, new { @class = "btn btn-success" })</span>
+                        }
+                    }
+
+                </td>
+            }
+
+        </tr>
+    }
+</table>
