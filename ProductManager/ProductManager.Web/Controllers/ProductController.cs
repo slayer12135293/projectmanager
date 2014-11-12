@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.Ajax.Utilities;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
@@ -17,14 +19,30 @@ namespace ProductManager.Web.Controllers
         private readonly ICustomerIdService _customerIdService;
         private readonly IProductCreateViewModelFactory _productCreateViewModelFactory;
         private readonly IUpdateViewModelProductFacotry _updateViewModelProductFacotry;
+        private readonly IPricePlanRepository _pricePlanRepository;
 
-        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService, IProductCreateViewModelFactory productCreateViewModelFactory, IUpdateViewModelProductFacotry updateViewModelProductFacotry)
+        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService, IProductCreateViewModelFactory productCreateViewModelFactory, IUpdateViewModelProductFacotry updateViewModelProductFacotry, IPricePlanRepository pricePlanRepository )
         {
             _productRepository = productRepository;
             _customerIdService = customerIdService;
             _productCreateViewModelFactory = productCreateViewModelFactory;
             _updateViewModelProductFacotry = updateViewModelProductFacotry;
+            _pricePlanRepository = pricePlanRepository;
         }
+
+
+        public async Task<ActionResult> PricePlans(int productTypeId)
+        {
+            var pricePlansViewModels = await
+                _pricePlanRepository.GetAll()
+                    .OrderBy(x => x.Name)
+                    .Where(y => y.Id == productTypeId)
+                    .Select(o => new PricePlanDropDownViewModel {Id = o.Id, Name = o.Name}).ToListAsync();
+           // var pricePlanViewModes = pricePlans.Select(x => new PricePlanDropDownViewModel {Id = x.Id, Name = x.Name});
+            return Json(pricePlansViewModels, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         // GET: Product
         public ActionResult Index()

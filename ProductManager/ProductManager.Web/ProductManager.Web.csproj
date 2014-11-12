@@ -242,6 +242,9 @@
     <Compile Include="ViewModels\CreateSubCategoryViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderLineViewModel.cs" />
+    <Compile Include="ViewModels\PricePlanDetailsViewModel.cs" />
+    <Compile Include="ViewModels\PriceUnitViewModel.cs" />
+    <Compile Include="ViewModels\ProdctTypeViewModel.cs" />
     <Compile Include="ViewModels\ProductSubCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />

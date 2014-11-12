@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -21,6 +22,8 @@ namespace ProductManager.Enity
         public virtual SubCategory SubCategory { get; set; }
         public virtual ProductType ProductType { get; set; }
         public int ProductTypeId { get; set; }
+        [DisplayName("Price Plan")]
+        public virtual int PricePlanId { get; set; }
 
     }
 

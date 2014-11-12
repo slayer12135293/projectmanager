@@ -9,6 +9,8 @@ using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
+using PricePlanDetailsViewModel = ProductManager.Web.ViewModels.PricePlanDetailsViewModel;
+using PriceUnitViewModel = ProductManager.Web.ViewModels.PriceUnitViewModel;
 
 namespace ProductManager.Web.Controllers
 {

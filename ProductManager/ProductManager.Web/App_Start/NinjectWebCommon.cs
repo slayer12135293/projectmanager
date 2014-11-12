@@ -84,6 +84,7 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IProductTypeRepository>().To<ProductTypeRepository>();
             kernel.Bind<IProductCreateViewModelFactory>().To<ProductCreateViewModelFactory>();
             kernel.Bind<IUpdateViewModelProductFacotry>().To<UpdateViewModelProductFacotry>();
+            kernel.Bind<IPricePlanRepository>().To<PricePlanRepository>();
 
         }        
     }

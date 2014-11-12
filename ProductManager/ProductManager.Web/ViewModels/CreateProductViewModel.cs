@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.Mvc;
 
 namespace ProductManager.Web.ViewModels
@@ -21,13 +22,8 @@ namespace ProductManager.Web.ViewModels
         public string ColoCode { get; set; }
         public int ProductTypeId { get; set; }
         public int CustomerId { get; set; }
+        [DisplayName("Price Plan")]
+        public int PricePlanId { get; set; }
         public IEnumerable<ProdctTypeViewModel> ProductTypeViewModels { get; set; } 
-    }
-
-    public class ProdctTypeViewModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
     }
 }

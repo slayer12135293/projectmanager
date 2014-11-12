@@ -9,69 +9,75 @@
 
 <h2>Price Plan Detail </h2>
 <hr />
-<div>
-    <dl class="dl-horizontal">
+<section class="row">
+    <section class="col-md-12">
+        <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PricePlan.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.PricePlan.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PricePlan.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PricePlan.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PricePlan.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.PricePlan.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PricePlan.Description)
-        </dd>
-    </dl>
-</div>
+            <dd>
+                @Html.DisplayFor(model => model.PricePlan.Description)
+            </dd>
+        </dl>
+    </section>
 
+</section>
 
+<section class="row">
+    <section>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+            <div class="col-md-12">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.PricePlan.Id)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.PricePlan.Id)
 
-        <div class="form-group col-md-4 ">
-            @Html.LabelFor(model => model.PriceUnitViewModel.Width, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PriceUnitViewModel.Width, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Width, "", new { @class = "text-danger" })
+                <div class="form-group col-md-4 ">
+                    @Html.LabelFor(model => model.PriceUnitViewModel.Width, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PriceUnitViewModel.Width, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Width, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.PriceUnitViewModel.Height, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PriceUnitViewModel.Height, new { htmlAttributes = new { @class = "form-control " } })
+                        @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Height, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.PriceUnitViewModel.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PriceUnitViewModel.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <input type="submit" value="Add a price unit" class="btn btn-primary" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.PriceUnitViewModel.Height, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PriceUnitViewModel.Height, new { htmlAttributes = new { @class = "form-control " } })
-                @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Height, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        }
 
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.PriceUnitViewModel.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PriceUnitViewModel.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PriceUnitViewModel.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group col-md-10">
-            <input type="submit" value="Add a price unit" class="btn btn-primary" />
-        </div>
-    </div>
-
-}
-
+    </section>
+</section>
 
 <section class="row">
     <section class="col-md-12">
@@ -80,8 +86,13 @@
                 var distinctWiths = Model.PriceUnitViewModels.OrderBy(y => y.Width).Select(x => x.Width).Distinct().ToList();
                 var distinctHeight = Model.PriceUnitViewModels.OrderBy(y => y.Height).Select(x => x.Height).Distinct().ToList();
             }
+            <tr>
+                <th></th>
+                <th colspan="@(distinctWiths.Count+1)" style="text-align: center"> Bredd </th>
+            </tr>
 
             <tr>
+                <th></th>
                 <th></th>
                 @foreach (var headerWith in distinctWiths)
                 {
@@ -92,7 +103,8 @@
             @foreach (var height in distinctHeight)
             {
                 <tr>
-                    <td>@height</td>
+                    <td><b>Höjd</b></td>
+                    <td><b>@height</b></td>
 
                     @foreach (int itemWidth in distinctWiths)
                     {
@@ -111,10 +123,6 @@
 
                 </tr>
             }
-
-
-
-
         </table>
 
 
