@@ -34,11 +34,13 @@ namespace ProductManager.Web.Controllers
 
         public async Task<ActionResult> PricePlans(int productTypeId)
         {
-            var pricePlansViewModels = await
-                _pricePlanRepository.GetAll()
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+
+
+            var pricePlansViewModels = _pricePlanRepository.GetAll().Where(c=>c.CustomerId == currentCustomerId)
                     .OrderBy(x => x.Name)
-                    .Where(y => y.Id == productTypeId)
-                    .Select(o => new PricePlanDropDownViewModel {Id = o.Id, Name = o.Name}).ToListAsync();
+                    .Where(y => y.ProductTypeId == productTypeId)
+                    .Select(o => new PricePlanDropDownViewModel {Id = o.Id, Name = o.Name}).ToList();
             return Json(pricePlansViewModels, JsonRequestBehavior.AllowGet);
         }
 
@@ -51,11 +53,6 @@ namespace ProductManager.Web.Controllers
         }
 
 
-        public ActionResult Create(int subCategoryId)
-        {
-            var model = _productCreateViewModelFactory.CreateViewModel(subCategoryId);
-            return View(model);
-        }
 
 
         public async Task<ActionResult> Edit(int productId)
@@ -78,6 +75,14 @@ namespace ProductManager.Web.Controllers
             return RedirectToAction("Detail", "SubCategory", new { subCategoryId });
         }
 
+
+        public async Task<ActionResult> Create(int subCategoryId)
+        {
+            var model = await _productCreateViewModelFactory.CreateViewModel(subCategoryId);
+            return View(model);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateProductViewModel createProductViewModel)
@@ -92,7 +97,7 @@ namespace ProductManager.Web.Controllers
 
             }
 
-            return View("Create", createProductViewModel);
+            return RedirectToAction("Create", new { subCategoryId = createProductViewModel.SubCategoryId});
         }
 
         public async Task<ActionResult> AllProducts(int subcategoryId)

@@ -55,7 +55,6 @@ LeiApp.controller('ProductListController', ['$scope','$filter', 'promiseService'
 
 LeiApp.controller('CreateProductController', ['$scope', 'promiseService', function($scope, promiseService) {
 
-    $scope.test = "teffffst";
 
     $scope.ProductTypeChange = function () {
         var pricePlanPromise = promiseService.callActionPromise('/Product/PricePlans?productTypeId=' + $scope.ngProductType);

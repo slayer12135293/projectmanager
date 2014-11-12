@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProductManager.Web.ViewModels
 {
     public class CreateProductViewModel
     {
         public int ProductId { get; set; }
+        [Required]
         public string Name { get; set; }
-         [HiddenInput(DisplayValue = false)]
         public int CategoryId { get; set; }
-         [HiddenInput(DisplayValue = false)]
         public int SubCategoryId { get; set; }
         public string ProductCode { get; set; }
         public int Width { get; set; }
@@ -20,10 +19,11 @@ namespace ProductManager.Web.ViewModels
         public bool IsNewProduct { get; set; }
         public string ColorName { get; set; }
         public string ColoCode { get; set; }
-        public int ProductTypeId { get; set; }
+        [DisplayName("Product Type")]
+        public int? ProductTypeId { get; set; }
         public int CustomerId { get; set; }
         [DisplayName("Price Plan")]
-        public int PricePlanId { get; set; }
+        public int? PricePlanId { get; set; }
         public IEnumerable<ProdctTypeViewModel> ProductTypeViewModels { get; set; } 
     }
 }

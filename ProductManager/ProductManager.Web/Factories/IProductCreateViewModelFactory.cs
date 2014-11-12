@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ProductManager.DataLayer.Repositories;
+using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Factories
 {
     public interface IProductCreateViewModelFactory
     {
-        CreateProductViewModel CreateViewModel(int subCategoryId);
+        Task<CreateProductViewModel> CreateViewModel(int subCategoryId);
         Task<CreateProductViewModel> EditViewModel(int productId);
 
     }
@@ -17,17 +18,20 @@ namespace ProductManager.Web.Factories
     {
         private readonly IProductTypeRepository _productTypeRepository;
         private readonly IProductRepository _productRepository;
+        private readonly ICustomerIdService _customerIdService;
 
-        public ProductCreateViewModelFactory(IProductTypeRepository productTypeRepository, IProductRepository productRepository)
+        public ProductCreateViewModelFactory(IProductTypeRepository productTypeRepository, IProductRepository productRepository, ICustomerIdService customerIdService)
         {
             _productTypeRepository = productTypeRepository;
             _productRepository = productRepository;
+            _customerIdService = customerIdService;
         }
 
 
-        public CreateProductViewModel CreateViewModel(int subCategoryId)
+        public async Task<CreateProductViewModel> CreateViewModel(int subCategoryId)
         {
-            var productTypeViewModels = GetProductTypeViewModels();
+            var productTypeViewModels = await GetProductTypeViewModels();
+
 
             return new CreateProductViewModel
             {
@@ -36,19 +40,21 @@ namespace ProductManager.Web.Factories
             };
         }
 
-        private IEnumerable<ProdctTypeViewModel> GetProductTypeViewModels()
+        private async Task<IEnumerable<ProdctTypeViewModel>> GetProductTypeViewModels()
         {
-            return _productTypeRepository.GetAll()
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+
+            return _productTypeRepository.GetAll().Where(c=>c.CustomerId == currentCustomerId)
                 .Select(x => new ProdctTypeViewModel {Description = x.Description, Id = x.Id, Name = x.Name});
         }
 
         public async Task<CreateProductViewModel> EditViewModel(int productId)
         {
             var currentProduct = await _productRepository.GetByIdAsync(productId);
-            var productTypeViewModels = GetProductTypeViewModels();
+            var productTypeViewModels = await GetProductTypeViewModels();
 
             var viewModel = AutoMapper.Mapper.Map<CreateProductViewModel>(currentProduct);
-            viewModel.ProductTypeId = currentProduct.ProductType.Id;
+            viewModel.ProductTypeId = currentProduct.ProductTypeId;
             viewModel.ProductTypeViewModels = productTypeViewModels;
             
             return viewModel;

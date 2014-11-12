@@ -1,13 +1,12 @@
 ﻿@model ProductManager.Web.ViewModels.CreateProductViewModel
 @{
-    ViewBag.Title = "Create product";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Product</h2>
 <hr />
 <section class="row" ng-controller="CreateProductController">
-    
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -85,21 +84,28 @@
                 @Html.LabelFor(model => model.ProductTypeId)
             </div>
             <div class="editor-field">
-                <select class="validation-textbox-message" ng-model="ngProductType" name="ProductTypeId" ng-change="ProductTypeChange()">
-                    @foreach (var type in Model.ProductTypeViewModels)
+                <select class="form-control" ng-model="ngProductType" name="ProductTypeId" ng-change="ProductTypeChange()">
+                     @foreach (var type in Model.ProductTypeViewModels)
                     {
                         <option value="@type.Id"> @type.Name</option>
                     }
                 </select>
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.ProductTypeId)
+                </section>
             </div>
-            
+
             <div class="editor-label">
                 @Html.LabelFor(model => model.PricePlanId)
             </div>
             <div class="editor-field">
-                <select class="form-control" ng-model="ngPricePlan" name="PricePlanId" data-ng-options="c.Id as c.Name for c in priceplans"></select>
+                <select class="form-control" ng-model="ngPricePlan" name="PricePlanId" data-ng-options="c.Id as c.Name for c in priceplans">
+                </select>
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.PricePlanId)
+                </section>
             </div>
-            
+
 
 
 
@@ -115,7 +121,7 @@
             @Html.HiddenFor(model => model.SubCategoryId)
 
             <p>
-                <input type="submit" value="Create" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </p>
         </fieldset>
 
@@ -123,6 +129,3 @@
 </section>
 
 
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
