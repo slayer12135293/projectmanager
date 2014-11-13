@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
-using ProductManager.DataLayer;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
@@ -33,8 +29,6 @@ namespace ProductManager.Web.Controllers
         }
 
 
-        private CategoryDb db = new CategoryDb();
-
         // GET: PricePlan
         public async Task<ActionResult> Index()
         {
@@ -55,13 +49,9 @@ namespace ProductManager.Web.Controllers
 
 
         // GET: PricePlan/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var currentPricePlan = await db.PricePlans.FindAsync(id);
+            var currentPricePlan = await _pricePlanRepository.GetByIdAsync(id);
             if (currentPricePlan == null)
             {
                 return HttpNotFound();
@@ -72,7 +62,7 @@ namespace ProductManager.Web.Controllers
                 PricePlan = currentPricePlan,
                 PriceUnitViewModels = currentPricePlan.PriceUnits.Select(x => new PriceUnitViewModel
                 {
-                    PricePlanId = (int) id,
+                    PricePlanId = id,
                     Id = x.Id,
                     Height = x.Height,
                     Width = x.Width,
@@ -96,18 +86,14 @@ namespace ProductManager.Web.Controllers
                 Price = pricePlanDetailsViewModel.PriceUnitViewModel.Price
             };
             var currentPricePlanId = pricePlanDetailsViewModel.PricePlan.Id;
-            var currentPricePlan = await db.PricePlans.FindAsync(currentPricePlanId);
+            var currentPricePlan = await _pricePlanRepository.GetByIdAsync(currentPricePlanId);
 
             currentPricePlan.PriceUnits.Add(priceUnit);
-            await db.SaveChangesAsync();
-
+            await _pricePlanRepository.Update(currentPricePlan);
+            
             return RedirectToAction("Details", new {id = currentPricePlanId});
 
         } 
-
-
-
-
 
         // GET: PricePlan/Create
         public async Task<ActionResult> Create()
@@ -139,8 +125,8 @@ namespace ProductManager.Web.Controllers
                 Mapper.Map(pricePlanViewModel,pricePlan);
                 pricePlan.CustomerId = currentUserId;
 
-                db.PricePlans.Add(pricePlan);
-                await db.SaveChangesAsync();
+                await _pricePlanRepository.Add(pricePlan);
+
                 return RedirectToAction("Index");
             }
 
@@ -191,13 +177,10 @@ namespace ProductManager.Web.Controllers
         }
 
         // GET: PricePlan/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PricePlan pricePlan = await db.PricePlans.FindAsync(id);
+            
+            PricePlan pricePlan = await _pricePlanRepository.GetByIdAsync(id);
             if (pricePlan == null)
             {
                 return HttpNotFound();
@@ -210,19 +193,10 @@ namespace ProductManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            PricePlan pricePlan = await db.PricePlans.FindAsync(id);
-            db.PricePlans.Remove(pricePlan);
-            await db.SaveChangesAsync();
+            await _pricePlanRepository.Remove(id);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

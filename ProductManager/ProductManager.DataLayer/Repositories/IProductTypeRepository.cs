@@ -16,7 +16,9 @@ namespace ProductManager.DataLayer.Repositories
 
         public ProductType GetById(int id)
         {
-            return DbSet.Single(x => x.Id == id);
+            var productType = DbSet.FirstOrDefault(x => x.Id == id);
+            ProductType result = productType ?? new ProductType() {Id = 9999, Name = "Type has been removed", Description = "Please choose a new type"};
+            return result;
         }
     }
 
