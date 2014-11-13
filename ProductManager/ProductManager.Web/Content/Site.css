@@ -112,3 +112,7 @@ a:hover {
 .table {
     margin-top: 10px;
 }
+
+.center_text {
+    text-align: center;
+}

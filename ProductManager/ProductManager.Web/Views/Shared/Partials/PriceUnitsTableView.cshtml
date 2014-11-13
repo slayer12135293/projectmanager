@@ -6,10 +6,15 @@
         var distinctWiths = Model.OrderBy(y => y.Width).Select(x => x.Width).Distinct().ToList();
         var distinctHeight = Model.OrderBy(y => y.Height).Select(x => x.Height).Distinct().ToList();
     }
-    <tr>
-        <th></th>
-        <th colspan="@(distinctWiths.Count+1)" style="text-align: center"> Bredd </th>
-    </tr>
+    
+    @if (Model.Any())
+    {
+        <tr>
+            <th></th>
+            <th colspan="@(distinctWiths.Count+1)" class="center_text"> Bredd </th>
+        </tr>
+
+    }
 
     <tr>
         <th></th>
