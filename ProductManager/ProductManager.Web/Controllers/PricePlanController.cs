@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -7,6 +9,7 @@ using AutoMapper;
 using ProductManager.DataLayer;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Factories;
 using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
@@ -17,12 +20,16 @@ namespace ProductManager.Web.Controllers
     public class PricePlanController : Controller
     {
         private readonly ICustomerIdService _customerIdService;
+        private readonly IPricePlanRepository _pricePlanRepository;
         private readonly IProductTypeRepository _productTypeRepository;
+        private readonly IPricePlanViewModelFactory _pricePlanViewModelFactory;
 
-        public PricePlanController(ICustomerIdService customerIdService, IProductTypeRepository productTypeRepository)
+        public PricePlanController(ICustomerIdService customerIdService,IPricePlanRepository pricePlanRepository, IProductTypeRepository productTypeRepository, IPricePlanViewModelFactory pricePlanViewModelFactory)
         {
             _customerIdService = customerIdService;
+            _pricePlanRepository = pricePlanRepository;
             _productTypeRepository = productTypeRepository;
+            _pricePlanViewModelFactory = pricePlanViewModelFactory;
         }
 
 
@@ -31,8 +38,21 @@ namespace ProductManager.Web.Controllers
         // GET: PricePlan
         public async Task<ActionResult> Index()
         {
-            return View(await db.PricePlans.ToListAsync());
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+            var pricePlans = _pricePlanRepository.GetAll().Where(x => x.CustomerId == currentCustomerId);
+            var pricePlanViewModels = new List<PricePlanViewModel>();
+            
+            // DO NOT resharper this, it doesn't work
+            foreach (var plan in pricePlans)
+            {
+                var viewModel = _pricePlanViewModelFactory.Create(plan);
+                pricePlanViewModels.Add(viewModel);
+            }
+
+            return View(pricePlanViewModels);
         }
+
+
 
         // GET: PricePlan/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -90,11 +110,18 @@ namespace ProductManager.Web.Controllers
 
 
         // GET: PricePlan/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            var allProductTypes = _productTypeRepository.GetAll();
+            var allProductTypes = await GetAllProductTypes();
 
             return View(new CreatePricePlanViewModel {ProductTypes = allProductTypes});
+        }
+
+        private async Task<IQueryable<ProductType>> GetAllProductTypes()
+        {
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+            var allProductTypes = _productTypeRepository.GetAll().Where(x => x.CustomerId == currentCustomerId);
+            return allProductTypes;
         }
 
         // POST: PricePlan/Create
@@ -121,18 +148,26 @@ namespace ProductManager.Web.Controllers
         }
 
         // GET: PricePlan/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PricePlan pricePlan = await db.PricePlans.FindAsync(id);
+            var pricePlan = await  _pricePlanRepository.GetByIdAsync(id);
             if (pricePlan == null)
             {
                 return HttpNotFound();
             }
-            return View(pricePlan);
+
+            var allProductTypes = await GetAllProductTypes();
+            var viewModel = new EditPricePlanViewModel()
+            {
+                CustomerId = pricePlan.CustomerId,
+                Description = pricePlan.Description,
+                Name = pricePlan.Name,
+                ProductTypeId = pricePlan.ProductTypeId,
+                ProductTypes = allProductTypes,
+                Id = pricePlan.Id
+
+            };
+            return View(viewModel);
         }
 
         // POST: PricePlan/Edit/5
@@ -140,15 +175,19 @@ namespace ProductManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Description,Name,CustomerId")] PricePlan pricePlan)
+        public async Task<ActionResult> Edit(EditPricePlanViewModel editPricePlanViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pricePlan).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                var currentPricePlan =await _pricePlanRepository.GetByIdAsync(editPricePlanViewModel.Id);
+                currentPricePlan.ProductTypeId = editPricePlanViewModel.ProductTypeId;
+                currentPricePlan.Name = editPricePlanViewModel.Name;
+                currentPricePlan.Description = editPricePlanViewModel.Description;
+
+                await _pricePlanRepository.Update(currentPricePlan);
                 return RedirectToAction("Index");
             }
-            return View(pricePlan);
+            return View(editPricePlanViewModel);
         }
 
         // GET: PricePlan/Delete/5

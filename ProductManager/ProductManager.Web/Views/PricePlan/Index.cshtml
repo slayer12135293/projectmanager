@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProductManager.Enity.PricePlan>
+﻿@model IEnumerable<ProductManager.Web.ViewModels.PricePlanViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -16,6 +16,10 @@
     <section class="col-md-12">
         <table class="table">
             <tr>
+                
+                <th>
+                    @Html.DisplayNameFor(model=>model.ProductTypeName)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -26,24 +30,34 @@
 
                 <th></th>
             </tr>
-
-            @foreach (var item in Model)
+            
+            
+            @if (Model != null && Model.Any())
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductTypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
 
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" }) 
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" }) 
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
-            }
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+
+            } 
+
+      
 
         </table>
 
