@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using ProductManager.Enity;
 
 namespace ProductManager.Web.Models
 {
@@ -77,6 +76,10 @@ namespace ProductManager.Web.Models
         public int CustomerId { get; set; }
         public List<string> Roles { get; set; }
         public IEnumerable<SelectListItem> RolesList { get; set; }
+        public bool IsActive { get; set; }
+
+
+
     }
 
     public class EditUserViewModel

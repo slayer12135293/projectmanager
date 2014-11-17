@@ -92,6 +92,7 @@
     <Compile Include="Repositories\EfRepository.cs" />
     <Compile Include="Repositories\IAddOnRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
     <Compile Include="Repositories\IPricePlanRepository.cs" />
     <Compile Include="Repositories\IPriceUnitRepository.cs" />

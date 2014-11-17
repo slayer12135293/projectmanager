@@ -196,6 +196,7 @@
   <ItemGroup>
     <Compile Include="App_Start\MappingInitalizer.cs" />
     <Compile Include="Controllers\AddOnsController.cs" />
+    <Compile Include="Controllers\CustomerProfileController.cs" />
     <Compile Include="Controllers\PricePlanController.cs" />
     <Compile Include="Controllers\PriceUnitController.cs" />
     <Compile Include="Factories\IPricePlanViewModelFactory.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\UpdateCategoryViewMode.cs" />
+    <Compile Include="ViewModels\UpdateCustomerInfoViewModel.cs" />
     <Compile Include="ViewModels\UpdateSubCategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -315,7 +317,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
@@ -379,6 +380,7 @@
     <Content Include="Views\PricePlan\Index.cshtml" />
     <Content Include="Views\Shared\Partials\PriceUnitsTableView.cshtml" />
     <Content Include="Views\PriceUnit\EditPriceUnit.cshtml" />
+    <Content Include="Views\CustomerProfile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

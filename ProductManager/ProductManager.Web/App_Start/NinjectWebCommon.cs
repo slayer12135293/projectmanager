@@ -87,6 +87,7 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IPricePlanRepository>().To<PricePlanRepository>();
             kernel.Bind<IPriceUnitRepository>().To<PriceUnitRepository>();
             kernel.Bind<IPricePlanViewModelFactory>().To<PricePlanViewModelFactory>();
+            kernel.Bind<ICustomerRepository>().To<CustomerRepository>();
 
         }        
     }
