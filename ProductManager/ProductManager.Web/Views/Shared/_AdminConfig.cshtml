@@ -27,15 +27,15 @@
 </section>
 
 
-<div class="container body-content" ng-app="LeiApp">
+<div class="container body-content" ng-app="AdminApp">
     @Html.Partial("ConfigurationMenuView")
     @RenderBody()
 
 
 
     @section scripts{
-        <script src="~/Scripts/Angular/LeiApp/LeiApp.js"></script>
-        <script src="~/Scripts/Angular/LeiApp/Controllers/CategoryController.js"></script>
+        <script src="~/Scripts/Angular/AdminApp/AdminApp.js"></script>
+        <script src="~/Scripts/Angular/AdminApp/Controllers/CategoryController.js"></script>
         @RenderSection("scripts", required: false)
     }
 </div>

@@ -275,8 +275,8 @@
     <Content Include="Scripts\Angular\Lib\Services\CallService.js" />
     <Content Include="Scripts\Angular\WorkerApp\Controllers\OrderController.js" />
     <Content Include="Scripts\Angular\WorkerApp\WorkerApp.js" />
-    <Content Include="Scripts\Angular\LeiApp\Controllers\CategoryController.js" />
-    <Content Include="Scripts\Angular\LeiApp\LeiApp.js" />
+    <Content Include="Scripts\Angular\AdminApp\Controllers\CategoryController.js" />
+    <Content Include="Scripts\Angular\AdminApp\AdminApp.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -384,6 +384,7 @@
     <Content Include="Views\Home\Configuration.cshtml" />
     <Content Include="Views\Shared\_AdminConfig.cshtml" />
     <Content Include="Views\Shared\Partials\ConfigurationMenuView.cshtml" />
+    <Content Include="Views\SubCategory\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

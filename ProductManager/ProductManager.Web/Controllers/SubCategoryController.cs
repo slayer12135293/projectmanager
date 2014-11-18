@@ -26,13 +26,6 @@ namespace ProductManager.Web.Controllers
             _customerIdService = customerIdService;
         }
 
-        // GET: SubCategory
-        public ActionResult Index()
-        {
-            var model = new List<ProductSubCatagoryViewMode>();
-            return View(model);
-        }
-
         public ActionResult Create(int categoryId)
         {
             var model = new CreateSubCategoryViewModel { CategoryId = categoryId };

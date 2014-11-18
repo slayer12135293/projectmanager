@@ -1,5 +1,4 @@
-﻿@model IEnumerable<ProductManager.Web.ViewModels.PricePlanViewModel>
-
+﻿
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminConfig.cshtml";
@@ -12,55 +11,27 @@
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
     </section></section>
 
-<section class="row">
+<section class="row fade-in" ng-controller="PricePlanController">
     <section class="col-md-12">
-        <table class="table">
-            <tr>
-                
-                <th>
-                    @Html.DisplayNameFor(model=>model.ProductTypeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
+        <table ng-table="tableParams" data-show-filter="true" class="table">
+            <tr ng-repeat="pricePlan in $data">
+                <td data-title="'ProductTypeName'" data-sortable="'ProductTypeName'" filter="{'ProductTypeName': 'text' }">
+                    {{pricePlan.ProductTypeName}}
+                </td>
+                <td data-title="'Name'" data-sortable="'Name'" filter="{ 'Name': 'text' }">
+                    {{pricePlan.Name}}
+                </td>
 
-
-                <th></th>
+                <td data-title="'Description'" data-sortable="'Description'">
+                    {{pricePlan.Description}}
+                </td>
+                <td>
+                    <a class="btn btn-info" href="/Priceplan/Edit/{{pricePlan.Id}}">Edit</a>
+                    <a class="btn btn-info" href="/Priceplan/Details/{{pricePlan.Id}}">Details</a>
+                    <a class="btn btn-danger" href="/Priceplan/Delete/{{pricePlan.Id}}">Delete</a>
+                </td>
             </tr>
-            
-            
-            @if (Model != null && Model.Any())
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductTypeName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                        </td>
-                    </tr>
-                }
-
-            } 
-
-      
-
         </table>
 
     </section>
-  
 </section>

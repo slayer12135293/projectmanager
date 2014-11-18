@@ -27,15 +27,20 @@ namespace ProductManager.Web.Controllers
             _productTypeRepository = productTypeRepository;
             _pricePlanViewModelFactory = pricePlanViewModelFactory;
         }
+        
+     
+        public  ActionResult Index()
+        {
+            return View();
+        }
 
 
-        // GET: PricePlan
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> GetPricePlans()
         {
             var currentCustomerId = await _customerIdService.GetCustomerId();
             var pricePlans = _pricePlanRepository.GetAll().Where(x => x.CustomerId == currentCustomerId);
             var pricePlanViewModels = new List<PricePlanViewModel>();
-            
+
             // DO NOT resharper this, it doesn't work
             foreach (var plan in pricePlans)
             {
@@ -43,8 +48,9 @@ namespace ProductManager.Web.Controllers
                 pricePlanViewModels.Add(viewModel);
             }
 
-            return View(pricePlanViewModels);
+            return Json(pricePlanViewModels,JsonRequestBehavior.AllowGet);
         }
+
 
 
 
