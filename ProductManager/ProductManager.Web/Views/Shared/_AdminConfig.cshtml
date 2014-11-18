@@ -18,18 +18,17 @@
                     <li>@Html.ActionLink("Product", "Index", "Category")</li>
                     <li>@Html.ActionLink("Order", "Index", "Orders")</li>
                     <li>@Html.ActionLink("Configuration", "Configuration", "Home")</li>
-                    
-                    
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </section>
         </section>
     </nav>
+
 </section>
 
 
 <div class="container body-content" ng-app="LeiApp">
+    @Html.Partial("ConfigurationMenuView")
     @RenderBody()
 
 

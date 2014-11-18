@@ -381,6 +381,9 @@
     <Content Include="Views\Shared\Partials\PriceUnitsTableView.cshtml" />
     <Content Include="Views\PriceUnit\EditPriceUnit.cshtml" />
     <Content Include="Views\CustomerProfile\Edit.cshtml" />
+    <Content Include="Views\Home\Configuration.cshtml" />
+    <Content Include="Views\Shared\_AdminConfig.cshtml" />
+    <Content Include="Views\Shared\Partials\ConfigurationMenuView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

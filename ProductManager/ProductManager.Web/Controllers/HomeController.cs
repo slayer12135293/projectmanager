@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using ProductManager.Web.Filters;
 
 namespace ProductManager.Web.Controllers
 {
@@ -16,5 +17,12 @@ namespace ProductManager.Web.Controllers
 
             return View();
         }
+        [AdministratorFilter]
+        public ActionResult Configuration()
+        {
+            return View();
+        }
+
+
     }
 }

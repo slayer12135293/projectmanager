@@ -1,9 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 using System.Web.Mvc;
-using ProductManager.DataLayer;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Filters;

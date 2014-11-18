@@ -92,19 +92,7 @@ namespace ProductManager.Web.Controllers
             var viewModel = AutoMapper.Mapper.Map<IEnumerable<AddOnViewModel>>(result);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         } 
-
- 
-
-
-
-
-
-
-
-
-
-        //private CategoryDb db = new CategoryDb();
-
+        
         // GET: Orders
         public async Task<ActionResult> Index()
         {
