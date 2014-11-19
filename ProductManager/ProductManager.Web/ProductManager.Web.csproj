@@ -251,6 +251,7 @@
     <Compile Include="ViewModels\ProdctTypeViewModel.cs" />
     <Compile Include="ViewModels\ProductSubCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductTypeViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\UpdateCategoryViewMode.cs" />
     <Compile Include="ViewModels\UpdateCustomerInfoViewModel.cs" />
@@ -273,7 +274,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Angular\Lib\Services\CallService.js" />
+    <Content Include="Scripts\Angular\Lib\Services\ProductTypesService.js" />
     <Content Include="Scripts\Angular\WorkerApp\Controllers\OrderController.js" />
+    <Content Include="Scripts\Angular\WorkerApp\Directives\ProductSelectDirective\ProductSelectDirective.js" />
+    <Content Include="Scripts\Angular\WorkerApp\Directives\ProductSelectDirective\Template\ProductSelect.html" />
     <Content Include="Scripts\Angular\WorkerApp\WorkerApp.js" />
     <Content Include="Scripts\Angular\AdminApp\Controllers\CategoryController.js" />
     <Content Include="Scripts\Angular\AdminApp\AdminApp.js" />

@@ -1,20 +1,13 @@
 ﻿'use strict';
 
-WorkerApp.controller('OrderController', ['$scope','$filter', 'promiseService', 'getProductTypesService', function ($scope,$filter, promiseService, getProductTypesService) {
+WorkerApp.controller('productSelectDirController', ['$scope','promiseService', function($scope, promiseService) {
 
     var categoriesPromise = promiseService.callActionPromise('/Orders/AllCategories');
-    var productTypesPromise = getProductTypesService.getAllTypesPromise();
-    $scope.typeGroup = {};
     $scope.selection = {};
     $scope.selection.hasProduct = true;
-    productTypesPromise.then(function (data) {
-        $scope.selection.allProductTypes = data;
-    });
-
     categoriesPromise.then(function (data) {
         $scope.selection.categories = data;
     });
-
 
     $scope.UpdateSubCatagories = function () {
         if ($scope.selection.selectedCategory != null) {
@@ -27,8 +20,6 @@ WorkerApp.controller('OrderController', ['$scope','$filter', 'promiseService', '
             $scope.selection.subcategories = null;
             $scope.selection.products = null;
         }
-
-
     };
 
     $scope.UpdateProducts = function () {
@@ -42,7 +33,6 @@ WorkerApp.controller('OrderController', ['$scope','$filter', 'promiseService', '
         }
 
     };
-
 
     $scope.addFields = function () {
         if (typeof $scope.selection.orderlines == 'undefined') {
@@ -64,28 +54,15 @@ WorkerApp.controller('OrderController', ['$scope','$filter', 'promiseService', '
     };
 
 
-    $scope.addTypeGroup = function () {
-        var selectedTypeId = $scope.selection.selectedProductType;
-
-        if (typeof $scope.typeGroup.groups == 'undefined') {
-            $scope.typeGroup.groups = [];
-        };
-
-        var selectedType = $filter('filter')($scope.selection.allProductTypes, function (x) { return x.Id === selectedTypeId; })[0];
-
-        var productTypeGroup = { productTypeId: selectedTypeId, productTypeName: selectedType.Name };
-        $scope.typeGroup.groups.push(productTypeGroup);
-    };
-
-
-    
-    $scope.removeTypeGroup = function (i) {
-        $scope.typeGroup.groups.splice(i, 1);
-    };
-
 
 }]);
+WorkerApp.directive('productSelect', function () {
+    return {
+        restrict: 'AE',
+        controller: 'productSelectDirController',
+        templateUrl: 'Scripts/Angular/Directives/Template/ProductSelect.html',
+        scope: {
+        }
+    };
 
-
-
-
+});

@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Antlr.Runtime.Misc;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
+using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
 {
@@ -27,6 +29,25 @@ namespace ProductManager.Web.Controllers
             var currentCustomerId = await _customerIdService.GetCustomerId();
             return View(await  _productTypeRepository.GetAll().Where(x => x.CustomerId == currentCustomerId).ToListAsync());
         }
+
+        public async Task<ActionResult> GetAllTypes()
+        {
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+            return
+                Json(
+                    await
+                        _productTypeRepository.GetAll()
+                            .Where(x => x.CustomerId == currentCustomerId)
+                            .OrderBy(y => y.Name).Select(z=> new ProductTypeViewModel
+                            {
+                                CustomerId = z.CustomerId,
+                                Description = z.Description,
+                                Name = z.Name,
+                                Id = z.Id
+                            })
+                            .ToListAsync(), JsonRequestBehavior.AllowGet);
+        } 
+
 
         // GET: ProductTypes/Details/5
         public async Task<ActionResult> Details(int id)

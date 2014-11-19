@@ -1,5 +1,3 @@
-using ProductManager.Enity;
-
 namespace ProductManager.Web.ViewModels
 {
     public class AddOnViewModel

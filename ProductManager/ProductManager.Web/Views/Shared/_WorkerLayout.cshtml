@@ -15,8 +15,7 @@
             </section>
             <section class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Order", "About", "Home")</li>
-                    <li>@Html.ActionLink("My Profile", "About", "Home")</li>
+                    <li>@Html.ActionLink("Order", "Index", "Orders")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </section>
@@ -34,6 +33,8 @@
     @section scripts{
         <script src="~/Scripts/Angular/WorkerApp/WorkerApp.js"></script>
         <script src="~/Scripts/Angular/WorkerApp/Controllers/OrderController.js"></script>
+        <script src="~/Scripts/Angular/WorkerApp/Directives/ProductSelectDirective/ProductSelectDirective.js"></script>
+
         @RenderSection("scripts", required: false)
     }
 </div>

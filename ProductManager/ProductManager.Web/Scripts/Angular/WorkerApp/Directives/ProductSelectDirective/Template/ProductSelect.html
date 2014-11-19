@@ -1,0 +1,20 @@
+﻿<section class="col-md-3">
+    <select ng-model="selection.selectedCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.categories" ng-change="UpdateSubCatagories()">
+        <option value="">-- Select a Category --</option>
+    </select>
+</section>
+
+<section class="col-md-3">
+    <select ng-model="selection.selectedSubCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.subcategories" ng-change="UpdateProducts()">
+        <option value="">-- Select a Sub category --</option>
+    </select>
+</section>
+<section class="col-md-3">
+
+    <select ng-model="selection.selectedProduct" class="form-control" data-ng-options="c.Id as c.Name for c in selection.products" ng-change="SelectAProduct()">
+        <option value="">-- Select a Product --</option>
+    </select>
+</section>
+<section class="col-md-3">
+    <a class="btn btn-primary" ng-click="addFields(orderline)" ng-disabled="!selection.selectedProduct"> add a product</a>
+</section>
