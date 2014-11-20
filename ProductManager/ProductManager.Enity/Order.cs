@@ -8,8 +8,6 @@ namespace ProductManager.Enity
 {
     public class Order : BaseEntity
     {
-       
-
         [Required]
         [Index]
         [MaxLength(256)]
@@ -18,19 +16,8 @@ namespace ProductManager.Enity
         public virtual ICollection<OrderLine> Products { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Discount { get; set; }
+        public virtual int BuyerId { get; set; }
         public Buyer Buyer { get; set; }
 
     }
-
-    [ComplexType]
-    public class Buyer
-    {
-        public string Name { get; set; }
-        public string Telephone { get; set; }
-        public string Address { get; set; }
-        public string Mobil { get; set; }
-        public string Information { get; set; }
-    }
-
-
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNet.Identity.EntityFramework;
 using ProductManager.Enity;
 using System.Data.Entity;
 
@@ -10,7 +11,6 @@ namespace ProductManager.DataLayer
         public CategoryDb()
             : base("ProductManagerConnection", throwIfV1Schema: false)
         {
-            //Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Category> Catagories { get; set; }
@@ -27,14 +27,13 @@ namespace ProductManager.DataLayer
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.ComplexType<Buyer>();
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasMany(x=>x.SubCategories).WithRequired(c => c.Category).HasForeignKey(c => c.CategoryId).WillCascadeOnDelete(true);
             modelBuilder.Entity<SubCategory>().HasMany(x=>x.Products).WithRequired(s => s.SubCategory).HasForeignKey(s => s.SubCategoryId).WillCascadeOnDelete(true);
             modelBuilder.Entity<ProductType>().HasMany(x=>x.AddOns).WithRequired(s=>s.ProductType).HasForeignKey(c=>c.ProductTypeId).WillCascadeOnDelete(true);
             modelBuilder.Entity<OrderLine>().HasMany(x => x.OrderLineAddOns).WithRequired(s => s.OrderLine).HasForeignKey(c => c.OrderLineId).WillCascadeOnDelete(true);
             modelBuilder.Entity<PricePlan>().HasMany(x=>x.PriceUnits).WithOptional().WillCascadeOnDelete(true);
-            
+            modelBuilder.Entity<Buyer>().HasMany(x => x.Orders).WithOptional().HasForeignKey(c => c.BuyerId);
             //modelBuilder.Entity<Customer>().HasMany(c => c.Categories).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);
             //modelBuilder.Entity<Customer>().HasMany(c => c.SubCategories).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);
             //modelBuilder.Entity<Customer>().HasMany(c => c.Products).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);

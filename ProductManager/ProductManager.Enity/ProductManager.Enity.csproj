@@ -57,6 +57,7 @@
     <Compile Include="AddOn.cs" />
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Buyer.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Order.cs" />
