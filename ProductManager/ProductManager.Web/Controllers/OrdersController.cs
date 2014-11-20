@@ -98,18 +98,6 @@ namespace ProductManager.Web.Controllers
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         } 
 
- 
-
-
-
-
-
-
-
-
-
-        //private CategoryDb db = new CategoryDb();
-
         // GET: Orders
         public async Task<ActionResult> Index()
         {
@@ -188,22 +176,6 @@ namespace ProductManager.Web.Controllers
             return View(order);
         }
 
-        // POST: Orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "Id,Author,CreatedDate,TotalPrice,Discount,Buyer,Name,CustomerId")] Order order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(order).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(order);
-        //}
-
         // GET: Orders/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
@@ -227,7 +199,6 @@ namespace ProductManager.Web.Controllers
 
         public async Task<ActionResult> OrderLines(int orderId)
         {
-            // var ordes = await db.Orders.FindAsync(orderId);
             var order = await _orderRepository.GetByIdAsync(orderId);
             var orderLines = order.Products.OrderBy(x=>x.ProductName).ToList();
             var viewModels = AutoMapper.Mapper.Map<IEnumerable<OrderLineViewModel>>(orderLines);

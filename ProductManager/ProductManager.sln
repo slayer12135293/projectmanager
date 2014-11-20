@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManager.Web", "ProductManager.Web\ProductManager.Web.csproj", "{B77C2EA6-CE8A-4345-A946-6D982FA4F834}"
 EndProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{35F1C4
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManager.Entity.UnitTests", "ProductManager.Entity.UnitTests\ProductManager.Entity.UnitTests.csproj", "{B4D60C97-CD10-448C-B678-9A7DE62711A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{AC282E64-A0F0-470F-A9A8-0C2DBD08272B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC282E64-A0F0-470F-A9A8-0C2DBD08272B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC282E64-A0F0-470F-A9A8-0C2DBD08272B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D60C97-CD10-448C-B678-9A7DE62711A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D60C97-CD10-448C-B678-9A7DE62711A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D60C97-CD10-448C-B678-9A7DE62711A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D60C97-CD10-448C-B678-9A7DE62711A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
