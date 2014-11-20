@@ -1,20 +1,65 @@
-﻿<section class="col-md-3">
+﻿
+
+
+<section class="col-sm-3">
     <select ng-model="selection.selectedCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.categories" ng-change="UpdateSubCatagories()">
         <option value="">-- Select a Category --</option>
     </select>
 </section>
 
-<section class="col-md-3">
+<section class="col-sm-3">
     <select ng-model="selection.selectedSubCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.subcategories" ng-change="UpdateProducts()">
         <option value="">-- Select a Sub category --</option>
     </select>
 </section>
-<section class="col-md-3">
+<section class="col-sm-3">
 
     <select ng-model="selection.selectedProduct" class="form-control" data-ng-options="c.Id as c.Name for c in selection.products" ng-change="SelectAProduct()">
         <option value="">-- Select a Product --</option>
     </select>
 </section>
-<section class="col-md-3">
+<section class="col-sm-3">
     <a class="btn btn-primary" ng-click="addFields(orderline)" ng-disabled="!selection.selectedProduct"> add a product</a>
 </section>
+
+
+<section class="row" class="margin_top_sm">
+    <section class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>ProductId</th>
+                <th>Name</th>
+                <th>Width</th>
+                <th>Height</th>
+                <th>Amount</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="(i, orderline) in selection.orderlines">
+                <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
+                <td>{{orderline.name}}</td>
+                <td><input type="number" name="Products[{{$index}}].width" ng-model="orderline.width" class="form-control" /></td>
+                <td><input type="number" name="Products[{{$index}}].height" ng-model="orderline.height" class="form-control" /></td>
+                <td><input type="number" name="Products[{{$index}}].amount" ng-model="orderline.amount" class="form-control" /></td>
+                <td><button type="button" ng-click="selection.orderlines.splice(i, 1);" class="btn btn-danger btn-sm">Remove</button></td>
+            </tr>
+        </table>
+    </section>
+</section>
+
+
+<section class="row" class="margin_top_sm">
+    <section class="col-md-12">
+        <section class="col-sm-3" ng-repeat="(i,addon) in productAddOns">
+            <p>{{addon.Name}}</p>
+            <input name="switch-{{addon.Id}}" type="checkbox" data-label-text="{{addon.Price}} kr">
+        </section>
+    </section>
+</section>
+
+
+<!--<script>
+    $(function () {
+        alert("fired");
+        $('input[type="checkbox"]').bootstrapSwitch();
+    });
+</script>-->

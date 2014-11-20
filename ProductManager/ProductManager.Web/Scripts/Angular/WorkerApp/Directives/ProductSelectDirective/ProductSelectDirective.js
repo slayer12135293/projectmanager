@@ -43,25 +43,33 @@ WorkerApp.controller('productSelectDirController', ['$scope','promiseService', f
 
         productPromise.then(function (data) {
             var orderline = { name: data.Name, id: data.Id };
-            var addOnsPromise = promiseService.callActionPromise('/Orders/GetAddOnsByProductType?productId=' + $scope.selection.selectedProduct);
             $scope.selection.orderlines.push(orderline);
-            addOnsPromise.then(function (data) {
-                orderline.productAddOns = data;
-                $scope.selection.product.productAddOns = data;
-            });
-
         });
     };
 
 
+    var addOnsPromise = promiseService.callActionPromise('/Orders/GetAddOnsByProductType?productId=' + $scope.productTypeId);
+    addOnsPromise.then(function (data) {
+        $scope.productAddOns = data;
+
+
+       
+    });
+
+    $scope.$on('$viewContentLoaded', function () {
+        alert('fired');
+        $('input[type="checkbox"]').bootstrapSwitch();
+    });
+    
 
 }]);
 WorkerApp.directive('productSelect', function () {
     return {
         restrict: 'AE',
         controller: 'productSelectDirController',
-        templateUrl: 'Scripts/Angular/Directives/Template/ProductSelect.html',
+        templateUrl: '/Scripts/Angular/WorkerApp/Directives/ProductSelectDirective/Template/ProductSelect.html',
         scope: {
+            productTypeId: '@productTypeId'
         }
     };
 

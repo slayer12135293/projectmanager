@@ -258,6 +258,7 @@
     <Compile Include="ViewModels\UpdateSubCategoryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -281,6 +282,7 @@
     <Content Include="Scripts\Angular\WorkerApp\WorkerApp.js" />
     <Content Include="Scripts\Angular\AdminApp\Controllers\CategoryController.js" />
     <Content Include="Scripts\Angular\AdminApp\AdminApp.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

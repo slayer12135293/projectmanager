@@ -117,6 +117,9 @@ a:hover {
     text-align: center;
 }
 
+.margin_top_sm {
+    margin-top: 10px;
+}
 
 
 /* make keyframes that tell the start state and the end state of our object */
