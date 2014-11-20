@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using ProductManager.Web.Filters;
 
 namespace ProductManager.Web.Controllers
 {
@@ -9,12 +10,6 @@ namespace ProductManager.Web.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
 
         public ActionResult Contact()
         {
@@ -22,5 +17,12 @@ namespace ProductManager.Web.Controllers
 
             return View();
         }
+        [AdministratorFilter]
+        public ActionResult Configuration()
+        {
+            return View();
+        }
+
+
     }
 }

@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="row">
+    <nav class="navbar navbar-inverse col-md-12">
+        <section class="container">
+            <section class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("PO Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </section>
+            <section class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Product", "Index", "Category")</li>
+                    <li>@Html.ActionLink("Order", "Index", "Orders")</li>
+                    <li>@Html.ActionLink("Configuration", "Configuration", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </section>
+        </section>
+    </nav>
+
+</section>
+
+
+<div class="container body-content" ng-app="AdminApp">
+    @Html.Partial("ConfigurationMenuView")
+    @RenderBody()
+
+
+
+    @section scripts{
+        <script src="~/Scripts/Angular/AdminApp/AdminApp.js"></script>
+        <script src="~/Scripts/Angular/AdminApp/Controllers/CategoryController.js"></script>
+        @RenderSection("scripts", required: false)
+    }
+</div>

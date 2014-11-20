@@ -12,7 +12,6 @@ namespace ProductManager.Enity
         public virtual Customer Customer { get; set; }
         [Index]
         public int CustomerId { get; set; }
-
         public bool IsActive { get; set; }
     }
 }

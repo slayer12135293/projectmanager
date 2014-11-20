@@ -2,6 +2,7 @@
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Factories;
+using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class SubCategoryController : Controller
     {
         private readonly IProductSubCategoryViewModelFactory _productSubCategoryViewModelFactory;
@@ -22,13 +24,6 @@ namespace ProductManager.Web.Controllers
             _productSubCategoryViewModelFactory = productSubCategoryViewModelFactory;
             _subCategoryRepository = subCategoryRepository;
             _customerIdService = customerIdService;
-        }
-
-        // GET: SubCategory
-        public ActionResult Index()
-        {
-            var model = new List<ProductSubCatagoryViewMode>();
-            return View(model);
         }
 
         public ActionResult Create(int categoryId)

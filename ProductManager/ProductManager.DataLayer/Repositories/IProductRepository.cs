@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using ProductManager.Enity;
 
 namespace ProductManager.DataLayer.Repositories
@@ -27,5 +26,4 @@ namespace ProductManager.DataLayer.Repositories
             return await DbSet.Where(x => x.SubCategoryId == subCategoryId).ToListAsync();
         }
     }
-
 }

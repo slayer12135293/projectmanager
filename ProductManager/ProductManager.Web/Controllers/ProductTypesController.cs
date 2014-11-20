@@ -1,39 +1,58 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 using System.Web.Mvc;
-using ProductManager.DataLayer;
+using Antlr.Runtime.Misc;
+using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
+using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
 {
+    [AdministratorFilter]
     public class ProductTypesController : Controller
     {
         private readonly ICustomerIdService _customerIdService;
+        private readonly IProductTypeRepository _productTypeRepository;
 
-        public ProductTypesController(ICustomerIdService _customerIdService)
+        public ProductTypesController(ICustomerIdService customerIdService, IProductTypeRepository productTypeRepository)
         {
-            this._customerIdService = _customerIdService;
+            _customerIdService = customerIdService;
+            _productTypeRepository = productTypeRepository;
         }
-
-        private CategoryDb db = new CategoryDb();
 
         // GET: ProductTypes
         public async Task<ActionResult> Index()
         {
-            return View(await db.ProductTypes.ToListAsync());
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+            return View(await  _productTypeRepository.GetAll().Where(x => x.CustomerId == currentCustomerId).ToListAsync());
         }
 
-        // GET: ProductTypes/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> GetAllTypes()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProductType productType = await db.ProductTypes.FindAsync(id);
+            var currentCustomerId = await _customerIdService.GetCustomerId();
+            return
+                Json(
+                    await
+                        _productTypeRepository.GetAll()
+                            .Where(x => x.CustomerId == currentCustomerId)
+                            .OrderBy(y => y.Name).Select(z=> new ProductTypeViewModel
+                            {
+                                CustomerId = z.CustomerId,
+                                Description = z.Description,
+                                Name = z.Name,
+                                Id = z.Id
+                            })
+                            .ToListAsync(), JsonRequestBehavior.AllowGet);
+        } 
+
+
+        // GET: ProductTypes/Details/5
+        public async Task<ActionResult> Details(int id)
+        {
+            var productType = await  _productTypeRepository.GetByIdAsync(id);
             if (productType == null)
             {
                 return HttpNotFound();
@@ -47,9 +66,6 @@ namespace ProductManager.Web.Controllers
             return View();
         }
 
-        // POST: ProductTypes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Description,Name,CustomerId")] ProductType productType)
@@ -59,22 +75,16 @@ namespace ProductManager.Web.Controllers
                 var customerId = await _customerIdService.GetCustomerId();
                 productType.CustomerId = customerId;
 
-                db.ProductTypes.Add(productType);
-                await db.SaveChangesAsync();
+                await _productTypeRepository.Add(productType);
                 return RedirectToAction("Index");
             }
 
             return View(productType);
         }
 
-        // GET: ProductTypes/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProductType productType = await db.ProductTypes.FindAsync(id);
+            var productType = await _productTypeRepository.GetByIdAsync(id);
             if (productType == null)
             {
                 return HttpNotFound();
@@ -82,57 +92,23 @@ namespace ProductManager.Web.Controllers
             return View(productType);
         }
 
-        // POST: ProductTypes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Description,Name,CustomerId")] ProductType productType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productType).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await _productTypeRepository.Update(productType);
                 return RedirectToAction("Index");
             }
             return View(productType);
         }
 
-        // GET: ProductTypes/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProductType productType = await db.ProductTypes.FindAsync(id);
-            if (productType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productType);
-        }
-
-        // POST: ProductTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            ProductType productType = await db.ProductTypes.FindAsync(id);
-            db.ProductTypes.Remove(productType);
-            await db.SaveChangesAsync();
+            await _productTypeRepository.Remove(id);
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
 
     }
 }

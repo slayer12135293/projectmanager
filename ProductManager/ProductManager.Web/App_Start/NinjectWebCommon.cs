@@ -74,13 +74,20 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<IProductCategoryDetailViewModelFactory>().To<ProductCategoryDetailViewModelFactory>();
             kernel.Bind<IProductSubCategoryViewModelFactory>().To<ProductSubCategoryViewModelFactory>();
             kernel.Bind<ISubCategoryRepository>().To<SubCategoryRepository>();
-            kernel.Bind<IProductRepository>().To<ProductRepository>();
+            kernel.Bind<IProductRepository>().To<ProductRepository>().InRequestScope();
             kernel.Bind<IUserManagerService>().ToMethod(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>());
             kernel.Bind<IApplicationRoleManager>().ToMethod(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationRoleManager>());
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>();
             kernel.Bind<ICustomerIdService>().To<CustomerIdService>();
             kernel.Bind<IOrderRepository>().To<OrderRepository>();
             kernel.Bind<IAddOnRepository>().To<AddOnRepository>();
+            kernel.Bind<IProductTypeRepository>().To<ProductTypeRepository>();
+            kernel.Bind<IProductCreateViewModelFactory>().To<ProductCreateViewModelFactory>();
+            kernel.Bind<IUpdateViewModelProductFacotry>().To<UpdateViewModelProductFacotry>();
+            kernel.Bind<IPricePlanRepository>().To<PricePlanRepository>();
+            kernel.Bind<IPriceUnitRepository>().To<PriceUnitRepository>();
+            kernel.Bind<IPricePlanViewModelFactory>().To<PricePlanViewModelFactory>();
+            kernel.Bind<ICustomerRepository>().To<CustomerRepository>();
 
         }        
     }

@@ -1,118 +1,131 @@
 ﻿@model ProductManager.Web.ViewModels.CreateProductViewModel
 @{
-    ViewBag.Title = "Create product";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>Product</h2>
 <hr />
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+<section class="row" ng-controller="CreateProductController">
 
-    <fieldset>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProductName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
-            <section class="validation-textbox-message">
-                @Html.ValidationMessageFor(model => model.ProductName)
-            </section>
-        </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProductCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
-            <section class="validation-textbox-message">
-                @Html.ValidationMessageFor(model => model.ProductCode)
-            </section>
-        </div>
+        <fieldset>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.Name)
+                </section>
+            </div>
 
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Height)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
-            <section class="validation-textbox-message">
-                @Html.ValidationMessageFor(model => model.Height)
-            </section>
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ProductCode)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.ProductCode)
+                </section>
+            </div>
 
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Width)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
-            <section class="validation-textbox-message">
-                @Html.ValidationMessageFor(model => model.Width)
-            </section>
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Height)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.Height)
+                </section>
+            </div>
 
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ColoCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ColoCode, new { htmlAttributes = new { @class = "form-control" } })
-            <section class="validation-textbox-message">
-                @Html.ValidationMessageFor(model => model.ColoCode)
-            </section>
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Width)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Width, new { htmlAttributes = new { @class = "form-control" } })
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.Width)
+                </section>
+            </div>
 
 
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ColorName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ColorName, new { htmlAttributes = new { @class = "form-control" } })
-            <section class="validation-textbox-message">
-                @Html.ValidationMessageFor(model => model.ColorName)
-            </section>
-        </div>
-        
-        
-        
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProductType)
-        </div>
-        <div class="editor-field">
-            <select class="validation-textbox-message" name="ProductType">
-               <option value="1"> type1</option>
-               <option value="2"> type2</option>
-               <option value="3"> type2</option>
-            </select>
-        </div>
-        
-        
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ColoCode)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ColoCode, new { htmlAttributes = new { @class = "form-control" } })
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.ColoCode)
+                </section>
+            </div>
 
 
 
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ColorName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ColorName, new { htmlAttributes = new { @class = "form-control" } })
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.ColorName)
+                </section>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsNewProduct)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsNewProduct)
-            <section class="validation-textbox-message">
-                @Html.ValidationMessageFor(model => model.IsNewProduct)
-            </section>
-        </div>
-        @Html.HiddenFor(model => model.SubCategoryId)
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
 
-}
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ProductTypeId)
+            </div>
+            <div class="editor-field">
+                <select class="form-control" ng-model="ngProductType" name="ProductTypeId" ng-change="ProductTypeChange()">
+                     @foreach (var type in Model.ProductTypeViewModels)
+                    {
+                        <option value="@type.Id"> @type.Name</option>
+                    }
+                </select>
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.ProductTypeId)
+                </section>
+            </div>
 
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PricePlanId)
+            </div>
+            <div class="editor-field">
+                <select class="form-control" ng-model="ngPricePlan" name="PricePlanId" data-ng-options="c.Id as c.Name for c in priceplans">
+                </select>
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.PricePlanId)
+                </section>
+            </div>
+
+
+
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IsNewProduct)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IsNewProduct)
+                <section class="validation-textbox-message">
+                    @Html.ValidationMessageFor(model => model.IsNewProduct)
+                </section>
+            </div>
+            @Html.HiddenFor(model => model.SubCategoryId)
+
+            <p>
+                <input type="submit" value="Create" class="btn btn-default" />
+            </p>
+        </fieldset>
+
+    }
+</section>
+
+

@@ -17,7 +17,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Product", "Index", "Category")</li>
                     <li>@Html.ActionLink("Order", "Index", "Orders")</li>
-                    <li>@Html.ActionLink("My Profile", "About", "Home")</li>
+                    <li>@Html.ActionLink("Configuration", "Configuration", "Home")</li>
+                    
+                    
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </section>
@@ -26,14 +29,14 @@
 </section>
 
 
-<div class="container body-content" ng-app="LeiApp">
+<div class="container body-content" ng-app="AdminApp" ng-cloak>
     @RenderBody()
 
 
 
     @section scripts{
-        <script src="~/Scripts/Angular/LeiApp/LeiApp.js"></script>
-        <script src="~/Scripts/Angular/LeiApp/Controllers/CategoryController.js"></script>
+        <script src="~/Scripts/Angular/AdminApp/AdminApp.js"></script>
+        <script src="~/Scripts/Angular/AdminApp/Controllers/CategoryController.js"></script>
         @RenderSection("scripts", required: false)
     }
 </div>

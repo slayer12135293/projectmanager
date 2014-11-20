@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
-using ProductManager.DataLayer;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Filters;
@@ -89,27 +84,13 @@ namespace ProductManager.Web.Controllers
 
 
 
-        public async Task<ActionResult> GetAddOnsByProductType(int productId)
+        public async Task<ActionResult> GetAddOnsByProductType(int productTypeId)
         {
-            var selectedProduct = await _productRepository.GetByIdAsync(productId);
-
-            var result = await _addOnRepository.GetAddOnsByProductType(selectedProduct.ProductTypeId);
+            var result = await _addOnRepository.GetAddOnsByProductType(productTypeId);
             var viewModel = AutoMapper.Mapper.Map<IEnumerable<AddOnViewModel>>(result);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         } 
-
- 
-
-
-
-
-
-
-
-
-
-        //private CategoryDb db = new CategoryDb();
-
+        
         // GET: Orders
         public async Task<ActionResult> Index()
         {

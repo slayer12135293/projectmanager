@@ -72,7 +72,7 @@ namespace ProductManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 var allRoles = _applicationRoleManager.Roles;
-                var user = new ApplicationUser { UserName = applicationUser.Email, Email = applicationUser.Email, CustomerId = applicationUser.CustomerId };
+                var user = new ApplicationUser { UserName = applicationUser.Email, Email = applicationUser.Email, CustomerId = applicationUser.CustomerId, IsActive = applicationUser.IsActive};
                 foreach (var selectedRole in selectedRoles)
                 {
                     var role = allRoles.Single(x => x.Name == selectedRole);
@@ -83,7 +83,7 @@ namespace ProductManager.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "ApplicationUsers");
                 }
                     AddErrors(result);
                 }

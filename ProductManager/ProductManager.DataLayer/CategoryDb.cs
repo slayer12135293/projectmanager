@@ -21,6 +21,8 @@ namespace ProductManager.DataLayer
         public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<AddOn> AddOns { get; set; }
+        public DbSet<PricePlan> PricePlans { get; set; }
+        public DbSet<PriceUnit> PriceUnits { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -31,6 +33,7 @@ namespace ProductManager.DataLayer
             modelBuilder.Entity<SubCategory>().HasMany(x=>x.Products).WithRequired(s => s.SubCategory).HasForeignKey(s => s.SubCategoryId).WillCascadeOnDelete(true);
             modelBuilder.Entity<ProductType>().HasMany(x=>x.AddOns).WithRequired(s=>s.ProductType).HasForeignKey(c=>c.ProductTypeId).WillCascadeOnDelete(true);
             modelBuilder.Entity<OrderLine>().HasMany(x => x.OrderLineAddOns).WithRequired(s => s.OrderLine).HasForeignKey(c => c.OrderLineId).WillCascadeOnDelete(true);
+            modelBuilder.Entity<PricePlan>().HasMany(x=>x.PriceUnits).WithOptional().WillCascadeOnDelete(true);
             
             //modelBuilder.Entity<Customer>().HasMany(c => c.Categories).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);
             //modelBuilder.Entity<Customer>().HasMany(c => c.SubCategories).WithRequired(x=>x.Customer).HasForeignKey(y=>y.CustomerId).WillCascadeOnDelete(true);

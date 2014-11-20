@@ -2,18 +2,17 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminConfig.cshtml";
 }
 
-<h2>Create</h2>
-
+<h2>Create an Addon</h2>
+<hr />
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>AddOn</h4>
-        <hr />
+      
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.ProductTypeId, "ProductTypeId", htmlAttributes: new { @class = "control-label col-md-2" })

@@ -43,6 +43,7 @@ namespace ProductManager.Web
 
             var angularLocalLib = new ScriptBundle("~/bundles/angularLib");
             angularLocalLib.Include("~/Scripts/Angular/Lib/Services/CallService.js");
+            angularLocalLib.Include("~/Scripts/Angular/Lib/Services/ProductTypesService.js");
             bundles.Add(angularLocalLib);
 
             var angularTable = new ScriptBundle("~/bundles/angularTable");

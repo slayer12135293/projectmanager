@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminConfig.cshtml";
+}
+
+<h2>Index</h2>
+
+<section class="row">
+    <section class="col-md-12">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    </section></section>
+
+<section class="row fade-in" ng-controller="PricePlanController" >
+    <section class="col-md-12">
+        <table ng-table="tableParams" data-show-filter="true" class="table">
+            <tr ng-repeat="pricePlan in $data">
+                <td data-title="'ProductTypeName'" data-sortable="'ProductTypeName'" filter="{'ProductTypeName': 'text' }">
+                    {{pricePlan.ProductTypeName}}
+                </td>
+                <td data-title="'Name'" data-sortable="'Name'" filter="{ 'Name': 'text' }">
+                    {{pricePlan.Name}}
+                </td>
+
+                <td data-title="'Description'" data-sortable="'Description'">
+                    {{pricePlan.Description}}
+                </td>
+                <td>
+                    <a class="btn btn-info" href="/Priceplan/Edit/{{pricePlan.Id}}">Edit</a>
+                    <a class="btn btn-info" href="/Priceplan/Details/{{pricePlan.Id}}">Details</a>
+                    <a class="btn btn-danger" href="/Priceplan/Delete/{{pricePlan.Id}}">Delete</a>
+                </td>
+            </tr>
+        </table>
+
+    </section>
+</section>
