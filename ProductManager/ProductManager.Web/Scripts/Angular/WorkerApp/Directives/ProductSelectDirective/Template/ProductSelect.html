@@ -47,19 +47,11 @@
 </section>
 
 
-<section class="row" class="margin_top_sm">
+<section class="row margin_top_sm" >
     <section class="col-md-12">
         <section class="col-sm-3" ng-repeat="(i,addon) in productAddOns">
             <p>{{addon.Name}}</p>
-            <input name="switch-{{addon.Id}}" type="checkbox" data-label-text="{{addon.Price}} kr">
+            <section data-angular-switch data-view-model='addon' data-price="{{addon.Price}}"></section>
         </section>
     </section>
 </section>
-
-
-<!--<script>
-    $(function () {
-        alert("fired");
-        $('input[type="checkbox"]').bootstrapSwitch();
-    });
-</script>-->

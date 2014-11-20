@@ -48,18 +48,11 @@ WorkerApp.controller('productSelectDirController', ['$scope','promiseService', f
     };
 
 
-    var addOnsPromise = promiseService.callActionPromise('/Orders/GetAddOnsByProductType?productId=' + $scope.productTypeId);
+    var addOnsPromise = promiseService.callActionPromise('/Orders/GetAddOnsByProductType?productTypeId=' + $scope.productTypeId);
     addOnsPromise.then(function (data) {
         $scope.productAddOns = data;
-
-
-       
     });
 
-    $scope.$on('$viewContentLoaded', function () {
-        alert('fired');
-        $('input[type="checkbox"]').bootstrapSwitch();
-    });
     
 
 }]);

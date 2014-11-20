@@ -84,11 +84,9 @@ namespace ProductManager.Web.Controllers
 
 
 
-        public async Task<ActionResult> GetAddOnsByProductType(int productId)
+        public async Task<ActionResult> GetAddOnsByProductType(int productTypeId)
         {
-            var selectedProduct = await _productRepository.GetByIdAsync(productId);
-
-            var result = await _addOnRepository.GetAddOnsByProductType(selectedProduct.ProductTypeId);
+            var result = await _addOnRepository.GetAddOnsByProductType(productTypeId);
             var viewModel = AutoMapper.Mapper.Map<IEnumerable<AddOnViewModel>>(result);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         } 
