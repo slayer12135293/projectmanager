@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-WorkerApp.directive('angularSwitch', function () {
+WorkerApp.directive('angularSwitch', ['$timeout', function ($timeout) {
     return {
         restrict: 'AE',
         templateUrl: '/Scripts/Angular/WorkerApp/Directives/SwitchDirective/Template/AngularSwitch.html',
@@ -8,14 +8,16 @@ WorkerApp.directive('angularSwitch', function () {
             viewModel: '=viewModel'
         },
         link: function (scope) {
-            scope.$watch('viewModel', function (viewModel) {
-                if (angular.isDefined(viewModel)) {
-                    $('input[type="checkbox"]').bootstrapSwitch();
-                }
-            }, true);
-            scope.$apply();
+
+            $timeout(function () {
+                scope.$watch('viewModel', function (viewModel) {
+                    if (angular.isDefined(viewModel)) {
+                        $('input[type="checkbox"]').bootstrapSwitch();
+                    }
+                }, true);
+            });
+      
         }
-       
     };
 
-});
+}]);

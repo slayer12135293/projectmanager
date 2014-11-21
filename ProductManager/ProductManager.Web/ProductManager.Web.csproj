@@ -251,6 +251,7 @@
     <Compile Include="ViewModels\ProdctTypeViewModel.cs" />
     <Compile Include="ViewModels\ProductSubCatagoryViewModel.cs" />
     <Compile Include="ViewModels\ProductCatagoryViewModel.cs" />
+    <Compile Include="ViewModels\ProductTypeGroupViewModel.cs" />
     <Compile Include="ViewModels\ProductTypeViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\UpdateCategoryViewMode.cs" />

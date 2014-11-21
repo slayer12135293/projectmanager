@@ -5,7 +5,6 @@ WorkerApp.controller('OrderController', ['$scope','$filter', 'promiseService', '
     var productTypesPromise = getProductTypesService.getAllTypesPromise();
     $scope.typeGroup = {};
     $scope.selection = {};
-    $scope.selection.hasProduct = true;
     productTypesPromise.then(function (data) {
         $scope.selection.allProductTypes = data;
     });

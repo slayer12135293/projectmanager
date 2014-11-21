@@ -24,7 +24,7 @@ WorkerApp.controller('productSelectDirController', ['$scope','promiseService', f
 
     $scope.UpdateProducts = function () {
         if ($scope.selection.selectedSubCategory != null) {
-            var subCategoryPromise = promiseService.callActionPromise('/Orders/Products?subcategoryId=' + $scope.selection.selectedSubCategory);
+            var subCategoryPromise = promiseService.callActionPromise('/Orders/Products?subcategoryId=' + $scope.selection.selectedSubCategory + '&productTypeId=' + $scope.productTypeId);
             subCategoryPromise.then(function (data) {
                 $scope.selection.products = data;
             });
@@ -39,7 +39,7 @@ WorkerApp.controller('productSelectDirController', ['$scope','promiseService', f
             $scope.selection.orderlines = [];
         }
 
-        var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct);
+        var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct + '&productTypeId=' + $scope.productTypeId);
 
         productPromise.then(function (data) {
             var orderline = { name: data.Name, id: data.Id };
