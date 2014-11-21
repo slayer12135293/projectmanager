@@ -15,5 +15,6 @@ namespace ProductManager.Web.ViewModels
         public virtual ICollection<AddOnViewModel> AddOns { get; set; } 
         public decimal TotalPrice { get; set; }
         public Buyer Buyer { get; set; }
+        public string AdditionalInformation { get; set; }
     }
 }

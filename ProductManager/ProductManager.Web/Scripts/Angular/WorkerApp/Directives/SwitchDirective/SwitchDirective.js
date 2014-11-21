@@ -7,13 +7,8 @@ WorkerApp.directive('angularSwitch', ['$timeout', function ($timeout) {
         scope: {
             viewModel: '=viewModel'
         },
-        link: function (scope) {
+        link: function () {
             $timeout(function () {
-                //scope.$watch('viewModel', function (viewModel) {
-                //    if (angular.isDefined(viewModel)) {
-                //        $('input[type="checkbox"]').bootstrapSwitch();
-                //    }
-                //}, true);
                 $('input[type="checkbox"]').bootstrapSwitch();
             });
       
