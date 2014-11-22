@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-WorkerApp.controller('productSelectDirController', ['$scope','promiseService', function($scope, promiseService) {
+WorkerApp.controller('productSelectDirController', ['$scope', 'promiseService', 'orderStorageService', function ($scope, promiseService, orderStorageService) {
 
     var categoriesPromise = promiseService.callActionPromise('/Orders/AllCategories');
     $scope.selection = {};
@@ -34,15 +34,23 @@ WorkerApp.controller('productSelectDirController', ['$scope','promiseService', f
 
     };
 
+
+    this.setOrderline = function (a) {
+        $scope.orderline =a;
+    }; 
+
     $scope.addFields = function () {
         if (typeof $scope.selection.orderlines == 'undefined') {
             $scope.selection.orderlines = [];
         }
 
+
+        console.log($scope);
+
         var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct + '&productTypeId=' + $scope.productTypeId);
 
         productPromise.then(function (data) {
-            var orderline = { name: data.Name, id: data.Id };
+            var orderline = { name: data.Name, id: data.Id, width: $scope.orderline.width, height: $scope.orderline.height, amount: $scope.orderline.amount, price:232 };
             $scope.selection.orderlines.push(orderline);
         });
     };
@@ -53,7 +61,9 @@ WorkerApp.controller('productSelectDirController', ['$scope','promiseService', f
         $scope.productAddOns = data;
     });
 
-    
+
+   
+
 
 }]);
 WorkerApp.directive('productSelect', function () {
@@ -62,7 +72,9 @@ WorkerApp.directive('productSelect', function () {
         controller: 'productSelectDirController',
         templateUrl: '/Scripts/Angular/WorkerApp/Directives/ProductSelectDirective/Template/ProductSelect.html',
         scope: {
-            productTypeId: '@productTypeId'
+            productTypeId: '@productTypeId',
+            calculationType: '@calculationType',
+            groupIndexId: '@groupIndexId'
         }
     };
 

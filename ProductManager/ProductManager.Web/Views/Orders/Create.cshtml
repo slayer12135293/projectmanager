@@ -33,15 +33,14 @@
                             <accordion id="productTypeGroups" data-collapse-type="manual">
                                 <accordion-group is-open="true" ng-repeat="(i, typeGroup) in typeGroup.groups" name="ProductTypeGroup{{$index}}">
                                     <accordion-heading>
-                                        {{typeGroup.productTypeId}}  -- {{typeGroup.productTypeName}}
+                                        {{typeGroup.productTypeId}}  -- {{typeGroup.typeName}}--{{typeGroup.calculationType}}
                                         <section class="pull-right btn-group-xs">
                                             <button type="button" class="btn btn-danger" ng-click="removeTypeGroup(i)">Remove</button>
                                         </section>
                                     </accordion-heading>
                                     <section class="row">
                                         <section class="col-md-12">
-                                            <product-select data-product-type-id="{{typeGroup.productTypeId}}"/>
-
+                                            <product-select data-product-type-id="{{typeGroup.productTypeId}}" data-calculation-type="{{typeGroup.calculationType}}" data-group-index-id="{{typeGroup.indexId}}" />
 
                                         </section>
                                     </section>

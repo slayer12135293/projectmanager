@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Antlr.Runtime.Misc;
 using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
+using ProductManager.Web.Common;
 using ProductManager.Web.Filters;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
@@ -43,7 +44,8 @@ namespace ProductManager.Web.Controllers
                                 CustomerId = z.CustomerId,
                                 Description = z.Description,
                                 Name = z.Name,
-                                Id = z.Id
+                                Id = z.Id,
+                                PriceCalculationType = (int)z.PriceCalculationType
                             })
                             .ToListAsync(), JsonRequestBehavior.AllowGet);
         } 
@@ -63,12 +65,13 @@ namespace ProductManager.Web.Controllers
         // GET: ProductTypes/Create
         public ActionResult Create()
         {
+            ViewData["PriceCalculationType"] = PriceCalculationType.WithHeightAmount.ToSelectList();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Description,Name,CustomerId")] ProductType productType)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Description,Name,CustomerId,PriceCalculationType")] ProductType productType)
         {
             if (ModelState.IsValid)
             {
@@ -85,16 +88,20 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var productType = await _productTypeRepository.GetByIdAsync(id);
+
             if (productType == null)
             {
                 return HttpNotFound();
             }
+
+            ViewData["PriceCalculationType"] = productType.PriceCalculationType.ToSelectList();
+
             return View(productType);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Description,Name,CustomerId")] ProductType productType)
+        public async Task<ActionResult> Edit(ProductType productType)
         {
             if (ModelState.IsValid)
             {

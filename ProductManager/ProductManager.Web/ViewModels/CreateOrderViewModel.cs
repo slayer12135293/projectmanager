@@ -12,7 +12,7 @@ namespace ProductManager.Web.ViewModels
         public DateTime CreatedDateTime { get; set; }
         public DateTime LastUpdatedDateTime { get; set; }
         public virtual ICollection<ProductTypeGroupViewModel> ProductTypeGroups { get; set;}
-        public virtual ICollection<AddOnViewModel> AddOns { get; set; } 
+        
         public decimal TotalPrice { get; set; }
         public Buyer Buyer { get; set; }
         public string AdditionalInformation { get; set; }

@@ -195,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\MappingInitalizer.cs" />
+    <Compile Include="Common\PriceCalculationTypeExtensions.cs" />
     <Compile Include="Controllers\AddOnsController.cs" />
     <Compile Include="Controllers\CustomerProfileController.cs" />
     <Compile Include="Controllers\PricePlanController.cs" />
@@ -276,12 +277,20 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Angular\Lib\Services\CallService.js" />
+    <Content Include="Scripts\Angular\Lib\Services\LocalStorageService.js" />
+    <Content Include="Scripts\Angular\Lib\Services\OrderStorageService.js" />
     <Content Include="Scripts\Angular\Lib\Services\ProductTypesService.js" />
     <Content Include="Scripts\Angular\WorkerApp\Controllers\OrderController.js" />
+    <Content Include="Scripts\Angular\WorkerApp\Directives\PriceCalculationTypeDirective\Template\UniversalTemplate.html" />
+    <Content Include="Scripts\Angular\WorkerApp\Directives\PriceCalculationTypeDirective\Template\M2Amount.html" />
+    <Content Include="Scripts\Angular\WorkerApp\Directives\PriceCalculationTypeDirective\Template\Amount.html" />
     <Content Include="Scripts\Angular\WorkerApp\Directives\ProductSelectDirective\ProductSelectDirective.js" />
     <Content Include="Scripts\Angular\WorkerApp\Directives\ProductSelectDirective\Template\ProductSelect.html" />
     <Content Include="Scripts\Angular\WorkerApp\Directives\SwitchDirective\SwitchDirective.js" />
     <Content Include="Scripts\Angular\WorkerApp\Directives\SwitchDirective\Template\AngularSwitch.html" />
+    <Content Include="Scripts\Angular\WorkerApp\Directives\PriceCalculationTypeDirective\PriceCalculationTypeDirective.js" />
+    <Content Include="Scripts\Angular\WorkerApp\Directives\PriceCalculationTypeDirective\Template\WHA.html" />
+    <Content Include="Scripts\Angular\WorkerApp\Models\LocalStorageOrder.js" />
     <Content Include="Scripts\Angular\WorkerApp\WorkerApp.js" />
     <Content Include="Scripts\Angular\AdminApp\Controllers\CategoryController.js" />
     <Content Include="Scripts\Angular\AdminApp\AdminApp.js" />
