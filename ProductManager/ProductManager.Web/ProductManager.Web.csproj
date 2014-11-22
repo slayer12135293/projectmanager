@@ -256,6 +256,7 @@
     <Compile Include="ViewModels\UpdateCategoryViewMode.cs" />
     <Compile Include="ViewModels\UpdateCustomerInfoViewModel.cs" />
     <Compile Include="ViewModels\UpdateSubCategoryViewModel.cs" />
+    <Compile Include="Controllers\BuyersController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-switch.min.css" />
@@ -394,6 +395,11 @@
     <Content Include="Views\Shared\Partials\ConfigurationMenuView.cshtml" />
     <Content Include="Views\SubCategory\Edit.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Buyers\Create.cshtml" />
+    <Content Include="Views\Buyers\Delete.cshtml" />
+    <Content Include="Views\Buyers\Details.cshtml" />
+    <Content Include="Views\Buyers\Edit.cshtml" />
+    <Content Include="Views\Buyers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

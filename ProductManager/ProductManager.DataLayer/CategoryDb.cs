@@ -23,7 +23,7 @@ namespace ProductManager.DataLayer
         public DbSet<AddOn> AddOns { get; set; }
         public DbSet<PricePlan> PricePlans { get; set; }
         public DbSet<PriceUnit> PriceUnits { get; set; }
-
+        public System.Data.Entity.DbSet<ProductManager.Enity.Buyer> Buyers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -48,6 +48,8 @@ namespace ProductManager.DataLayer
         {
             return new CategoryDb();
         }
+
+      
 
     }
 }

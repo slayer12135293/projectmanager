@@ -215,5 +215,10 @@ namespace ProductManager.Web.Controllers
             return View(viewModels);
         }
 
+        public ActionResult AddBuyer()
+        {
+            return View();
+        }
+
     }
 }

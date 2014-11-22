@@ -18,6 +18,5 @@ namespace ProductManager.Enity
         public decimal Discount { get; set; }
         public virtual int BuyerId { get; set; }
         public Buyer Buyer { get; set; }
-
     }
 }
