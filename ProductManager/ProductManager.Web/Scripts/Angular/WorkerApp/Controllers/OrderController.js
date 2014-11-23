@@ -12,7 +12,7 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
 
     $scope.addTypeGroup = function () {
         var selectedTypeId = $scope.selection.selectedProductType;
-        if (typeof $scope.typeGroup.groups == 'undefined') {
+        if (typeof $scope.typeGroup.groups === 'undefined') {
             $scope.typeGroup.groups = [];
         };
 

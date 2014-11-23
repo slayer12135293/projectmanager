@@ -1,6 +1,42 @@
 ﻿'use strict';
 
-WorkerApp.controller('productSelectDirController', ['$scope', 'promiseService', 'orderStorageService', function ($scope, promiseService, orderStorageService) {
+WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promiseService', 'orderStorageService', function ($scope,$filter,promiseService, orderStorageService) {
+
+    this.setOrderline = function (a) {
+        $scope.orderline = a;
+    };
+
+    $scope.addOns = [];
+
+    this.setAddon = function(id, name, price) {
+        var addOn = new AddOn(id, name, price);
+        $scope.addOns.push(addOn);
+        $scope.saveAddOnsToStorage();
+        console.log($scope.addOns);
+
+    };
+    this.removeAddon = function (id) {
+        var targetAddon = $filter('filter')($scope.addOns, function (x) { return x.id.toString() === id.toString(); })[0];
+        var index = $scope.addOns.indexOf(targetAddon);
+        $scope.addOns.splice(index, 1);
+       
+        console.log($scope.addOns);
+        $scope.saveAddOnsToStorage();
+
+
+    };
+
+    $scope.saveAddOnsToStorage = function() {
+        var currentOrderStorage = orderStorageService.getOrderStorage();
+        var productTypeGroupsInStorage = currentOrderStorage.productTypeGroups;
+        var currentProductTypeGroup = $filter('filter')(productTypeGroupsInStorage, function (x) { return x.indexId.toString() === $scope.groupIndexId.toString(); })[0];
+        currentProductTypeGroup.addOns = $scope.addOns;
+        orderStorageService.saveOrderStorage(currentOrderStorage);
+
+        console.log($scope.groupIndexId);
+    };
+
+
 
     var categoriesPromise = promiseService.callActionPromise('/Orders/AllCategories');
     $scope.selection = {};
@@ -34,26 +70,34 @@ WorkerApp.controller('productSelectDirController', ['$scope', 'promiseService', 
 
     };
 
-
-    this.setOrderline = function (a) {
-        $scope.orderline =a;
-    }; 
-
     $scope.addFields = function () {
-        if (typeof $scope.selection.orderlines == 'undefined') {
+        if (typeof $scope.selection.orderlines === 'undefined') {
             $scope.selection.orderlines = [];
         }
-
-
-        console.log($scope);
-
         var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct + '&productTypeId=' + $scope.productTypeId);
 
         productPromise.then(function (data) {
             var orderline = { name: data.Name, id: data.Id, width: $scope.orderline.width, height: $scope.orderline.height, amount: $scope.orderline.amount, price:232 };
             $scope.selection.orderlines.push(orderline);
+            $scope.saveOrderLineToStorage();
         });
     };
+
+    $scope.saveOrderLineToStorage = function () {
+        var currentOrderStorage = orderStorageService.getOrderStorage();
+        var productTypeGroupsInStorage = currentOrderStorage.productTypeGroups;
+        var currentProductTypeGroup = $filter('filter')(productTypeGroupsInStorage, function (x) { return x.indexId.toString() === $scope.groupIndexId.toString(); })[0];
+        currentProductTypeGroup.orderlines = $scope.selection.orderlines;
+        orderStorageService.saveOrderStorage(currentOrderStorage);
+    };
+
+
+    $scope.removeAField = function(i) {
+        $scope.selection.orderlines.splice(i, 1);
+        $scope.saveOrderLineToStorage();
+    };
+
+
 
 
     var addOnsPromise = promiseService.callActionPromise('/Orders/GetAddOnsByProductType?productTypeId=' + $scope.productTypeId);

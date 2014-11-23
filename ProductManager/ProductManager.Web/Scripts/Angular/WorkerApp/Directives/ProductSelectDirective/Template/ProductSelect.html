@@ -34,12 +34,6 @@
 
 
 
-
-
-
-
-
-
 <section class="row" class="margin_top_sm">
     <section class="col-md-12">
         <table class="table">
@@ -59,7 +53,7 @@
                 <td><input type="number" name="Width" class="form-control" value="{{orderline.width}}" min="0" step="1" /></td>
                 <td><input type="number" name="Height" class="form-control" value="{{orderline.height}}" min="0" step="1" /></td>
                 <td><input type="number" name="Amount" class="form-control" value="{{orderline.amount}}" min="0" step="1" /></td>
-                <td><button type="button" ng-click="selection.orderlines.splice(i, 1);" class="btn btn-danger btn-sm">Remove</button></td>
+                <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
             </tr>
         </table>
     </section>
@@ -70,7 +64,7 @@
     <section class="col-md-12">
         <section class="col-sm-3" ng-repeat="(i,addon) in productAddOns">
             <p>{{addon.Name}}</p>
-            <section data-angular-switch data-view-model='addon' data-price="{{addon.Price}}"></section>
+            <section data-angular-switch data-view-model='addon' data-price="{{addon.Price}}" data-group-id="{{groupIndexId}}"></section>
         </section>
     </section>
 </section>

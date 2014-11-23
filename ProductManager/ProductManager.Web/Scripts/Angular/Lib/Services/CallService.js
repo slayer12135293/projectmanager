@@ -3,7 +3,7 @@ angular.module('callService', []).service('promiseService', [
     '$http', '$q', function ($http, $q) {
 
         this.callActionPromise = function (url, param) {
-            if (param == undefined) {
+            if (param === undefined) {
                 param = "";
             }
             var defer = new $q.defer();
