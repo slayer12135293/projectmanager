@@ -7,20 +7,43 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
     };
 
     $scope.addOns = [];
+    $scope.selection = {};
+    $scope.selection.orderlines = [];
+
+    $scope.checkOrderLineAndAddOnStorage = function() {
+        var currentStorage = orderStorageService.getOrderStorage();
+        if (!angular.isUndefined(currentStorage.productTypeGroups) && currentStorage.productTypeGroups !== null) {
+            var currentTypeGroup = $filter('filter')(currentStorage.productTypeGroups, function (x) { return x.indexId.toString() === $scope.groupIndexId.toString(); })[0];
+            if (currentTypeGroup.orderlines.length > 0) {
+                $scope.selection.orderlines = currentTypeGroup.orderlines;
+            }
+            if (currentTypeGroup.addOns.length > 0) {
+                $scope.addOns = currentTypeGroup.addOns;
+            }
+
+        };
+    };
+
+    $scope.checkOrderLineAndAddOnStorage();
+
+
+    
+
+
+
+
+
 
     this.setAddon = function(id, name, price) {
         var addOn = new AddOn(id, name, price);
         $scope.addOns.push(addOn);
         $scope.saveAddOnsToStorage();
-        console.log($scope.addOns);
 
     };
     this.removeAddon = function (id) {
         var targetAddon = $filter('filter')($scope.addOns, function (x) { return x.id.toString() === id.toString(); })[0];
         var index = $scope.addOns.indexOf(targetAddon);
         $scope.addOns.splice(index, 1);
-       
-        console.log($scope.addOns);
         $scope.saveAddOnsToStorage();
 
 
@@ -39,7 +62,6 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
 
 
     var categoriesPromise = promiseService.callActionPromise('/Orders/AllCategories');
-    $scope.selection = {};
     $scope.selection.hasProduct = true;
     categoriesPromise.then(function (data) {
         $scope.selection.categories = data;

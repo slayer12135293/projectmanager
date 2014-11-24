@@ -3,11 +3,25 @@
 WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 'getProductTypesService', 'orderStorageService', function ($scope, $filter, promiseService, getProductTypesService, orderStorageService) {
 
     var productTypesPromise = getProductTypesService.getAllTypesPromise();
-    $scope.typeGroup = {};
+    $scope.typeGroup = [];
     $scope.selection = {};
     productTypesPromise.then(function (data) {
         $scope.selection.allProductTypes = data;
     });
+
+    $scope.orderStorageCheck = function () {
+        var currentStorage = orderStorageService.getOrderStorage();
+        if (!angular.isUndefined(currentStorage) && currentStorage !== null) {
+            if (!angular.isUndefined(currentStorage.productTypeGroups) && currentStorage.productTypeGroups!==null) {
+                $scope.typeGroup.groups = currentStorage.productTypeGroups;
+            } 
+        };
+    };
+
+
+    $scope.orderStorageCheck();
+
+
 
 
     $scope.addTypeGroup = function () {
