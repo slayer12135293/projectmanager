@@ -17,6 +17,13 @@ WorkerApp.controller('addonSwitchController', ['$scope', '$filter', 'orderStorag
         };
     };
     $scope.addOnStorage();
+
+    console.log($scope.addOnIds);
+    console.log($scope.viewModel.Id);
+    console.log($scope.addOnIds.indexOf($scope.viewModel.Id));
+
+
+    console.log($scope.addOnIds.indexOf($scope.viewModel.Id) === -1);
 }]);
 
 
