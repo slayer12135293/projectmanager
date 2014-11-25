@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +12,7 @@ using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
 {
+    
     [AdministratorFilter]
     public class OrdersController : Controller
     {
@@ -23,13 +22,15 @@ namespace ProductManager.Web.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IAddOnRepository _addOnRepository;
+        private readonly IPricePlanRepository _pricePlanRepository;
 
         public OrdersController(ICategoryRepository categoryRepository, 
             IUserManagerService userManagerService, 
             ISubCategoryRepository subCategoryRepository, 
             IProductRepository productRepository,
             IOrderRepository orderRepository,
-            IAddOnRepository addOnRepository
+            IAddOnRepository addOnRepository,
+            IPricePlanRepository pricePlanRepository
             )
         {
             _categoryRepository = categoryRepository;
@@ -38,6 +39,7 @@ namespace ProductManager.Web.Controllers
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _addOnRepository = addOnRepository;
+            _pricePlanRepository = pricePlanRepository;
         }
 
         public async Task<ActionResult> AllCategories()
@@ -64,10 +66,10 @@ namespace ProductManager.Web.Controllers
         }
 
 
-        public async Task<ActionResult> Products(int subCategoryId)
+        public async Task<ActionResult> Products(int subCategoryId, int productTypeId)
         {
             var products = await _productRepository.GetProductsFromSubCategory(subCategoryId);
-            var viewModels = products.OrderBy(o => o.Name).Select(x => new CategoryDropDownViewModel()
+            var viewModels = products.Where(t=>t.ProductTypeId == productTypeId).OrderBy(o => o.Name).Select(x => new CategoryDropDownViewModel()
             {
                 Id = x.Id,
                 Name = x.Name
@@ -119,41 +121,44 @@ namespace ProductManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateOrderViewModel order)
+        public ActionResult Create(CreateOrderViewModel order)
         {
-            if (ModelState.IsValid)
-            {
-                var currentUser = await _userManagerService.FindByIdAsync(User.Identity.GetUserId());
-                var currentCustomerId = currentUser.CustomerId;
+            //TODO update this to new order create model
+            //if (ModelState.IsValid)
+            //{
+            //    var currentUser = await _userManagerService.FindByIdAsync(User.Identity.GetUserId());
+            //    var currentCustomerId = currentUser.CustomerId;
 
-                var orderToSave = new Order();
-                orderToSave.Name = "my order";
-                orderToSave.Buyer = new Buyer() { Address = order.Buyer.Address, Information = order.Buyer.Information, Mobil = order.Buyer.Mobil, Name = order.Buyer.Mobil, Telephone = order.Buyer.Telephone };
-                orderToSave.Products = new Collection<OrderLine>();
-                orderToSave.Author = order.Author;
-                orderToSave.CreatedDate = DateTime.UtcNow;
-                orderToSave.TotalPrice = order.TotalPrice;
-                orderToSave.CustomerId = currentCustomerId;
-                orderToSave.Discount = 0;
+            //    var orderToSave = new Order();
+            //    orderToSave.Name = "my order";
+            //    orderToSave.Buyer = new Buyer() { Address = order.Buyer.Address, Information = order.Buyer.Information, Mobil = order.Buyer.Mobil, Name = order.Buyer.Mobil, Telephone = order.Buyer.Telephone };
+            //    orderToSave.Products = new Collection<OrderLine>();
+            //    orderToSave.Author = order.Author;
+            //    orderToSave.CreatedDate = DateTime.UtcNow;
+            //    orderToSave.TotalPrice = order.TotalPrice;
+            //    orderToSave.CustomerId = currentCustomerId;
+            //    orderToSave.Discount = 0;
 
-                foreach (var prod in order.Products)
-                {
-                    var line = new OrderLine();
-                    line.ProductId = prod.Id;
-                    var product = await _productRepository.GetByIdAsync(prod.Id);
-                    line.ProductName = product.Name;
-                    line.Height = prod.Height;
-                    line.Width = prod.Width;
-                    line.NumberOfItems = 1;
-                    line.UnitDiscount = 0;
-                    line.ItemPrice = prod.ItemPrice;
-                    orderToSave.Products.Add(line);
-                }
+            //    foreach (var typeGroup in order.ProductTypeGroups)
+            //    {
+                   
 
-                await _orderRepository.Add(orderToSave);
+            //        var line = new OrderLine();
+            //        line.ProductId = prod.Id;
+            //        var product = await _productRepository.GetByIdAsync(prod.Id);
+            //        line.ProductName = product.Name;
+            //        line.Height = prod.Height;
+            //        line.Width = prod.Width;
+            //        line.NumberOfItems = 1;
+            //        line.UnitDiscount = 0;
+            //        line.ItemPrice = prod.ItemPrice;
+            //        orderToSave.Products.Add(line);
+            //    }
 
-                return RedirectToAction("Index");
-            }
+            //    await _orderRepository.Add(orderToSave);
+
+            //    return RedirectToAction("Index");
+            //}
 
             return View(order);
         }
@@ -215,10 +220,10 @@ namespace ProductManager.Web.Controllers
             return View(viewModels);
         }
 
-        public ActionResult AddBuyer()
+        public async Task<ActionResult>  PriceForOrderLine(int height, int width, int pricePlanId)
         {
-            return View();
+            var product = await _pricePlanRepository.GetByIdAsync(pricePlanId);
+            return Json(product.GetPrice(height,width));
         }
-
     }
 }
