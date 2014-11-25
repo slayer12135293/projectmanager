@@ -20,7 +20,7 @@
 
                     @foreach (var category in Model)
                     {
-                        <accordion-group heading="@category.CategoryName">
+                        <accordion-group heading="@category.CategoryName" data-is-open="true">
                             <p ng-show=showEdit>@Html.ActionLink("Delete", "Delete", "Category", new { categoryId = category.CategoryId }, new { @class = "btn btn-danger" }) </p>
                             <p>@Html.ActionLink("Details", "Details", "Category", new { id = category.CategoryId }, new { @class = "btn btn-info" }) </p>
                             <p>@Html.ActionLink("Edit", "Edit", "Category", new { id = category.CategoryId }, new { @class = "btn btn-info" }) </p>
