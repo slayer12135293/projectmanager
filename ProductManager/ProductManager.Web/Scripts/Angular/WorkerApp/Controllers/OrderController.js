@@ -17,12 +17,7 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
             } 
         };
     };
-
-
     $scope.orderStorageCheck();
-
-
-
 
     $scope.addTypeGroup = function () {
         var selectedTypeId = $scope.selection.selectedProductType;
@@ -45,8 +40,6 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
         orderStorageService.saveOrderStorage(currentOrderStorage);
    
     };
-
-
     
     $scope.removeTypeGroup = function (i) {
         $scope.typeGroup.groups.splice(i, 1);
@@ -54,7 +47,37 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
         currentOrderStorage.productTypeGroups.splice(i, 1);
         orderStorageService.saveOrderStorage(currentOrderStorage);
     };
+    
 
+    $scope.order = {};
+    $scope.order.discount = 0;
+
+
+    $scope.saveDiscountToStorage = function() {
+        var currentStorage = orderStorageService.getOrderStorage();
+        currentStorage.discount = $scope.order.discount;
+        orderStorageService.saveOrderStorage(currentStorage);
+    };
+
+    $scope.addDiscount = function() {
+        $scope.saveDiscountToStorage();
+    };
+
+    $scope.removeDiscount = function () {
+        $scope.order.discount = 0;
+        $scope.saveDiscountToStorage();
+    };
+
+    $scope.discountStorageCheck = function () {
+        var currentStorage = orderStorageService.getOrderStorage();
+        if (!angular.isUndefined(currentStorage) && currentStorage !== null) {
+            if (!angular.isUndefined(currentStorage.discount) && currentStorage.discount !== null) {
+                $scope.order.discount = currentStorage.discount;
+            }
+        };
+    };
+
+    $scope.discountStorageCheck();
 
 
 }]);

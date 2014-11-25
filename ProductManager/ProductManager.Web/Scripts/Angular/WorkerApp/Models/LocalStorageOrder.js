@@ -1,5 +1,6 @@
 ﻿function LocalStorageOrder() {
     this.productTypeGroups = [];
+    this.discount = 0;
     this.totalPrice = 0;
 }
 
