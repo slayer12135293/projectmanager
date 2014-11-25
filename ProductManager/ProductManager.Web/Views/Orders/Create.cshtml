@@ -1,19 +1,56 @@
-﻿@*@model ProductManager.Web.ViewModels.CreateOrderViewModel
+﻿@model ProductManager.Web.ViewModels.CreateOrderViewModel
 
-    @{
-        ViewBag.Title = "Create";
-        Layout = "~/Views/Shared/_WorkerLayout.cshtml";
-    }
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_WorkerLayout.cshtml";
+}
 
-    <h2>Create an order</h2>
-    <hr />
-    <section ng-controller="OrderController">
+<h2>Create an order</h2>
+<hr />
+<section ng-controller="OrderController">
+    @using (Html.BeginForm(new { name = "OrderForm", id = "OrderForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <accordion close-others="oneAtATime">
+                <accordion-group id="orderBody" is-open="true">
+                    <accordion-heading>
+                        Product Type Groups
+                    </accordion-heading>
+                    <section class="row">
+                        <section class="col-md-4">
+                            <select ng-model="selection.selectedProductType" class="form-control" data-ng-options="c.Id as c.Name for c in selection.allProductTypes">
+                                <option value="">-- Select a Product type --</option>
+                            </select>
+                        </section>
+                        <section class="col-md-2"><a class="btn btn-default" ng-click="addTypeGroup()" ng-disabled="!selection.selectedProductType">Add a type group</a></section>
 
-        @using (Html.BeginForm(new { name = "OrderForm", id = "OrderForm" }))
-        {
-            @Html.AntiForgeryToken()
+                    </section>
+                    <hr />
 
-            <div class="form-horizontal">
+                    <section class="row">
+                        <section class="col-md-12">
+                            <accordion id="productTypeGroups" data-collapse-type="manual">
+                                <accordion-group is-open="true" ng-repeat="(i, typeGroup) in typeGroup.groups" name="ProductTypeGroup{{$index}}">
+                                    <accordion-heading>
+                                        {{typeGroup.productTypeId}}  -- {{typeGroup.typeName}}--{{typeGroup.calculationType}}
+                                        <section class="pull-right btn-group-xs">
+                                            <button type="button" class="btn btn-danger" ng-click="removeTypeGroup(i)">Remove</button>
+                                        </section>
+                                    </accordion-heading>
+                                    <section class="row">
+                                        <section class="col-md-12">
+                                            <product-select data-product-type-id="{{typeGroup.productTypeId}}" data-calculation-type="{{typeGroup.calculationType}}" data-group-index-id="{{typeGroup.indexId}}" />
+
+                                        </section>
+                                    </section>
+                                </accordion-group>
+                            </accordion>
+
+                        </section>
+                    </section>
+
+                </accordion-group>
 
                 <accordion close-others="oneAtATime">
                     <accordion-group heading="Buyer information" is-open="true" is-disabled="status.isFirstDisabled">
@@ -41,55 +78,18 @@
                             </div>
                         </div>
                     </accordion-group>
-                    <accordion-group is-open="true">
-                        <accordion-heading>
-                            Order lines
-                        </accordion-heading>
 
-                        <section class="row">
-                            <section class="col-md-12 form-group">
-                                <select ng-model="selection.selectedCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.categories" ng-change="UpdateSubCatagories()">
-                                    <option value="">-- Select a Category --</option>
-                                </select>
-
-                                <select ng-model="selection.selectedSubCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.subcategories" ng-change="UpdateProducts()">
-                                    <option value="">-- Select a Sub category --</option>
-                                </select>
-
-                                <select ng-model="selection.selectedProduct" data-ng-options="c.Id as c.Name for c in selection.products" ng-change="SelectAProduct()"  >
-                                    <option value="">-- Select a Product --</option>
-                                </select>
-                            </section>
-
-                        </section>
-
-                        <section class="row" style="margin-top:10px;">
-                            <section class="col-md-12">
-                                <a class="btn btn-primary" ng-click="addFields(orderline)" ng-disabled="!selection.selectedProduct"> add a product</a>
-                            </section>
-                        </section>
-
-                        <section class="row" style="margin-top:10px;">
-                            <section class="col-md-12">
-                                <table class="table">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Name</th>
-                                        <th>Width</th>
-                                        <th>Height</th>
-                                        <th></th>
-                                    </tr>
-                                    <tr ng-repeat="(i, orderline) in selection.orderlines">
-                                        <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
-                                        <td>{{orderline.name}}</td>
-                                        <td><input type="text" name="Products[{{$index}}].width" ng-model="orderline.width" /></td>
-                                        <td><input type="text" name="Products[{{$index}}].height" ng-model="orderline.height" /></td>
-                                        <td><button type="button" ng-click="selection.orderlines.splice(i, 1);">Remove</button></td>
-                                    </tr>
-                                </table>
-                            </section>
-                        </section>
+                    <accordion-group heading="Additional Information" is-open="true">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdditionalInformation, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.AdditionalInformation, new { @class = "form-control", @rows = '4' })
+                                @Html.ValidationMessageFor(model => model.AdditionalInformation, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </accordion-group>
+
+
                 </accordion>
 
                 <div class="form-group">
@@ -97,119 +97,6 @@
                         <input type="submit" value="Create" class="btn btn-default" />
                     </div>
                 </div>
-            </div>
-        }
-
-    </section>
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@
-
-
-
-
-
-@model ProductManager.Web.ViewModels.CreateOrderViewModel
-
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_WorkerLayout.cshtml";
-}
-
-<h2>Create an order</h2>
-<hr />
-<section ng-controller="OrderController">
-
-    @using (Html.BeginForm(new { name = "OrderForm", id = "OrderForm" }))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-
-            <accordion close-others="oneAtATime">
-                <accordion-group heading="Buyer information" is-open="true" is-disabled="status.isFirstDisabled">
-                    @Html.ActionLink("Select", "AddBuyer", "Orders")
-                    @Html.ActionLink("Edit", "Edit", "Buyers", Model != null && Model.Buyer != null ? new { id=Model.Buyer.Id }: new object(), null)
-                    @Html.ActionLink("New", "Create", "Buyers")
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Buyer, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DisplayFor(model => model.Buyer, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Buyer, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </accordion-group>
-                <accordion-group is-open="true">
-                    <accordion-heading>
-                        Product Type Groups
-                    </accordion-heading>
-
-
-                    <section class="row">
-                        <section class="col-md-4">
-                            <select ng-model="selection.selectedProductType" class="form-control" data-ng-options="c.Id as c.Name for c in selection.allProductTypes">
-                                <option value="">-- Select a Product type --</option>
-                            </select>
-                        </section>
-                        <section class="col-md-2"><a class="btn btn-default" ng-click="addTypeGroup()" ng-disabled="!selection.selectedProductType">Add a type group</a></section>
-
-                    </section>
-                    <hr />
-
-                    <section class="row" ng-repeat="(i, typeGroup) in typeGroup.groups">
-                        <section class="col-md-12">
-                            <accordion>
-                                <accordion-group is-open="true">
-                                    <accordion-heading>
-                                        {{typeGroup.productTypeId}}  -- {{typeGroup.productTypeName}}
-                                        <section class="pull-right btn-group-xs">
-                                            <button type="button" class="btn btn-danger" ng-click="removeTypeGroup(i)">Remove</button>
-                                        </section>
-                                    </accordion-heading>
-                                    <section class="row">
-                                        <section class="col-md-12">
-                                            <section product-select data-product-type-id="{{typeGroup.productTypeId}}"></section>
-
-
-                                        </section>
-                                    </section>
-                                </accordion-group>
-                            </accordion>
-
-
-
-                        </section>
-                    </section>
-
-
-
-
-                </accordion-group>
-            </accordion>
-
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
         </div>
     }
 

@@ -9,9 +9,12 @@ namespace ProductManager.Web.ViewModels
     {
         [Required]
         public string Author { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public virtual ICollection<OrderLineViewModel> Products { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public DateTime LastUpdatedDateTime { get; set; }
+        public virtual ICollection<ProductTypeGroupViewModel> ProductTypeGroups { get; set;}
+        
         public decimal TotalPrice { get; set; }
         public Buyer Buyer { get; set; }
+        public string AdditionalInformation { get; set; }
     }
 }
