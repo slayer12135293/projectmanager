@@ -15,6 +15,10 @@ AdminApp.controller('CategoryController', ['$scope', function ($scope) {
         }
     };
 
+    $('#myCollapsible').collapse({
+        toggle: false
+    });
+
 }]);
 
 

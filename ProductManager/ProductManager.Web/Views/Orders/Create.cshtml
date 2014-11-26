@@ -18,12 +18,12 @@
                         Product Type Groups
                     </accordion-heading>
                     <section class="row">
-                        <section class="col-md-4">
+                        <section class="col-sm-5">
                             <select ng-model="selection.selectedProductType" class="form-control" data-ng-options="c.Id as c.Name for c in selection.allProductTypes">
                                 <option value="">-- Select a Product type --</option>
                             </select>
                         </section>
-                        <section class="col-md-2"><a class="btn btn-default" ng-click="addTypeGroup()" ng-disabled="!selection.selectedProductType">Add a type group</a></section>
+                        <section class="col-sm-2"><a class="btn btn-default" ng-click="addTypeGroup()" ng-disabled="!selection.selectedProductType">Add a type group</a></section>
 
                     </section>
                     <hr />
@@ -49,6 +49,24 @@
 
                         </section>
                     </section>
+                    
+                    <section class="row" ng-show="typeGroup.groups.length > 0">
+                        <section class="col-sm-5">
+                            <input type="number" class="form-control" ng-model="order.discount" />
+                        </section>
+                        <section class="col-sm-4">
+                            <a class="btn btn-default" ng-click="addDiscount()">Add {{order.discount}} % discount</a>
+                            {{order.discount}}
+                            <a class="btn btn-danger" ng-click="removeDiscount()">Remove discount</a>
+                        </section>
+
+                    </section>
+                    
+                    
+                    
+                    
+                    
+
 
                 </accordion-group>
 

@@ -410,6 +410,7 @@
     <Content Include="Views\Buyers\Details.cshtml" />
     <Content Include="Views\Buyers\Edit.cshtml" />
     <Content Include="Views\Buyers\Index.cshtml" />
+    <Content Include="Views\Shared\Partials\PriceUnitsTableViewReadOnly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

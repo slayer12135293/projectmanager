@@ -11,7 +11,7 @@
     {
         <tr>
             <th></th>
-            <th colspan="@(distinctWiths.Count+1)" class="center_text"> Bredd (cm) </th>
+            <th colspan="@(distinctWiths.Count+1)" class="center_text"> Bredd (cm)</th>
         </tr>
 
     }
@@ -39,7 +39,9 @@
 
                         if (priceUnit.Height == height && priceUnit.Width == itemWidth)
                         {
-                            <span>@Html.ActionLink(@priceUnit.Price.ToString(CultureInfo.InvariantCulture), "EditPriceUnit", "PriceUnit", new { pricePlanId = priceUnit.PricePlanId, priceUnitId = priceUnit.Id }, new { @class = "btn btn-success" })</span>
+                            <span class="bg-primary context_m">
+                                @priceUnit.Price
+                            </span>
                         }
                     }
 
