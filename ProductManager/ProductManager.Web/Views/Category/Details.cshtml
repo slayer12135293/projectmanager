@@ -26,11 +26,16 @@
                 <accordion close-others="oneAtATime">
                     @foreach (var subCategory in Model.SubCategories)
                     {
-                        <accordion-group heading="@subCategory.Name" data-is-open="true">
-                            <section>@Html.ActionLink(" view details", "Detail", "SubCategory", new { categoryId = Model.Category.Id, subCategoryId = subCategory.Id }, new { @class = "btn btn-info" }) </section>
-                            <section>@Html.ActionLink("Edit ", "Edit", "SubCategory", new { subCategoryId = subCategory.Id }, new { @class = "btn btn-info" }) </section>
-
-                            <section ng-show=showEdit> @Html.ActionLink(" delete me", "Delete", "SubCategory", new { subCategoryId = subCategory.Id }, new { @class = "btn btn-danger" }) </section>
+                        <accordion-group  data-is-open="true">
+                            <accordion-heading>
+                                @subCategory.Name
+                                <section class="pull-right btn-group-xs">
+                                    <button class="btn btn-info" onclick="location.href = '/SubCategory/Detail?categoryId=@Model.Category.Id&subCategoryId=@subCategory.Id'">Details</button>
+                                    <button class="btn btn-info" onclick="location.href = '/SubCategory/Edit?subCategoryId=@subCategory.Id'">Edit</button>
+                                    <button class="btn btn-danger" onclick="location.href = '/SubCategory/Delete?subCategoryId=@subCategory.Id'" ng-show="showEdit">Delete</button>
+                                </section>
+                            </accordion-heading>
+                            
 
                             @if (subCategory.Products.Any())
                             {
