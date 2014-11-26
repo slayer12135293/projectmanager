@@ -96,10 +96,10 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
         if (typeof $scope.selection.orderlines === 'undefined') {
             $scope.selection.orderlines = [];
         }
-        var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct + '&productTypeId=' + $scope.productTypeId);
+        var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct + '&productTypeId=' + $scope.productTypeId + '&width=' + $scope.orderline.width + '&height=' + $scope.orderline.height);
 
         productPromise.then(function (data) {
-            var orderline = { name: data.Name, id: data.Id, width: $scope.orderline.width, height: $scope.orderline.height, amount: $scope.orderline.amount, price:232 };
+            var orderline = { name: data.Name, id: data.Id, width: $scope.orderline.width, height: $scope.orderline.height, amount: $scope.orderline.amount, price:data.UnitPrice };
             $scope.selection.orderlines.push(orderline);
             $scope.saveOrderLineToStorage();
         });

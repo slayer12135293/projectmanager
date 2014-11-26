@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +12,7 @@ using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
 {
+    
     [AdministratorFilter]
     public class OrdersController : Controller
     {
@@ -23,13 +22,15 @@ namespace ProductManager.Web.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IAddOnRepository _addOnRepository;
+        private readonly IPricePlanRepository _pricePlanRepository;
 
         public OrdersController(ICategoryRepository categoryRepository, 
             IUserManagerService userManagerService, 
             ISubCategoryRepository subCategoryRepository, 
             IProductRepository productRepository,
             IOrderRepository orderRepository,
-            IAddOnRepository addOnRepository
+            IAddOnRepository addOnRepository,
+            IPricePlanRepository pricePlanRepository
             )
         {
             _categoryRepository = categoryRepository;
@@ -38,6 +39,7 @@ namespace ProductManager.Web.Controllers
             _productRepository = productRepository;
             _orderRepository = orderRepository;
             _addOnRepository = addOnRepository;
+            _pricePlanRepository = pricePlanRepository;
         }
 
         public async Task<ActionResult> AllCategories()
@@ -75,10 +77,13 @@ namespace ProductManager.Web.Controllers
             return Json(viewModels.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> GetProductById(int productId)
+        public async Task<ActionResult> GetProductById(int productId, int width, int height)
         {
             var product = await _productRepository.GetByIdAsync(productId);
             var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
+            var pricePlan = await _pricePlanRepository.GetByIdAsync(product.PricePlanId);
+            var price = pricePlan.GetPrice(height, width);
+            viewModel.UnitPrice = price.GetValueOrDefault(0);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
 
@@ -218,5 +223,10 @@ namespace ProductManager.Web.Controllers
             return View(viewModels);
         }
 
+        public async Task<ActionResult>  PriceForOrderLine(int height, int width, int pricePlanId)
+        {
+            var product = await _pricePlanRepository.GetByIdAsync(pricePlanId);
+            return Json(product.GetPrice(height,width));
+        }
     }
 }

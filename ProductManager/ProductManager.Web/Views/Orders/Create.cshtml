@@ -71,50 +71,51 @@
 
                 </accordion-group>
 
-                <accordion-group id="buyerInformation" heading="Buyer information" is-open="true" is-disabled="status.isFirstDisabled">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Buyer, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Buyer, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Buyer, "", new { @class = "text-danger" })
+                <accordion close-others="oneAtATime">
+                    <accordion-group heading="Buyer information" is-open="true" is-disabled="status.isFirstDisabled">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Buyer, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Buyer, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Buyer, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                </accordion-group>
-                
-                <accordion-group heading="Additional Information" is-open="true">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.AdditionalInformation, htmlAttributes: new { @class = "control-label col-md-2"})
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.AdditionalInformation, new { @class = "form-control", @rows='4'})
-                            @Html.ValidationMessageFor(model => model.AdditionalInformation, "", new { @class = "text-danger" })
+                    </accordion-group>
+
+                    <accordion-group heading="Additional Information" is-open="true">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AdditionalInformation, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.AdditionalInformation, new { @class = "form-control", @rows = '4' })
+                                @Html.ValidationMessageFor(model => model.AdditionalInformation, "", new { @class = "text-danger" })
+                            </div>
                         </div>
+                    </accordion-group>
+
+
+                </accordion>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
                     </div>
-                </accordion-group>
-
-
-            </accordion>
-
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
                 </div>
-            </div>
         </div>
     }
 
