@@ -44,8 +44,6 @@
             <tr ng-repeat="(i, orderline) in selection.orderlines">
                 <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
                 <td>{{orderline.name}}</td>
-                
-
                 <td><input type="number" name="Width" class="form-control" value="{{orderline.width}}" min="0" step="1" /></td>
                 <td><input type="number" name="Height" class="form-control" value="{{orderline.height}}" min="0" step="1" /></td>
                 <td><input type="number" name="Amount" class="form-control" value="{{orderline.amount}}" min="0" step="1" /></td>
