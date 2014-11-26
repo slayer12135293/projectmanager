@@ -99,8 +99,9 @@
                 @Html.LabelFor(model => model.PricePlanId)
             </div>
             <div class="editor-field">
-                <select class="form-control" ng-model="ngPricePlan" name="PricePlanId" data-ng-options="c.Id as c.Name for c in priceplans">
+                <select class="form-control" ng-model="ngPricePlan"  data-ng-options="c.Id as c.Name for c in priceplans">
                 </select>
+                <input type="hidden" name="PricePlanId" value="{{ngPricePlan}}" />
                 <section class="validation-textbox-message">
                     @Html.ValidationMessageFor(model => model.PricePlanId)
                 </section>

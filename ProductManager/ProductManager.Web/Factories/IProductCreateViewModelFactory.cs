@@ -10,7 +10,7 @@ namespace ProductManager.Web.Factories
     public interface IProductCreateViewModelFactory
     {
         Task<CreateProductViewModel> CreateViewModel(int subCategoryId);
-        Task<CreateProductViewModel> EditViewModel(int productId);
+        Task<EditProductViewModel> EditViewModel(int productId);
 
     }
 
@@ -19,12 +19,14 @@ namespace ProductManager.Web.Factories
         private readonly IProductTypeRepository _productTypeRepository;
         private readonly IProductRepository _productRepository;
         private readonly ICustomerIdService _customerIdService;
+        private readonly IPricePlanService _pricePlanService;
 
-        public ProductCreateViewModelFactory(IProductTypeRepository productTypeRepository, IProductRepository productRepository, ICustomerIdService customerIdService)
+        public ProductCreateViewModelFactory(IProductTypeRepository productTypeRepository, IProductRepository productRepository, ICustomerIdService customerIdService,IPricePlanService pricePlanService)
         {
             _productTypeRepository = productTypeRepository;
             _productRepository = productRepository;
             _customerIdService = customerIdService;
+            _pricePlanService = pricePlanService;
         }
 
 
@@ -48,14 +50,17 @@ namespace ProductManager.Web.Factories
                 .Select(x => new ProdctTypeViewModel {Description = x.Description, Id = x.Id, Name = x.Name});
         }
 
-        public async Task<CreateProductViewModel> EditViewModel(int productId)
+        public async Task<EditProductViewModel> EditViewModel(int productId)
         {
+            var currentCustomerId = await _customerIdService.GetCustomerId();
             var currentProduct = await _productRepository.GetByIdAsync(productId);
             var productTypeViewModels = await GetProductTypeViewModels();
+            var pricePlanViewModels = await _pricePlanService.GetPricePlanDropDownViewModelsByIds(currentCustomerId, currentProduct.ProductTypeId);
 
-            var viewModel = AutoMapper.Mapper.Map<CreateProductViewModel>(currentProduct);
+            var viewModel = AutoMapper.Mapper.Map<EditProductViewModel>(currentProduct);
             viewModel.ProductTypeId = currentProduct.ProductTypeId;
             viewModel.ProductTypeViewModels = productTypeViewModels;
+            viewModel.PricePlanViewModels = pricePlanViewModels;
             
             return viewModel;
         }

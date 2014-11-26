@@ -16,10 +16,4 @@ namespace ProductManager.Web.ViewModels
         public int ProductTypeId { get; set; }
         public IEnumerable<ProductType> ProductTypes { get; set; } 
     }
-
-    public class EditPricePlanViewModel : CreatePricePlanViewModel
-    {
-        public int Id { get; set; }
-    }
-
 }

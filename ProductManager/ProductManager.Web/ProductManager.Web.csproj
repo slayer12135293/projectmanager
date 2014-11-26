@@ -203,6 +203,7 @@
     <Compile Include="Factories\IPricePlanViewModelFactory.cs" />
     <Compile Include="Factories\IProductCreateViewModelFactory.cs" />
     <Compile Include="Factories\IUpdateViewModelProductFacotry.cs" />
+    <Compile Include="Services\IPricePlanService.cs" />
     <Compile Include="ViewModels\AddOnViewModel.cs" />
     <Compile Include="Controllers\OrderLineController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="ViewModels\CreatePricePlanViewModel.cs" />
     <Compile Include="ViewModels\CreateProductViewModel.cs" />
     <Compile Include="ViewModels\CreateSubCategoryViewModel.cs" />
+    <Compile Include="ViewModels\EditPricePlanViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderLineViewModel.cs" />
     <Compile Include="ViewModels\PricePlanDetailsViewModel.cs" />

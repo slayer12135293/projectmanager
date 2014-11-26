@@ -1,5 +1,4 @@
-﻿@model ProductManager.Web.ViewModels.CreateProductViewModel
-
+﻿@model ProductManager.Web.ViewModels.EditProductViewModel
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -95,20 +94,41 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProductTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="validation-textbox-message" name="ProductTypeId">
-                    @foreach (var type in Model.ProductTypeViewModels)
+                @foreach (var type in Model.ProductTypeViewModels)
+                {
+                    if (Model.ProductTypeId == type.Id)
                     {
-                        <option value="@type.Id" 
-                            
-                            @if (Model.ProductTypeId == type.Id)
-                            {
-                                @:selected
-                            }
-                            
-                                > @type.Name</option>
+                        <span>@type.Name </span>
+                    }
+                }
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PricePlanId, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="PricePlanId">
+                    @foreach (var pricePlan in Model.PricePlanViewModels)
+                    {
+                        <option value="@pricePlan.Id"
+                                @if (Model.PricePlanId == pricePlan.Id)
+                                {  @: selected
+                                                                    }>
+                            @pricePlan.Name
+                        </option>
                     }
                 </select>
+
+
+
             </div>
+
+
+
+            
+
         </div>
         
         

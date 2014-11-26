@@ -20,15 +20,15 @@ namespace ProductManager.Web.Controllers
         private readonly ICustomerIdService _customerIdService;
         private readonly IProductCreateViewModelFactory _productCreateViewModelFactory;
         private readonly IUpdateViewModelProductFacotry _updateViewModelProductFacotry;
-        private readonly IPricePlanRepository _pricePlanRepository;
+        private readonly IPricePlanService _pricePlanService;
 
-        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService, IProductCreateViewModelFactory productCreateViewModelFactory, IUpdateViewModelProductFacotry updateViewModelProductFacotry, IPricePlanRepository pricePlanRepository )
+        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService, IProductCreateViewModelFactory productCreateViewModelFactory, IUpdateViewModelProductFacotry updateViewModelProductFacotry, IPricePlanRepository pricePlanRepository,IPricePlanService pricePlanService )
         {
             _productRepository = productRepository;
             _customerIdService = customerIdService;
             _productCreateViewModelFactory = productCreateViewModelFactory;
             _updateViewModelProductFacotry = updateViewModelProductFacotry;
-            _pricePlanRepository = pricePlanRepository;
+            _pricePlanService = pricePlanService;
         }
 
 
@@ -36,11 +36,8 @@ namespace ProductManager.Web.Controllers
         {
             var currentCustomerId = await _customerIdService.GetCustomerId();
 
-
-            var pricePlansViewModels = _pricePlanRepository.GetAll().Where(c=>c.CustomerId == currentCustomerId)
-                    .OrderBy(x => x.Name)
-                    .Where(y => y.ProductTypeId == productTypeId)
-                    .Select(o => new PricePlanDropDownViewModel {Id = o.Id, Name = o.Name}).ToList();
+            var pricePlansViewModels = _pricePlanService.GetPricePlanDropDownViewModelsByIds(currentCustomerId,
+                productTypeId);
             return Json(pricePlansViewModels, JsonRequestBehavior.AllowGet);
         }
 
@@ -62,7 +59,7 @@ namespace ProductManager.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(CreateProductViewModel createProductViewModel)
+        public async Task<ActionResult> Edit(EditProductViewModel createProductViewModel)
         {
             var product = await _updateViewModelProductFacotry.CreateProduct(createProductViewModel);
             await _productRepository.Update(product);
