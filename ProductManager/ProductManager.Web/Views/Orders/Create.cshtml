@@ -54,9 +54,10 @@
                         <section class="col-sm-5">
                             <input type="number" class="form-control" ng-model="order.discount" />
                         </section>
-                        <section class="col-sm-4">
+                        <section class="col-sm-3">
                             <a class="btn btn-default" ng-click="addDiscount()">Add {{order.discount}} % discount</a>
-                            {{order.discount}}
+                        </section>
+                        <section class="col-sm-3">
                             <a class="btn btn-danger" ng-click="removeDiscount()">Remove discount</a>
                         </section>
 
