@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -92,7 +93,7 @@ namespace ProductManager.Web.Controllers
         //}
 
 
-        public async Task<ActionResult> GetProductById(int productId, int productTypeId)
+        public async Task<ActionResult> GetProductById(int productId, int productTypeId,int width, int height)
         {
             var product = await _productRepository.GetByIdAsync(productId);
             var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
