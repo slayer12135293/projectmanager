@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ProductManager.DataLayer.Repositories;
+using ProductManager.Enity;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 
@@ -21,7 +22,7 @@ namespace ProductManager.Web.Factories
         private readonly ICustomerIdService _customerIdService;
         private readonly IPricePlanService _pricePlanService;
 
-        public ProductCreateViewModelFactory(IProductTypeRepository productTypeRepository, IProductRepository productRepository, ICustomerIdService customerIdService,IPricePlanService pricePlanService)
+        public ProductCreateViewModelFactory(IProductTypeRepository productTypeRepository, IProductRepository productRepository, ICustomerIdService customerIdService, IPricePlanService pricePlanService)
         {
             _productTypeRepository = productTypeRepository;
             _productRepository = productRepository;
@@ -55,12 +56,24 @@ namespace ProductManager.Web.Factories
             var currentCustomerId = await _customerIdService.GetCustomerId();
             var currentProduct = await _productRepository.GetByIdAsync(productId);
             var productTypeViewModels = await GetProductTypeViewModels();
-            var pricePlanViewModels = await _pricePlanService.GetPricePlanDropDownViewModelsByIds(currentCustomerId, currentProduct.ProductTypeId);
+            var currentProductType = _productTypeRepository.GetById(currentProduct.ProductTypeId);
+
+            var pricePlanViewModels = new List<PricePlanDropDownViewModel>();
+            var usePricePlan = false;
+
+            if (currentProductType.PriceCalculationType == PriceCalculationType.WithHeightAmount)
+            {
+                var result = await _pricePlanService.GetPricePlanDropDownViewModelsByIds(currentCustomerId, currentProduct.ProductTypeId);
+                pricePlanViewModels = result.ToList();
+                usePricePlan = true;
+            }
+
 
             var viewModel = AutoMapper.Mapper.Map<EditProductViewModel>(currentProduct);
             viewModel.ProductTypeId = currentProduct.ProductTypeId;
             viewModel.ProductTypeViewModels = productTypeViewModels;
             viewModel.PricePlanViewModels = pricePlanViewModels;
+            viewModel.UsingPricePlan = usePricePlan;
             
             return viewModel;
         }

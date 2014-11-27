@@ -58,11 +58,21 @@ AdminApp.controller('ProductListController', ['$scope','$filter', 'promiseServic
 
 
 AdminApp.controller('CreateProductController', ['$scope', 'promiseService', function($scope, promiseService) {
+    $scope.usePricePlan = false;
     $scope.ProductTypeChange = function () {
+        var userPricePlanPromise = promiseService.callActionPromise('/ProductTypes/UsePricePlan?productTypeId=' + $scope.ngProductType);
+        
+        userPricePlanPromise.then(function (data) {
+            $scope.usePricePlan = data.Result;
+        });
+
+
         var pricePlanPromise = promiseService.callActionPromise('/Product/PricePlans?productTypeId=' + $scope.ngProductType);
         pricePlanPromise.then(function (data) {
             $scope.priceplans = data;
         });
+
+        
     };
 
 }]);

@@ -7,6 +7,7 @@ using ProductManager.DataLayer.Repositories;
 using ProductManager.Enity;
 using ProductManager.Web.Common;
 using ProductManager.Web.Filters;
+using ProductManager.Web.Models;
 using ProductManager.Web.Services;
 using ProductManager.Web.ViewModels;
 
@@ -23,6 +24,19 @@ namespace ProductManager.Web.Controllers
             _customerIdService = customerIdService;
             _productTypeRepository = productTypeRepository;
         }
+
+        public ActionResult UsePricePlan(int productTypeId)
+        {
+            var currentProductType = _productTypeRepository.GetById(productTypeId);
+            var viewModel = new BoolResultViewModel
+            {
+                Result = currentProductType.PriceCalculationType == PriceCalculationType.WithHeightAmount
+            };
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
+        } 
+
+
+
 
         // GET: ProductTypes
         public async Task<ActionResult> Index()

@@ -197,6 +197,7 @@
     <Compile Include="App_Start\MappingInitalizer.cs" />
     <Compile Include="Common\PriceCalculationTypeExtensions.cs" />
     <Compile Include="Controllers\AddOnsController.cs" />
+    <Compile Include="Models\BoolResultViewModel.cs" />
     <Compile Include="Controllers\CustomerProfileController.cs" />
     <Compile Include="Controllers\PricePlanController.cs" />
     <Compile Include="Controllers\PriceUnitController.cs" />

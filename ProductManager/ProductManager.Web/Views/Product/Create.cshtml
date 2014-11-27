@@ -85,7 +85,7 @@
             </div>
             <div class="editor-field">
                 <select class="form-control" ng-model="ngProductType" name="ProductTypeId" ng-change="ProductTypeChange()">
-                     @foreach (var type in Model.ProductTypeViewModels)
+                    @foreach (var type in Model.ProductTypeViewModels)
                     {
                         <option value="@type.Id"> @type.Name</option>
                     }
@@ -94,18 +94,33 @@
                     @Html.ValidationMessageFor(model => model.ProductTypeId)
                 </section>
             </div>
+     
 
-            <div class="editor-label">
-                @Html.LabelFor(model => model.PricePlanId)
-            </div>
-            <div class="editor-field">
-                <select class="form-control" ng-model="ngPricePlan"  data-ng-options="c.Id as c.Name for c in priceplans">
-                </select>
-                <input type="hidden" name="PricePlanId" value="{{ngPricePlan}}" />
-                <section class="validation-textbox-message">
-                    @Html.ValidationMessageFor(model => model.PricePlanId)
-                </section>
-            </div>
+            <section class="fade-in-short" data-ng-show="usePricePlan">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.PricePlanId)
+                </div>
+                <div class="editor-field">
+                    <select class="form-control" ng-model="ngPricePlan" data-ng-options="c.Id as c.Name for c in priceplans"></select>
+                    <input type="hidden" name="PricePlanId" value="{{ngPricePlan}}" />
+                    <section class="validation-textbox-message">
+                        @Html.ValidationMessageFor(model => model.PricePlanId)
+                    </section>
+                </div>
+            </section>
+            
+            <section class="fade-in-short" data-ng-hide="usePricePlan">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.UnitPrice)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    <section class="validation-textbox-message">
+                        @Html.ValidationMessageFor(model => model.UnitPrice)
+                    </section>
+                </div>
+            </section>
+
 
 
 

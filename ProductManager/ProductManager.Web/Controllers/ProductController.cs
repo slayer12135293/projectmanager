@@ -36,7 +36,7 @@ namespace ProductManager.Web.Controllers
         {
             var currentCustomerId = await _customerIdService.GetCustomerId();
 
-            var pricePlansViewModels = _pricePlanService.GetPricePlanDropDownViewModelsByIds(currentCustomerId,
+            var pricePlansViewModels = await _pricePlanService.GetPricePlanDropDownViewModelsByIds(currentCustomerId,
                 productTypeId);
             return Json(pricePlansViewModels, JsonRequestBehavior.AllowGet);
         }

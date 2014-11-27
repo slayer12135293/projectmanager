@@ -63,17 +63,26 @@ namespace ProductManager.Web.Controllers
                 return HttpNotFound();
             }
 
-            var viewModel = new PricePlanDetailsViewModel
+            var currentProductType = _productTypeRepository.GetById(currentPricePlan.ProductTypeId);
+
+            var priceUnitViewModels = new List<PriceUnitViewModel>();
+
+            if (currentProductType.PriceCalculationType == PriceCalculationType.WithHeightAmount)
             {
-                PricePlan = currentPricePlan,
-                PriceUnitViewModels = currentPricePlan.PriceUnits.Select(x => new PriceUnitViewModel
+                priceUnitViewModels = currentPricePlan.PriceUnits.Select(x => new PriceUnitViewModel
                 {
                     PricePlanId = id,
                     Id = x.Id,
                     Height = x.Height,
                     Width = x.Width,
                     Price = x.Price,
-                })
+                }).ToList();
+            }
+
+            var viewModel = new PricePlanDetailsViewModel
+            {
+                PricePlan = currentPricePlan,
+                PriceUnitViewModels = priceUnitViewModels
             };
             return View(viewModel);
         }
@@ -112,7 +121,7 @@ namespace ProductManager.Web.Controllers
         private async Task<IQueryable<ProductType>> GetAllProductTypes()
         {
             var currentCustomerId = await _customerIdService.GetCustomerId();
-            var allProductTypes = _productTypeRepository.GetAll().Where(x => x.CustomerId == currentCustomerId);
+            var allProductTypes = _productTypeRepository.GetAll().Where(x => x.CustomerId == currentCustomerId && x.PriceCalculationType == PriceCalculationType.WithHeightAmount );
             return allProductTypes;
         }
 
