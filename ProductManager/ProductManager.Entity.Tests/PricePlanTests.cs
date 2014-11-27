@@ -9,8 +9,8 @@ namespace ProductManager.Entity.Tests
         [Fact]
         public void ShouldReturnNullIfThereAreNoPrices()
         {
-            var plan = new PricePlan();
-            var price = plan.GetPrice(200, 300);
+            var plan = new PricePlanPriceService();
+            var price = plan.GetPrice(new PricePlan(), 200, 300);
             Assert.Same(null, price);
         }
 
@@ -22,8 +22,8 @@ namespace ProductManager.Entity.Tests
             plan.PriceUnits.Add(new PriceUnit { Height = 200, Width = 350, Price = 5000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 210, Width = 360, Price = 7000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 220, Width = 370, Price = 8000 });
-            var price = plan.GetPrice(200, 350);
-            Assert.Equal(5000, price);
+            var price = new PricePlanPriceService().GetPrice(plan, 200, 350);
+            Assert.Equal(7000, price);
         }
 
         [Fact]
@@ -34,8 +34,8 @@ namespace ProductManager.Entity.Tests
             plan.PriceUnits.Add(new PriceUnit { Height = 200, Width = 350, Price = 5000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 210, Width = 360, Price = 7000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 220, Width = 370, Price = 8000 });
-            var price = plan.GetPrice(201, 351);
-            Assert.Equal(5000, price);
+            var price = new PricePlanPriceService().GetPrice(plan, 201, 351);
+            Assert.Equal(7000, price);
         }
 
         [Fact]
@@ -46,8 +46,8 @@ namespace ProductManager.Entity.Tests
             plan.PriceUnits.Add(new PriceUnit { Height = 200, Width = 350, Price = 5000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 210, Width = 360, Price = 7000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 220, Width = 370, Price = 8000 });
-            var price = plan.GetPrice(210, 360);
-            Assert.Equal(7000, price);
+            var price = new PricePlanPriceService().GetPrice(plan, 210, 360);
+            Assert.Equal(8000, price);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ProductManager.Entity.Tests
             plan.PriceUnits.Add(new PriceUnit { Height = 200, Width = 350, Price = 5000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 210, Width = 360, Price = 7000 });
             plan.PriceUnits.Add(new PriceUnit { Height = 220, Width = 370, Price = 7000 });
-            var price = plan.GetPrice(213, 365);
+            var price = new PricePlanPriceService().GetPrice(plan, 213, 365);
             Assert.Equal(7000, price);
         }
     }

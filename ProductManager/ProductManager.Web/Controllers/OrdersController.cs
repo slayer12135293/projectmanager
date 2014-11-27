@@ -12,7 +12,7 @@ using ProductManager.Web.ViewModels;
 
 namespace ProductManager.Web.Controllers
 {
-    
+
     [AdministratorFilter]
     public class OrdersController : Controller
     {
@@ -23,14 +23,16 @@ namespace ProductManager.Web.Controllers
         private readonly IOrderRepository _orderRepository;
         private readonly IAddOnRepository _addOnRepository;
         private readonly IPricePlanRepository _pricePlanRepository;
+        private readonly IPricePlanPriceService _pricePlanPriceService;
 
-        public OrdersController(ICategoryRepository categoryRepository, 
-            IUserManagerService userManagerService, 
-            ISubCategoryRepository subCategoryRepository, 
+        public OrdersController(ICategoryRepository categoryRepository,
+            IUserManagerService userManagerService,
+            ISubCategoryRepository subCategoryRepository,
             IProductRepository productRepository,
             IOrderRepository orderRepository,
             IAddOnRepository addOnRepository,
-            IPricePlanRepository pricePlanRepository
+            IPricePlanRepository pricePlanRepository,
+            IPricePlanPriceService pricePlanPriceService
             )
         {
             _categoryRepository = categoryRepository;
@@ -40,6 +42,7 @@ namespace ProductManager.Web.Controllers
             _orderRepository = orderRepository;
             _addOnRepository = addOnRepository;
             _pricePlanRepository = pricePlanRepository;
+            _pricePlanPriceService = pricePlanPriceService;
         }
 
         public async Task<ActionResult> AllCategories()
@@ -69,7 +72,7 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> Products(int subCategoryId, int productTypeId)
         {
             var products = await _productRepository.GetProductsFromSubCategory(subCategoryId);
-            var viewModels = products.Where(t=>t.ProductTypeId == productTypeId).OrderBy(o => o.Name).Select(x => new CategoryDropDownViewModel()
+            var viewModels = products.Where(t => t.ProductTypeId == productTypeId).OrderBy(o => o.Name).Select(x => new CategoryDropDownViewModel()
             {
                 Id = x.Id,
                 Name = x.Name
@@ -93,9 +96,11 @@ namespace ProductManager.Web.Controllers
         {
             var product = await _productRepository.GetByIdAsync(productId);
             var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
+            var pricePlan = await _pricePlanRepository.GetByIdAsync(product.PricePlanId);
+            var price = _pricePlanPriceService.GetPrice(pricePlan, height, width);
+            viewModel.UnitPrice = price.GetValueOrDefault(0);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
-
 
 
 
@@ -104,8 +109,8 @@ namespace ProductManager.Web.Controllers
             var result = await _addOnRepository.GetAddOnsByProductType(productTypeId);
             var viewModel = AutoMapper.Mapper.Map<IEnumerable<AddOnViewModel>>(result);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
-        } 
-        
+        }
+
         // GET: Orders
         public async Task<ActionResult> Index()
         {
@@ -154,7 +159,7 @@ namespace ProductManager.Web.Controllers
 
             //    foreach (var typeGroup in order.ProductTypeGroups)
             //    {
-                   
+
 
             //        var line = new OrderLine();
             //        line.ProductId = prod.Id;
@@ -228,15 +233,15 @@ namespace ProductManager.Web.Controllers
         {
             // var ordes = await db.Orders.FindAsync(orderId);
             var order = await _orderRepository.GetByIdAsync(orderId);
-            var orderLines = order.Products.OrderBy(x=>x.ProductName).ToList();
+            var orderLines = order.Products.OrderBy(x => x.ProductName).ToList();
             var viewModels = AutoMapper.Mapper.Map<IEnumerable<OrderLineViewModel>>(orderLines);
             return View(viewModels);
         }
 
-        public async Task<ActionResult>  PriceForOrderLine(int height, int width, int pricePlanId)
+        public async Task<ActionResult> PriceForOrderLine(int height, int width, int pricePlanId)
         {
             var product = await _pricePlanRepository.GetByIdAsync(pricePlanId);
-            return Json(product.GetPrice(height,width));
+            return Json(_pricePlanPriceService.GetPrice(product,height, width));
         }
     }
 }
