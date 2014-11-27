@@ -54,18 +54,17 @@
                         <section class="col-sm-5">
                             <input type="number" class="form-control" ng-model="order.discount" />
                         </section>
-                        <section class="col-sm-3">
+                        <section class="col-sm-2">
                             <a class="btn btn-default" ng-click="addDiscount()">Add {{order.discount}} % discount</a>
                         </section>
-                        <section class="col-sm-3">
+                        <section class="col-sm-2">
                             <a class="btn btn-danger" ng-click="removeDiscount()">Remove discount</a>
                         </section>
-
+                        
+                        <section class="col-sm-3 ">
+                            <span class="padding_lr_sm context_m pull-right bg-primary "> Current Discount {{order.discountInStorage}} %   <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> </span>
+                        </section>
                     </section>
-                    
-                    
-                    
-                    
                     
 
 

@@ -52,11 +52,13 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
     $scope.order = {};
     $scope.order.discount = 0;
 
+ 
 
     $scope.saveDiscountToStorage = function() {
         var currentStorage = orderStorageService.getOrderStorage();
         currentStorage.discount = $scope.order.discount;
         orderStorageService.saveOrderStorage(currentStorage);
+        $scope.order.discountInStorage = currentStorage.discount;
     };
 
     $scope.addDiscount = function() {
@@ -73,6 +75,7 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
         if (!angular.isUndefined(currentStorage) && currentStorage !== null) {
             if (!angular.isUndefined(currentStorage.discount) && currentStorage.discount !== null) {
                 $scope.order.discount = currentStorage.discount;
+                $scope.order.discountInStorage = currentStorage.discount;
             }
         };
     };

@@ -1,53 +1,46 @@
 ﻿
-<section ng-if="calculationType == 1">
+<section ng-if="calculationType == 1" class="margin_top_sm">
     <section class="col-sm-3">
-        <label>
-            width:
-            <input ng-model="orderline.width" class="form-control" name="Width" type="number" min="0" step="1" />
-        </label>
+        <label>Width (cm):</label>
+        <input ng-model="orderline.width" class="form-control" name="Width" type="number" min="0" step="1" />
+
     </section>
     <section class="col-sm-3">
-        <label>
-            Height:
-            <input ng-model="orderline.height" class="form-control" name="Height" type="number" min="0" step="1" />
-        </label>
+        <label>Height (cm):</label>
+        <input ng-model="orderline.height" class="form-control" name="Height" type="number" min="0" step="1" />
+
     </section>
     <section class="col-sm-3">
-        <label>
-            Amount:
-            <input ng-model="orderline.amount" class="form-control" name="Amount" type="number" min="0" step="1" value="1" />
-        </label>
+        <label>Amount (cm):</label>
+        <input ng-model="orderline.amount" class="form-control" name="Amount" type="number" min="0" step="1" value="1" />
+
     </section>
-    
-    {{orderline}}
+
 </section>
 
 
 
-<section ng-if="calculationType == 2">
+<section ng-if="calculationType == 2" class="margin_top_sm">
     <section class="col-sm-3">
-        <label>
-            Square Meters:
-            <input class="form-control" />
-        </label>
+        <label>Square Meters:</label>
+        <input ng-model="orderline.size" class="form-control" />
+
     </section>
     <section class="col-sm-3">
-        <label>
-            Amount:
-            <input class="form-control" />
-        </label>
+        <label>Amount:</label>
+        <input ng-model="orderline.amount" class="form-control" />
+
     </section>
 </section>
 
 
 
 
-<section ng-if="calculationType == 3">
+<section ng-if="calculationType == 3" class="margin_top_sm">
 
     <section class="col-sm-3">
-        <label>
-            Amount:
-            <input class="form-control" />
-        </label>
+        <label>Amount:</label>
+        <input ng-model="orderline.amount" class="form-control" />
+
     </section>
 </section>

@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 WorkerApp.controller('priceCalculationTypeController',['$scope', function($scope) {
-    $scope.orderline = { amount: 1, width: 0, height: 0 };
+    $scope.orderline = { amount: 1, width: 0, height: 0, size:0 };
 }]);
 
 

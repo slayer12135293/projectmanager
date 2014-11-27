@@ -77,15 +77,25 @@ namespace ProductManager.Web.Controllers
             return Json(viewModels.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> GetProductById(int productId, int width, int height)
+        //TODO change this to GetPrice
+        //public async Task<ActionResult> GetProductById(int productId, int width, int height)
+        //{
+        //    var product = await _productRepository.GetByIdAsync(productId);
+        //    var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
+        //    var pricePlan = await _pricePlanRepository.GetByIdAsync(product.PricePlanId);
+        //    var price = pricePlan.GetPrice(height, width);
+        //    viewModel.UnitPrice = price.GetValueOrDefault(0);
+        //    return Json(viewModel, JsonRequestBehavior.AllowGet);
+        //}
+
+
+        public async Task<ActionResult> GetProductById(int productId, int productTypeId)
         {
             var product = await _productRepository.GetByIdAsync(productId);
             var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
-            var pricePlan = await _pricePlanRepository.GetByIdAsync(product.PricePlanId);
-            var price = pricePlan.GetPrice(height, width);
-            viewModel.UnitPrice = price.GetValueOrDefault(0);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
+
 
 
 
