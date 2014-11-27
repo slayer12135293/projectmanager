@@ -60,8 +60,10 @@
     <Compile Include="Buyer.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="IPricePlanPriceService.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderLine.cs" />
+    <Compile Include="PricePlanPriceService.cs" />
     <Compile Include="PricePlan.cs" />
     <Compile Include="PriceUnit.cs" />
     <Compile Include="Product.cs" />
