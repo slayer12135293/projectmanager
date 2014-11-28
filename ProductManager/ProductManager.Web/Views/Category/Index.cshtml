@@ -24,9 +24,9 @@
                             <accordion-heading>
                                 @category.CategoryName
                                 <section class="pull-right btn-group-xs">
-                                    <button class="btn btn-info" onclick="location.href = '/Category/Details/1'" >Details</button>
-                                    <button class="btn btn-info" onclick="location.href = '/Category/Edit/1'" >Edit</button>
-                                    <button class="btn btn-danger" onclick="location.href = '/Category/Delete?categoryId=1'" ng-show="showEdit">Delete</button>
+                                    <button class="btn btn-info" onclick="location.href = '/Category/Details?id=@category.CategoryId'" >Details</button>
+                                    <button class="btn btn-info" onclick="location.href = '/Category/Edit?id=@category.CategoryId'">Edit</button>
+                                    <button class="btn btn-danger" onclick="location.href = '/Category/Delete?categoryId=@category.CategoryId'" ng-show="showEdit">Delete</button>
                                 </section>
                             </accordion-heading>
 
