@@ -41,15 +41,11 @@ namespace ProductManager.Web.Controllers
             return Json(pricePlansViewModels, JsonRequestBehavior.AllowGet);
         }
 
-
-
         // GET: Product
         public ActionResult Index()
         {
             return View();
         }
-
-
 
 
         public async Task<ActionResult> Edit(int productId)
