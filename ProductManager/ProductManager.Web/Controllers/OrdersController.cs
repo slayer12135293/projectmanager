@@ -98,6 +98,10 @@ namespace ProductManager.Web.Controllers
             var product = await _productRepository.GetByIdAsync(productId);
             var viewModel = AutoMapper.Mapper.Map<ProductViewModel>(product);
             var pricePlan = await _pricePlanRepository.GetByIdAsync(product.PricePlanId);
+            if (pricePlan == null){
+                return Json(viewModel, JsonRequestBehavior.AllowGet);
+            }
+
             var price = _pricePlanPriceService.GetPrice(pricePlan, height, width);
             viewModel.UnitPrice = price.GetValueOrDefault(0);
             return Json(viewModel, JsonRequestBehavior.AllowGet);

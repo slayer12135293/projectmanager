@@ -8,6 +8,7 @@
             <th>Width</th>
             <th>Height</th>
             <th>Amount</th>
+            <th>UnitPrice</th>
             <th></th>
         </tr>
         <tr ng-repeat="(i, orderline) in selection.orderlines">
@@ -16,6 +17,7 @@
             <td><span>{{orderline.width}}</span></td>
             <td><span>{{orderline.height}}</span></td>
             <td><span>{{orderline.amount}}</span></td>
+            <td><span>{{orderline.price}}</span></td>
             <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
         </tr>
     </table>
@@ -31,6 +33,7 @@
             <th>Name</th>
             <th>Surface square meters</th>
             <th>Amount</th>
+            <th>UnitPrice</th>
             <th></th>
         </tr>
         <tr ng-repeat="(i, orderline) in selection.orderlines">
@@ -38,6 +41,7 @@
             <td>{{orderline.name}}</td>
             <td><span>{{orderline.size}}</span></td>
             <td><span>{{orderline.amount}}</span></td>
+            <td><span>{{orderline.price}}</span></td>
             <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
         </tr>
     </table>
@@ -52,12 +56,14 @@
             <th>ProductId</th>
             <th>Name</th>
             <th>Amount</th>
+            <th>UnitPrice</th>
             <th></th>
         </tr>
         <tr ng-repeat="(i, orderline) in selection.orderlines">
             <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
             <td>{{orderline.name}}</td>
             <td><span>{{orderline.amount}}</span></td>
+            <td><span>{{orderline.price}}</span></td>
             <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
         </tr>
     </table>
