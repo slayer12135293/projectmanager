@@ -101,7 +101,8 @@ namespace ProductManager.Web.Controllers
                 ColorName = x.ColorName,
                 ProductType = _productTypeRepository.GetById(x.ProductTypeId).Name,
                 ProductCode = x.ProductCode,
-                Name = x.Name
+                Name = x.Name,
+                UnitPrice = x.UnitPrice
             });
 
 

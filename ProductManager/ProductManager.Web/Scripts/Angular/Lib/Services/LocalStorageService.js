@@ -9,6 +9,9 @@ angular.module('localStorage', []).service('localStorageService', [function () {
         localStorage[key] = JSON.stringify(value);
     };
 
+    this.DeletStorage = function(key) {
+        localStorage.removeItem(key);
+    };
 
 }]);
 

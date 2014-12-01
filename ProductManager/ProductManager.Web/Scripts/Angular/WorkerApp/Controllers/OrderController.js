@@ -83,6 +83,11 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
     $scope.discountStorageCheck();
 
 
+    $scope.removeOrderStorage = function () {
+        orderStorageService.deleteOrderStorage();
+        location.reload();
+    };
+
 }]);
 
 

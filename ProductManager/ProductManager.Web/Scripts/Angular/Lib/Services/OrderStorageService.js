@@ -6,8 +6,9 @@ angular.module('orderStorage', ['localStorage']).service('orderStorageService', 
     this.saveOrderStorage = function(value) {
         localStorageService.CreateStorage('orderStorage',value);
     };
-
-
+    this.deleteOrderStorage = function() {
+        localStorageService.DeletStorage('orderStorage');
+    };
 
 
 }]);

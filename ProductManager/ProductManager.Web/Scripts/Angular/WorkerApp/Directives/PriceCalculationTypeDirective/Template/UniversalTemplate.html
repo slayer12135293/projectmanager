@@ -2,17 +2,17 @@
 <section ng-if="calculationType == 1" class="margin_top_sm">
     <section class="col-sm-3">
         <label>Width (cm):</label>
-        <input ng-model="orderline.width" class="form-control" name="Width" type="number" min="0" step="1" />
+        <input ng-model="orderline.width" class="form-control" numbers-only="numbers-only" name="Width" type="text" min="0" step="1" data-numbers-only="numbers-only" />
 
     </section>
     <section class="col-sm-3">
         <label>Height (cm):</label>
-        <input ng-model="orderline.height" class="form-control" name="Height" type="number" min="0" step="1" />
+        <input ng-model="orderline.height" class="form-control" numbers-only="numbers-only" name="Height" type="text" min="0" step="1" data-numbers-only="numbers-only" />
 
     </section>
     <section class="col-sm-3">
         <label>Amount (cm):</label>
-        <input ng-model="orderline.amount" class="form-control" name="Amount" type="number" min="0" step="1" value="1" />
+        <input ng-model="orderline.amount" class="form-control" numbers-only="numbers-only" name="Amount" type="text" min="0" step="1" value="1" data-numbers-only="numbers-only" />
 
     </section>
 
@@ -23,12 +23,12 @@
 <section ng-if="calculationType == 2" class="margin_top_sm">
     <section class="col-sm-3">
         <label>Square Meters:</label>
-        <input ng-model="orderline.size" class="form-control" />
+        <input ng-model="orderline.size" class="form-control" data-numbers-only="numbers-only" type="text"/>
 
     </section>
     <section class="col-sm-3">
         <label>Amount:</label>
-        <input ng-model="orderline.amount" class="form-control" />
+        <input ng-model="orderline.amount" class="form-control" data-numbers-only="numbers-only" type="text" />
 
     </section>
 </section>
@@ -40,7 +40,7 @@
 
     <section class="col-sm-3">
         <label>Amount:</label>
-        <input ng-model="orderline.amount" class="form-control" />
+        <input ng-model="orderline.amount" class="form-control" data-numbers-only="numbers-only" type="text" />
 
     </section>
 </section>
