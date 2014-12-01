@@ -35,7 +35,7 @@ AdminApp.controller('ProductListController', ['$scope','$filter', 'promiseServic
                     Name: ''
                 },
                 sorting: {
-                    Name: 'asc'
+                    ProductType: 'asc'
                 }
             }, {
                 total: data.length,

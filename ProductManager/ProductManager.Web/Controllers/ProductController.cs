@@ -21,14 +21,18 @@ namespace ProductManager.Web.Controllers
         private readonly IProductCreateViewModelFactory _productCreateViewModelFactory;
         private readonly IUpdateViewModelProductFacotry _updateViewModelProductFacotry;
         private readonly IPricePlanService _pricePlanService;
+        private readonly IProductTypeRepository _productTypeRepository;
 
-        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService, IProductCreateViewModelFactory productCreateViewModelFactory, IUpdateViewModelProductFacotry updateViewModelProductFacotry, IPricePlanRepository pricePlanRepository,IPricePlanService pricePlanService )
+        public ProductController(IProductRepository productRepository, ICustomerIdService customerIdService, 
+            IProductCreateViewModelFactory productCreateViewModelFactory, IUpdateViewModelProductFacotry updateViewModelProductFacotry, 
+            IPricePlanService pricePlanService, IProductTypeRepository productTypeRepository )
         {
             _productRepository = productRepository;
             _customerIdService = customerIdService;
             _productCreateViewModelFactory = productCreateViewModelFactory;
             _updateViewModelProductFacotry = updateViewModelProductFacotry;
             _pricePlanService = pricePlanService;
+            _productTypeRepository = productTypeRepository;
         }
 
 
@@ -40,17 +44,6 @@ namespace ProductManager.Web.Controllers
                 productTypeId);
             return Json(pricePlansViewModels, JsonRequestBehavior.AllowGet);
         }
-
-
-
-        // GET: Product
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-
-
 
         public async Task<ActionResult> Edit(int productId)
         {
@@ -100,7 +93,18 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> AllProducts(int subcategoryId)
         {
             var products = await _productRepository.GetProductsFromSubCategory(subcategoryId);
-            var productsViewModels = Mapper.Map<IEnumerable<ProductViewModel>>(products);
+            //var productsViewModels = Mapper.Map<IEnumerable<ProductViewModel>>(products);
+
+            var productsViewModels = products.Select(x => new ProductViewModel
+            {
+                ColorCode = x.ColoCode,
+                ColorName = x.ColorName,
+                ProductType = _productTypeRepository.GetById(x.ProductTypeId).Name,
+                ProductCode = x.ProductCode,
+                Name = x.Name
+            });
+
+
             return Json(productsViewModels.ToList(), JsonRequestBehavior.AllowGet);
         }
     }

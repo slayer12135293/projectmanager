@@ -14,5 +14,6 @@
         public string ColorName { get; set; }
         public string ColorCode { get; set; }
         public int SubCategoryId { get; set; }
+        public string ProductType { get; set; }
     }
 }

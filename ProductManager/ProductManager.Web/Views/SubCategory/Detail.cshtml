@@ -20,11 +20,20 @@
         <section class="col-md-12">
             <table ng-table="tableParams" data-show-filter="false" class="table">
                 <tr ng-repeat="product in $data">
+                    <td data-title="'ProductType'" data-sortable="'ProductType'" filter="{ 'ProductType': 'text' }">
+                        {{product.ProductType}}
+                    </td>
+                    <td data-title="'ProductCode'" data-sortable="'ProductCode'" filter="{ 'ProductCode': 'text' }">
+                        {{product.ProductCode}}
+                    </td>
                     <td data-title="'Name'" data-sortable="'Name'" filter="{ 'Name': 'text' }">
                         {{product.Name}}
                     </td>
                     <td data-title="'ColorName'" data-sortable="'ColorName'" filter="{ 'ColorName': 'text' }">
                         {{product.ColorName}}
+                    </td>
+                    <td data-title="'UnitPrice'" data-sortable="'UnitPrice'" filter="{ 'UnitPrice': 'text' }">
+                        {{product.UnitPrice}}
                     </td>
                     <td>
                         <a href="/Product/Edit?subCategoryId=@Model.Id&productId={{product.Id}}" class="btn btn-primary"> Edit </a>
