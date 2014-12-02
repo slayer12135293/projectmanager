@@ -102,7 +102,9 @@ namespace ProductManager.Web.Controllers
                 ProductType = _productTypeRepository.GetById(x.ProductTypeId).Name,
                 ProductCode = x.ProductCode,
                 Name = x.Name,
-                UnitPrice = x.UnitPrice
+                UnitPrice = x.UnitPrice,
+                Id = x.Id
+                
             });
 
 
