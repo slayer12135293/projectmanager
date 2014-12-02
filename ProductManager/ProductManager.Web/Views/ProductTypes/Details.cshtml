@@ -5,60 +5,66 @@
     Layout = "~/Views/Shared/_AdminConfig.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>ProductTypeId</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustomerId)
-        </dd>
-        
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.PriceCalculationType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PriceCalculationType)
-        </dd>
-
-    </dl>
-</div>
+<h2>Product Type Details</h2>
+<hr />
 
 
-<ul>
-    @foreach (var addOn in Model.AddOns)
-    {
-       <li> @addOn.Name   :    @addOn.Price </li>
-    }
+<section class="row">
+    <section class="col-sm-5">
+        <table class="table table-bordered">
+            <tr>
+                <td class="active">
+                    @Html.DisplayNameFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td class="active">
+                    @Html.DisplayNameFor(model => model.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+            </tr>
 
-</ul>
+            <tr>
+                <td class="active">
+                    @Html.DisplayNameFor(model => model.PriceCalculationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PriceCalculationType)
+                </td>
+            </tr>
+        </table>
+
+    </section>
+
+</section>
 
 
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<h3>Add-ons</h3>
+<hr />
+
+<section class="row">
+    <section class="col-sm-3">
+        <table class="table table-bordered">
+            @foreach (var addOn in Model.AddOns)
+            {
+                <tr>
+                    <td class="active">
+                        @addOn.Name
+                    </td>
+                    <td>
+                        @addOn.Price
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </section>
+</section>
+
+

@@ -40,6 +40,4 @@ namespace ProductManager.Web.Services
             return viewModels;
         }
     }
-
-
 }

@@ -16,14 +16,17 @@ namespace ProductManager.Web.Controllers
         private readonly IProductSubCategoryViewModelFactory _productSubCategoryViewModelFactory;
         private readonly ISubCategoryRepository _subCategoryRepository;
         private readonly ICustomerIdService _customerIdService;
+        private readonly IPriceUnitService _priceUnitService;
 
         public SubCategoryController(IProductSubCategoryViewModelFactory productSubCategoryViewModelFactory, 
             ISubCategoryRepository subCategoryRepository,
-            ICustomerIdService customerIdService)
+            ICustomerIdService customerIdService,
+            IPriceUnitService priceUnitService)
         {
             _productSubCategoryViewModelFactory = productSubCategoryViewModelFactory;
             _subCategoryRepository = subCategoryRepository;
             _customerIdService = customerIdService;
+            _priceUnitService = priceUnitService;
         }
 
         public ActionResult Create(int categoryId)
@@ -32,10 +35,19 @@ namespace ProductManager.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Detail( int subCategoryId)
+        public async Task<ActionResult> Details( int subCategoryId)
         {
             return View(await _productSubCategoryViewModelFactory.CreateViewModel(subCategoryId));
         }
+
+        public ActionResult DisplayPricePlan(int productId)
+        {
+            var viewModels = _priceUnitService.GetPricePlanByProductId(productId);
+            return PartialView("PriceUnitsTableViewReadOnly", viewModels);
+        }
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

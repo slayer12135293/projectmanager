@@ -30,7 +30,7 @@
                             <accordion-heading>
                                 @subCategory.Name
                                 <section class="pull-right btn-group-xs">
-                                    <button class="btn btn-info" onclick="location.href = '/SubCategory/Detail?categoryId=@Model.Category.Id&subCategoryId=@subCategory.Id'">Details</button>
+                                    <button class="btn btn-info" onclick="location.href = '/SubCategory/Details?categoryId=@Model.Category.Id&subCategoryId=@subCategory.Id'">Detailss</button>
                                     <button class="btn btn-info" onclick="location.href = '/SubCategory/Edit?subCategoryId=@subCategory.Id'">Edit</button>
                                     <button class="btn btn-danger" onclick="location.href = '/SubCategory/Delete?subCategoryId=@subCategory.Id'" ng-show="showEdit">Delete</button>
                                 </section>

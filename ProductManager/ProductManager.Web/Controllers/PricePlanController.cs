@@ -19,13 +19,16 @@ namespace ProductManager.Web.Controllers
         private readonly IPricePlanRepository _pricePlanRepository;
         private readonly IProductTypeRepository _productTypeRepository;
         private readonly IPricePlanViewModelFactory _pricePlanViewModelFactory;
+        private readonly IProductRepository _productRepository;
 
-        public PricePlanController(ICustomerIdService customerIdService,IPricePlanRepository pricePlanRepository, IProductTypeRepository productTypeRepository, IPricePlanViewModelFactory pricePlanViewModelFactory)
+        public PricePlanController(ICustomerIdService customerIdService,IPricePlanRepository pricePlanRepository, 
+            IProductTypeRepository productTypeRepository, IPricePlanViewModelFactory pricePlanViewModelFactory, IProductRepository productRepository)
         {
             _customerIdService = customerIdService;
             _pricePlanRepository = pricePlanRepository;
             _productTypeRepository = productTypeRepository;
             _pricePlanViewModelFactory = pricePlanViewModelFactory;
+            _productRepository = productRepository;
         }
         
      
@@ -50,8 +53,6 @@ namespace ProductManager.Web.Controllers
 
             return Json(pricePlanViewModels,JsonRequestBehavior.AllowGet);
         }
-
-
 
 
         // GET: PricePlan/Details/5

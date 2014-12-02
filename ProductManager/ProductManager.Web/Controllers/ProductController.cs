@@ -56,13 +56,13 @@ namespace ProductManager.Web.Controllers
         {
             var product = await _updateViewModelProductFacotry.CreateProduct(createProductViewModel);
             await _productRepository.Update(product);
-            return RedirectToAction("Detail", "SubCategory", new { createProductViewModel.SubCategoryId });
+            return RedirectToAction("Details", "SubCategory", new { createProductViewModel.SubCategoryId });
         }
 
         public async Task<ActionResult> Delete(int subCategoryId, int productId)
         {
             await _productRepository.Remove(productId);
-            return RedirectToAction("Detail", "SubCategory", new { subCategoryId });
+            return RedirectToAction("Details", "SubCategory", new { subCategoryId });
         }
 
 
@@ -83,7 +83,7 @@ namespace ProductManager.Web.Controllers
                 Mapper.Map(createProductViewModel, product);
                 product.CustomerId = await _customerIdService.GetCustomerId();
                 await _productRepository.Add(product);
-                return RedirectToAction("Detail", "SubCategory", new { subCategoryId = createProductViewModel.SubCategoryId });
+                return RedirectToAction("Details", "SubCategory", new { subCategoryId = createProductViewModel.SubCategoryId });
 
             }
 

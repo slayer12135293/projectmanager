@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_AdminConfig.cshtml";
 }
 
-<h2>Price Plan Detail </h2>
+<h2>Price Plan Details </h2>
 <hr />
 <section class="row">
-    <section class="col-md-12">
-        <table>
+    <section class="col-sm-3">
+        <table class="table table-bordered">
             <tr>
-                <td class="col-md-3"><b>@Html.DisplayNameFor(model => model.PricePlan.Name)</b> </td> 
-                <td class="col-md-9">@Html.DisplayFor(model => model.PricePlan.Name)</td> 
+                <td class="active"><b>@Html.DisplayNameFor(model => model.PricePlan.Name)</b> </td> 
+                <td >@Html.DisplayFor(model => model.PricePlan.Name)</td> 
             </tr>
             <tr>
-                <td class="col-md-3"><b>@Html.DisplayNameFor(model => model.PricePlan.Description)</b></td>
-                <td class="col-md-9">@Html.DisplayFor(model => model.PricePlan.Description)</td>
+                <td class="active"><b>@Html.DisplayNameFor(model => model.PricePlan.Description)</b></td>
+                <td >@Html.DisplayFor(model => model.PricePlan.Description)</td>
             </tr>
         </table>
         <br/>

@@ -90,6 +90,7 @@ namespace ProductManager.Web.App_Start
             kernel.Bind<ICustomerRepository>().To<CustomerRepository>();
             kernel.Bind<IPricePlanPriceService>().To<PricePlanPriceService>();
             kernel.Bind<IPricePlanService>().To<PricePlanService>();
+            kernel.Bind<IPriceUnitService>().To<PriceUnitService>();
 
         }        
     }
