@@ -6,7 +6,6 @@ namespace ProductManager.Enity
     {
         public string Description { get; set; }
         public virtual ICollection<SubCategory> SubCategories { get; set; }
-        
     }
    
 }
