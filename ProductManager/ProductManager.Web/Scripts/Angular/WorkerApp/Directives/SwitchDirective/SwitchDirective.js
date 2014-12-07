@@ -4,19 +4,19 @@ WorkerApp.controller('addonSwitchController', ['$scope', '$filter', 'orderStorag
 
     $scope.addOnsFromStorage = [];
     $scope.addOnIds = [];
-    $scope.addOnStorage = function () {
-        var currentStorage = orderStorageService.getOrderStorage();
-        if (!angular.isUndefined(currentStorage.productTypeGroups) && currentStorage.productTypeGroups !== null) {
-            var currentTypeGroup = $filter('filter')(currentStorage.productTypeGroups, function (x) { return x.indexId.toString() === $scope.groupId.toString(); })[0];
-            if (currentTypeGroup.addOns.length > 0) {
-                $scope.addOnsFromStorage = currentTypeGroup.addOns;
-                for (var i = 0; i < $scope.addOnsFromStorage.length; i++ ) {
-                    $scope.addOnIds.push($scope.addOnsFromStorage[i].id);
-                };
-            }
-        };
-    };
-    $scope.addOnStorage();
+    //$scope.addOnStorage = function () {
+    //    var currentStorage = orderStorageService.getOrderStorage();
+    //    if (!angular.isUndefined(currentStorage.productTypeGroups) && currentStorage.productTypeGroups !== null) {
+    //        var currentTypeGroup = $filter('filter')(currentStorage.productTypeGroups, function (x) { return x.indexId.toString() === $scope.groupId.toString(); })[0];
+    //        if (currentTypeGroup.addOns.length > 0) {
+    //            $scope.addOnsFromStorage = currentTypeGroup.addOns;
+    //            for (var i = 0; i < $scope.addOnsFromStorage.length; i++ ) {
+    //                $scope.addOnIds.push($scope.addOnsFromStorage[i].id);
+    //            };
+    //        }
+    //    };
+    //};
+    //$scope.addOnStorage();
 }]);
 
 

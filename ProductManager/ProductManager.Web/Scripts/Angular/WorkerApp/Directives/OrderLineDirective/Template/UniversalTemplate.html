@@ -3,21 +3,23 @@
 
     <table class="table">
         <tr>
-            <th>ProductId</th>
             <th>Name</th>
             <th>Width</th>
             <th>Height</th>
             <th>Amount</th>
             <th>UnitPrice</th>
+            <th>Tillägg</th>
+            <th>Övrigt</th>
             <th></th>
         </tr>
         <tr ng-repeat="(i, orderline) in selection.orderlines">
-            <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
-            <td>{{orderline.name}}</td>
+            <td>{{orderline.name}}<input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
             <td><span>{{orderline.width}}</span></td>
             <td><span>{{orderline.height}}</span></td>
             <td><span>{{orderline.amount}}</span></td>
             <td><span>{{orderline.price}}</span></td>
+            <td><section ng-repeat="addon in orderline.addons">{{addon.name}}:{{addon.price}} kr </section></td>
+            <td><span>{{orderline.additionalInfo}}</span></td>
             <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
         </tr>
     </table>

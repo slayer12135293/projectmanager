@@ -6,59 +6,23 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
         $scope.orderline = a;
     };
 
-    $scope.addOns = [];
     $scope.selection = {};
     $scope.selection.orderlines = [];
+    $scope.addOns = [];
+    
 
-    $scope.checkOrderLineAndAddOnStorage = function() {
+    $scope.checkOrderLineStorage = function () {
         var currentStorage = orderStorageService.getOrderStorage();
         if (!angular.isUndefined(currentStorage.productTypeGroups) && currentStorage.productTypeGroups !== null) {
             var currentTypeGroup = $filter('filter')(currentStorage.productTypeGroups, function (x) { return x.indexId.toString() === $scope.groupIndexId.toString(); })[0];
             if (currentTypeGroup.orderlines.length > 0) {
                 $scope.selection.orderlines = currentTypeGroup.orderlines;
             }
-            if (currentTypeGroup.addOns.length > 0) {
-                $scope.addOns = currentTypeGroup.addOns;
-            }
 
         };
     };
 
-    $scope.checkOrderLineAndAddOnStorage();
-
-
-    
-
-
-
-
-
-
-    this.setAddon = function(id, name, price) {
-        var addOn = new AddOn(id, name, price);
-        $scope.addOns.push(addOn);
-        $scope.saveAddOnsToStorage();
-
-    };
-    this.removeAddon = function (id) {
-        var targetAddon = $filter('filter')($scope.addOns, function (x) { return x.id.toString() === id.toString(); })[0];
-        var index = $scope.addOns.indexOf(targetAddon);
-        $scope.addOns.splice(index, 1);
-        $scope.saveAddOnsToStorage();
-
-
-    };
-
-    $scope.saveAddOnsToStorage = function() {
-        var currentOrderStorage = orderStorageService.getOrderStorage();
-        var productTypeGroupsInStorage = currentOrderStorage.productTypeGroups;
-        var currentProductTypeGroup = $filter('filter')(productTypeGroupsInStorage, function (x) { return x.indexId.toString() === $scope.groupIndexId.toString(); })[0];
-        currentProductTypeGroup.addOns = $scope.addOns;
-        orderStorageService.saveOrderStorage(currentOrderStorage);
-
-        console.log($scope.groupIndexId);
-    };
-
+    $scope.checkOrderLineStorage();
 
 
     var categoriesPromise = promiseService.callActionPromise('/Orders/AllCategories');
@@ -91,6 +55,21 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
         }
 
     };
+    this.setAddon = function (id, name, price) {
+        var addOn = new AddOn(id, name, price);
+        $scope.addOns.push(addOn);
+
+    };
+    this.removeAddon = function (id) {
+        var targetAddon = $filter('filter')($scope.addOns, function (x) { return x.id.toString() === id.toString(); })[0];
+        var index = $scope.addOns.indexOf(targetAddon);
+        $scope.addOns.splice(index, 1);
+
+    };
+
+
+
+
 
     $scope.addFields = function () {
         if (typeof $scope.selection.orderlines === 'undefined') {
@@ -99,10 +78,15 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
         var productPromise = promiseService.callActionPromise('/Orders/GetProductById?productId=' + $scope.selection.selectedProduct + '&productTypeId=' + $scope.productTypeId + '&width=' + $scope.orderline.width + '&height=' + $scope.orderline.height);
 
         productPromise.then(function (data) {
-            var orderline = { name: data.Name, id: data.Id, width: $scope.orderline.width, height: $scope.orderline.height, amount: $scope.orderline.amount, price:data.UnitPrice };
+            var currentAddons = [];
+            angular.copy($scope.addOns, currentAddons);
+            var orderline = new OrderLine(data.Id, data.Name, $scope.orderline.width, $scope.orderline.height, $scope.orderline.amount, 0, data.UnitPrice, currentAddons, $scope.selection.additionalInfo);
+            
             $scope.selection.orderlines.push(orderline);
             $scope.saveOrderLineToStorage();
         });
+
+
     };
 
     $scope.saveOrderLineToStorage = function () {

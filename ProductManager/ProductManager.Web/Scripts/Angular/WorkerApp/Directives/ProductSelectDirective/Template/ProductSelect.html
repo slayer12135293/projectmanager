@@ -1,6 +1,9 @@
 ﻿
 <section class="row">
-
+    <section class="col-md-12 bg-primary"><b>Välja Produker</b></section>
+</section>
+<section class="row">
+  
     <section class="col-sm-3">
         <label>Choose a category</label>
         <select ng-model="selection.selectedCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.categories" ng-change="UpdateSubCatagories()">
@@ -27,43 +30,12 @@
 </section>
 
 <section class="row">
-
     <price-calculation-type data-calculation-type="{{calculationType}}" ></price-calculation-type>
-        <section class="col-sm-3 ">
-            <a class="btn btn-primary pull-right" ng-click="addFields(orderline)" ng-disabled="!selection.selectedProduct"> add a product</a>
-        </section>
-
 </section>
-
-
-
-<section class="row" class="margin_top_sm">
-    <section class="col-md-12">
-        <!--<table class="table">
-                <tr>
-                    <th>ProductId</th>
-                    <th>Name</th>
-                    <th>Width</th>
-                    <th>Height</th>
-                    <th>Amount</th>
-                    <th></th>
-                </tr>
-                <tr ng-repeat="(i, orderline) in selection.orderlines">
-                    <td>{{orderline.id}} <input type="hidden" name="Products[{{$index}}].id" value="{{orderline.id}}" /></td>
-                    <td>{{orderline.name}}</td>
-                    <td><input type="number" name="Width" class="form-control" value="{{orderline.width}}" min="0" step="1" /></td>
-                    <td><input type="number" name="Height" class="form-control" value="{{orderline.height}}" min="0" step="1" /></td>
-                    <td><input type="number" name="Amount" class="form-control" value="{{orderline.amount}}" min="0" step="1" /></td>
-                    <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
-                </tr>
-            </table>-->
-        
-        <order-line-display></order-line-display>
-    </section>
-</section>
-
 
 <section class="row margin_top_sm">
+    <section class="col-md-12 bg-primary"><b>Tillägg</b></section>
+    
     <section class="col-md-12">
         <section class="col-sm-3" ng-repeat="(i,addon) in productAddOns">
             <p>{{addon.Name}}</p>
@@ -71,3 +43,26 @@
         </section>
     </section>
 </section>
+
+<section class="row margin_top_sm">
+    <section class="col-md-12">
+        <p>Additional Info </p>
+        <textarea class="form-control" cols="20" ng-model="selection.additionalInfo" rows="2"></textarea>
+    </section>
+    
+    <section class="col-md-12 margin_top_sm ">
+        <a class="btn btn-primary pull-right" ng-click="addFields(orderline)" ng-disabled="!selection.selectedProduct"> add a product</a>
+    </section>
+</section>
+
+
+
+
+
+<section class="row" class="margin_top_sm">
+    <section class="col-md-12">
+        <order-line-display></order-line-display>
+    </section>
+</section>
+
+
