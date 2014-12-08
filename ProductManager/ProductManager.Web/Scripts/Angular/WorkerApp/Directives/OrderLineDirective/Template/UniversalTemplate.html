@@ -35,7 +35,9 @@
             <th>Name</th>
             <th>Surface square meters</th>
             <th>Amount</th>
-            <th>UnitPrice</th>
+            <th>Price</th>
+            <th>Tillägg</th>
+            <th>Övrigt</th>
             <th></th>
         </tr>
         <tr ng-repeat="(i, orderline) in selection.orderlines">
@@ -44,6 +46,8 @@
             <td><span>{{orderline.size}}</span></td>
             <td><span>{{orderline.amount}}</span></td>
             <td><span>{{orderline.price}}</span></td>
+            <td><section ng-repeat="addon in orderline.addons">{{addon.name}}:{{addon.price}} kr </section></td>
+            <td><span>{{orderline.additionalInfo}}</span></td>
             <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
         </tr>
     </table>
@@ -58,7 +62,9 @@
             <th>ProductId</th>
             <th>Name</th>
             <th>Amount</th>
-            <th>UnitPrice</th>
+            <th>tPrice</th>
+            <th>Tillägg</th>
+            <th>Övrigt</th>
             <th></th>
         </tr>
         <tr ng-repeat="(i, orderline) in selection.orderlines">
@@ -66,6 +72,8 @@
             <td>{{orderline.name}}</td>
             <td><span>{{orderline.amount}}</span></td>
             <td><span>{{orderline.price}}</span></td>
+            <td><section ng-repeat="addon in orderline.addons">{{addon.name}}:{{addon.price}} kr </section></td>
+            <td><span>{{orderline.additionalInfo}}</span></td>
             <td><button type="button" ng-click="removeAField(i);" class="btn btn-danger btn-sm">Remove</button></td>
         </tr>
     </table>
