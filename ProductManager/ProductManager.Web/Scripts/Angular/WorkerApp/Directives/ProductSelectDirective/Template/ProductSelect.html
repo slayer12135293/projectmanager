@@ -5,9 +5,9 @@
 <section class="row">
   
     <section class="col-sm-3">
-        <label>Choose a category</label>
+        <label>Kategori</label>
         <select ng-model="selection.selectedCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.categories" ng-change="UpdateSubCatagories()">
-            <option value="">-- Select a Category --</option>
+            <option value="">-- Välja en kategori --</option>
         </select>
 
     </section>
@@ -15,15 +15,15 @@
 
 
     <section class="col-sm-3">
-        <label>Choose a subcategory</label>
+        <label>Subkategori</label>
         <select ng-model="selection.selectedSubCategory" class="form-control" data-ng-options="c.Id as c.Name for c in selection.subcategories" ng-change="UpdateProducts()">
-            <option value="">-- Select a Sub category --</option>
+            <option value="">-- Välja en subkategori --</option>
         </select>
     </section>
     <section class="col-sm-3">
-        <label>Choose a product</label>
+        <label>Produkt</label>
         <select ng-model="selection.selectedProduct" class="form-control" data-ng-options="c.Id as c.Name for c in selection.products" ng-change="SelectAProduct()">
-            <option value="">-- Select a Product --</option>
+            <option value="">-- Välja en Produkt --</option>
         </select>
     </section>
 
