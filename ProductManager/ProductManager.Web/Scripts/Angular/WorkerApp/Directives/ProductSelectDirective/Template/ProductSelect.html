@@ -51,8 +51,25 @@
     </section>
     
     <section class="col-md-12 margin_top_sm ">
-        <a class="btn btn-primary pull-right" ng-click="addFields(orderline)" ng-disabled="!selection.selectedProduct"> add a product</a>
+        <a class="btn btn-primary pull-right" ng-click="addFields()" ng-disabled="!selection.selectedProduct"> add a product</a>
     </section>
+</section>
+
+<section class="row margin_top_sm bg-primary">
+   
+    <section class="col-md-8">
+        <label>Manual produkt</label>
+        <textarea class="form-control" cols="10" ng-model="manualProduct.info" rows="3"></textarea>
+    </section>
+    <section class="col-md-2">
+        <label>Antal</label><input type="number" class="form-control" ng-model="manualProduct.amount" />
+    </section>
+
+    <section class="col-md-2">
+        <label>Pris /:-</label><input type="number" class="form-control" ng-model="manualProduct.unitPrice" /><a class="btn btn-primary pull-right margin_top_sm" ng-click="addManualFields()"> Add</a>
+    </section>
+ 
+   
 </section>
 
 

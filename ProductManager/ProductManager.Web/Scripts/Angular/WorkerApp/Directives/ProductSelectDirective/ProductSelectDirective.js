@@ -67,7 +67,33 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
 
     };
 
+    $scope.manualProduct = {};
+    $scope.manualProduct.amount = 1;
 
+    $scope.addManualFields = function(){
+        if (typeof $scope.selection.orderlines === 'undefined') {
+            $scope.selection.orderlines = [];
+        }
+
+        if ($scope.manualProduct.info !== "" && $scope.manualProduct.unitPrice !== "") {
+
+            var manualProductInfoClone ='';
+            var manualProductAmountClone = '';
+            var manulaProductPriceClone = '';
+
+            console.log($scope.manualProduct.info + "--------------" + $scope.manualProduct.amount + "------------" + $scope.manualProduct.unitPrice);
+
+
+            angular.copy($scope.manualProduct.info, manualProductInfoClone);
+            angular.copy($scope.manualProduct.amount, manualProductAmountClone);
+            angular.copy($scope.manualProduct.unitPrice, manulaProductPriceClone);
+
+            var orderline = new OrderLine("", $scope.manualProduct.info, "", "", $scope.manualProduct.amount, 0, $scope.manualProduct.unitPrice, [], "");
+            $scope.selection.orderlines.push(orderline);
+            $scope.saveOrderLineToStorage();
+        }
+
+    };
 
 
 
