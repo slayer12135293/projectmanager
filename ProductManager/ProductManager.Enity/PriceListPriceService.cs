@@ -2,19 +2,19 @@
 
 namespace ProductManager.Enity
 {
-    public class PricePlanPriceService : IPricePlanPriceService
+    public class PriceListPriceService : IPriceListPriceService
     {
         private static int ToClosestTenth(int value)
         {
             return (value - value % 10);
         }
 
-        public int? GetPrice(PricePlan pricePlan, int height, int width)
+        public decimal? GetPrice(PriceList priceList, int height, int width)
         {
-            if (pricePlan.PriceUnits == null)
+            if (priceList.PriceUnits == null)
                 return null;
 
-            var priceUnit = pricePlan.PriceUnits.FirstOrDefault(x => x.Width == ToClosestTenth(width) + 10 && x.Height == ToClosestTenth(height) + 10);
+            var priceUnit = priceList.PriceUnits.FirstOrDefault(x => x.Width == ToClosestTenth(width) + 10 && x.Height == ToClosestTenth(height) + 10);
             if (priceUnit == null)
             {
                 return null;

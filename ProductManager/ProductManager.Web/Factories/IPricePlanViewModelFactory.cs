@@ -6,7 +6,7 @@ namespace ProductManager.Web.Factories
 {
     public interface IPricePlanViewModelFactory
     {
-        PricePlanViewModel Create(PricePlan pricePlan);
+        PricePlanViewModel Create(PriceList pricePlan);
     }
 
     public class PricePlanViewModelFactory : IPricePlanViewModelFactory
@@ -20,7 +20,7 @@ namespace ProductManager.Web.Factories
         }
 
 
-        public PricePlanViewModel Create(PricePlan pricePlan)
+        public PricePlanViewModel Create(PriceList pricePlan)
         {
             return  new PricePlanViewModel()
             {

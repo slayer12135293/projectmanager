@@ -48,7 +48,7 @@ namespace ProductManager.Web.Controllers
 
                 await _pricePlanRepository.Update(currentPricePlan);
 
-                return RedirectToAction("Details", "PricePlan", new { Id = priceUnitViewModel.PricePlanId });
+                return RedirectToAction("Details", "PriceList", new { Id = priceUnitViewModel.PricePlanId });
             }
             return View(priceUnitViewModel);
         }
@@ -56,7 +56,7 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> DeletePriceUnit(int pricePlanId, int priceUnitId)
         {
             await _priceUnitRepository.Remove(priceUnitId);
-            return RedirectToAction("Details", "PricePlan", new { Id = pricePlanId });
+            return RedirectToAction("Details", "PriceList", new { Id = pricePlanId });
         }
 
 

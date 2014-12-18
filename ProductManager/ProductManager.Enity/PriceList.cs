@@ -2,7 +2,7 @@
 
 namespace ProductManager.Enity
 {
-    public class PricePlan : BaseEntity
+    public class PriceList : BaseEntity
     {
         public int ProductTypeId { get; set; }
         public string Description { get; set; }

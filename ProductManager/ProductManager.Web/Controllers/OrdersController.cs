@@ -24,7 +24,7 @@ namespace ProductManager.Web.Controllers
         private readonly IOrderRepository _orderRepository;
         private readonly IAddOnRepository _addOnRepository;
         private readonly IPricePlanRepository _pricePlanRepository;
-        private readonly IPricePlanPriceService _pricePlanPriceService;
+        private readonly IPriceListPriceService _priceListPriceService;
 
         public OrdersController(ICategoryRepository categoryRepository,
             IUserManagerService userManagerService,
@@ -33,7 +33,7 @@ namespace ProductManager.Web.Controllers
             IOrderRepository orderRepository,
             IAddOnRepository addOnRepository,
             IPricePlanRepository pricePlanRepository,
-            IPricePlanPriceService pricePlanPriceService
+            IPriceListPriceService priceListPriceService
             )
         {
             _categoryRepository = categoryRepository;
@@ -43,7 +43,7 @@ namespace ProductManager.Web.Controllers
             _orderRepository = orderRepository;
             _addOnRepository = addOnRepository;
             _pricePlanRepository = pricePlanRepository;
-            _pricePlanPriceService = pricePlanPriceService;
+            _priceListPriceService = priceListPriceService;
         }
 
         public async Task<ActionResult> AllCategories()
@@ -102,7 +102,7 @@ namespace ProductManager.Web.Controllers
                 return Json(viewModel, JsonRequestBehavior.AllowGet);
             }
 
-            var price = _pricePlanPriceService.GetPrice(pricePlan, height, width);
+            var price = _priceListPriceService.GetPrice(pricePlan, height, width);
             viewModel.UnitPrice = price.GetValueOrDefault(0);
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
@@ -246,7 +246,7 @@ namespace ProductManager.Web.Controllers
         public async Task<ActionResult> PriceForOrderLine(int height, int width, int pricePlanId)
         {
             var product = await _pricePlanRepository.GetByIdAsync(pricePlanId);
-            return Json(_pricePlanPriceService.GetPrice(product,height, width));
+            return Json(_priceListPriceService.GetPrice(product,height, width));
         }
     }
 }

@@ -11,12 +11,12 @@
     <section class="col-sm-3">
         <table class="table table-bordered">
             <tr>
-                <td class="active"><b>@Html.DisplayNameFor(model => model.PricePlan.Name)</b> </td> 
-                <td >@Html.DisplayFor(model => model.PricePlan.Name)</td> 
+                <td class="active"><b>@Html.DisplayNameFor(model => model.PriceList.Name)</b> </td> 
+                <td >@Html.DisplayFor(model => model.PriceList.Name)</td> 
             </tr>
             <tr>
-                <td class="active"><b>@Html.DisplayNameFor(model => model.PricePlan.Description)</b></td>
-                <td >@Html.DisplayFor(model => model.PricePlan.Description)</td>
+                <td class="active"><b>@Html.DisplayNameFor(model => model.PriceList.Description)</b></td>
+                <td >@Html.DisplayFor(model => model.PriceList.Description)</td>
             </tr>
         </table>
         <br/>
@@ -32,8 +32,8 @@
             <section class="col-md-12">
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.PricePlan.Id)
-                @Html.HiddenFor(model=> model.PricePlan.Name)
+                @Html.HiddenFor(model => model.PriceList.Id)
+                @Html.HiddenFor(model=> model.PriceList.Name)
 
                 <section class="form-group col-md-3 ">
                     @Html.LabelFor(model => model.PriceUnitViewModel.Width, htmlAttributes: new { @class = "control-label col-md-3" })

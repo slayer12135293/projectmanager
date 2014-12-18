@@ -103,7 +103,7 @@
                     @Html.LabelFor(model => model.PricePlanId, htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
                 <div class="col-md-10">
-                    <select class="form-control" name="PricePlanId">
+                    <select class="form-control" name="PriceListId">
                         @foreach (var pricePlan in Model.PricePlanViewModels)
                         {
                             <option value="@pricePlan.Id"

@@ -6,6 +6,6 @@
         public int Id { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

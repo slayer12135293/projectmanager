@@ -55,7 +55,7 @@ namespace ProductManager.Web.Controllers
         }
 
 
-        // GET: PricePlan/Details/5
+        // GET: PriceList/Details/5
         public async Task<ActionResult> Details(int id)
         {
             var currentPricePlan = await _pricePlanRepository.GetByIdAsync(id);
@@ -82,7 +82,7 @@ namespace ProductManager.Web.Controllers
 
             var viewModel = new PricePlanDetailsViewModel
             {
-                PricePlan = currentPricePlan,
+                PriceList = currentPricePlan,
                 PriceUnitViewModels = priceUnitViewModels
             };
             return View(viewModel);
@@ -95,13 +95,13 @@ namespace ProductManager.Web.Controllers
 
             var priceUnit = new PriceUnit
             {
-                Name = pricePlanDetailsViewModel.PricePlan.Name,
+                Name = pricePlanDetailsViewModel.PriceList.Name,
                 CustomerId = currentUserId,
                 Height = pricePlanDetailsViewModel.PriceUnitViewModel.Height,
                 Width = pricePlanDetailsViewModel.PriceUnitViewModel.Width,
                 Price = pricePlanDetailsViewModel.PriceUnitViewModel.Price
             };
-            var currentPricePlanId = pricePlanDetailsViewModel.PricePlan.Id;
+            var currentPricePlanId = pricePlanDetailsViewModel.PriceList.Id;
             var currentPricePlan = await _pricePlanRepository.GetByIdAsync(currentPricePlanId);
 
             currentPricePlan.PriceUnits.Add(priceUnit);
@@ -111,7 +111,7 @@ namespace ProductManager.Web.Controllers
 
         } 
 
-        // GET: PricePlan/Create
+        // GET: PriceList/Create
         public async Task<ActionResult> Create()
         {
             var allProductTypes = await GetAllProductTypes();
@@ -126,7 +126,7 @@ namespace ProductManager.Web.Controllers
             return allProductTypes;
         }
 
-        // POST: PricePlan/Create
+        // POST: PriceList/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -136,7 +136,7 @@ namespace ProductManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 var currentUserId = await _customerIdService.GetCustomerId();
-                var pricePlan = new PricePlan();
+                var pricePlan = new PriceList();
 
                 Mapper.Map(pricePlanViewModel,pricePlan);
                 pricePlan.CustomerId = currentUserId;
@@ -149,7 +149,7 @@ namespace ProductManager.Web.Controllers
             return View(pricePlanViewModel);
         }
 
-        // GET: PricePlan/Edit/5
+        // GET: PriceList/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
             var pricePlan = await  _pricePlanRepository.GetByIdAsync(id);
@@ -172,7 +172,7 @@ namespace ProductManager.Web.Controllers
             return View(viewModel);
         }
 
-        // POST: PricePlan/Edit/5
+        // POST: PriceList/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -192,11 +192,11 @@ namespace ProductManager.Web.Controllers
             return View(editPricePlanViewModel);
         }
 
-        // GET: PricePlan/Delete/5
+        // GET: PriceList/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
             
-            PricePlan pricePlan = await _pricePlanRepository.GetByIdAsync(id);
+            PriceList pricePlan = await _pricePlanRepository.GetByIdAsync(id);
             if (pricePlan == null)
             {
                 return HttpNotFound();
@@ -204,7 +204,7 @@ namespace ProductManager.Web.Controllers
             return View(pricePlan);
         }
 
-        // POST: PricePlan/Delete/5
+        // POST: PriceList/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

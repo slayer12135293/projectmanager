@@ -251,6 +251,7 @@
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderLineViewModel.cs" />
     <Compile Include="ViewModels\PricePlanDetailsViewModel.cs" />
+    <Compile Include="ViewModels\PricePlanDropDownViewModel.cs" />
     <Compile Include="ViewModels\PricePlanViewModel.cs" />
     <Compile Include="ViewModels\PriceUnitViewModel.cs" />
     <Compile Include="ViewModels\ProdctTypeViewModel.cs" />
