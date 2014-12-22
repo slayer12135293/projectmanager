@@ -19,8 +19,8 @@ function AddOn(id, name, price) {
 }
 
 
-function OrderLine(indexId, name, width, height,amount,size,price, addons, additionalInfo ) {
-    this.id = indexId;
+function OrderLine(id, name, width, height,amount,size,price, addons, additionalInfo ) {
+    this.id = id;
     this.name = name;
     this.width = width;
     this.height = height;
@@ -29,4 +29,18 @@ function OrderLine(indexId, name, width, height,amount,size,price, addons, addit
     this.price = price;
     this.addons = addons;
     this.additionalInfo = additionalInfo;
+}
+
+
+
+function PackageOffer(id, packageOfferLines, totalPriceExMoms, totalPriceMoms) {
+    this.id = id;
+    this.packageOfferLines = packageOfferLines;
+    this.totalPriceExMoms = totalPriceExMoms;
+    this.totalPriceMoms = totalPriceMoms;
+}
+
+function packageOfferLine(groudIndexId,orderLineIndexId) {
+    this.groudIndexId = groudIndexId;
+    this.orderLineIndexId = orderLineIndexId;
 }

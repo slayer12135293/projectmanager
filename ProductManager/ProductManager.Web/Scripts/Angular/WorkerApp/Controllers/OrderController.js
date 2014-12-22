@@ -88,6 +88,26 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
         location.reload();
     };
 
+    var getOrderLines = function () {
+        var currentStorage = orderStorageService.getOrderStorage();
+        var availableOrderLines = [];
+        if (currentStorage !== null && currentStorage.productTypeGroups!==null) {
+            for (var i = 0; i < currentStorage.productTypeGroups.length; i++) {
+                for (var k = 0; k < currentStorage.productTypeGroups[i].orderlines.length; k++) {
+                    availableOrderLines.push(currentStorage.productTypeGroups[i].orderlines[k]);
+                }
+            }
+        }
+
+      
+        return availableOrderLines;
+    };
+
+    $scope.leitest = getOrderLines();
+
+
+
+
 }]);
 
 
