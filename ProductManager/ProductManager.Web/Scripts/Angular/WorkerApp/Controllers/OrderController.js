@@ -98,14 +98,31 @@ WorkerApp.controller('OrderController', ['$scope', '$filter', 'promiseService', 
                 }
             }
         }
-
-      
         return availableOrderLines;
     };
 
-    $scope.leitest = getOrderLines();
+    
 
 
+    $scope.createOrder = {};
+
+    var result = [];
+    for (var i = 0; i < getOrderLines().length; i++) {
+        result.push({ id: i, value: getOrderLines()[i] });
+    }
+
+    $scope.createOrder.preOrderList = result;
+
+
+    $scope.createOrder.selectedLines = {
+        lines: []
+    };
+    
+
+    $scope.CreatePackageOffer = function () {
+
+        console.log($scope.createOrder.selectedLines.lines);
+    };
 
 
 }]);

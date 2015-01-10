@@ -138,6 +138,7 @@ WorkerApp.controller('productSelectDirController', ['$scope', '$filter', 'promis
     });
 
 
+
    
 
 

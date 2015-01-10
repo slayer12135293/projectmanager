@@ -1,10 +1,10 @@
 ﻿
 <section ng-if="addOnIds.indexOf(viewModel.Id) === -1" class="fade-in-short">
-    <input name="{{viewModel.Id}}-{{groupId}}" value="{{viewModel.Price}}" type="checkbox" data-label-text='{{viewModel.Price}}'>
+    <input name="{{viewModel.Id}}-{{groupId}}" value="{{viewModel.Price}}" type="checkbox" data-label-text='{{viewModel.Price}}' class="use-bootstrap-switch">
 </section>
 
 
 
 <section ng-if="addOnIds.indexOf(viewModel.Id) !== -1" class="fade-in-short">
-    <input name="{{viewModel.Id}}-{{groupId}}" value="{{viewModel.Price}}" type="checkbox" data-label-text='{{viewModel.Price}}' checked="checked">
+    <input name="{{viewModel.Id}}-{{groupId}}" value="{{viewModel.Price}}" type="checkbox" data-label-text='{{viewModel.Price}}' class="use-bootstrap-switch" checked="checked">
 </section>

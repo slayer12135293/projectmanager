@@ -32,7 +32,7 @@ WorkerApp.directive('angularSwitch', ['$timeout', function ($timeout) {
         },
         link: function (scope, elem, attrs, parentCtrl) {
             $timeout(function () {
-                $('input[type="checkbox"]').bootstrapSwitch();
+                $('.use-bootstrap-switch').bootstrapSwitch();
                 var switchName = scope.viewModel.Id + "-" + scope.groupId;
 
                 $('input[name=' + switchName.toString() + ']').on('switchChange.bootstrapSwitch', function (event, state) {

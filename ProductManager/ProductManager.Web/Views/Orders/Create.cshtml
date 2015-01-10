@@ -86,10 +86,25 @@
                     </accordion-heading>
                     <section class="row">
                         <section class="col-md-12">
+                            @*<p data-ng-repeat="(i, item) in  createOrder.preOrderList">
+                                <label>
+                                    <input type="checkbox" data-ng-model="createOrder.selected[i]" value="{{item}}" />
+                                    {{item.name}} --{{item.price}}
+                                </label>
+                            </p>*@
+                            
+                            @*{{preOrderList}}*@
                             
                             
-                            {{leitest}}
+                            
+                            <label ng-repeat="item in createOrder.preOrderList">
+                                <input type="checkbox" checklist-model="createOrder.selectedLines.lines" checklist-value="item"> {{item}}
+                            </label>
+                            
+
                         </section>
+                        
+                        <a ng-click="CreatePackageOffer()" class="btn btn-default"> create</a>
                     </section>
                     
                     
